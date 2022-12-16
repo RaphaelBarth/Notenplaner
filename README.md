@@ -54,6 +54,7 @@ Unsere Ideen
 + Notenschnitt eines Semesters
 + Notenverteilung: Welche Noten der Student schon bekommen hat zB. 5x 1,0, 2x2,3, usw... als Balkendiagramm oder ähnliches
 + Dropdownliste beim Laden von Noten, dass nur verfügbare Dateien angezeigt werden.
++ zwei Notensätze laden und Vergleiche anbieten
 
 Ideen von Barth
 + graphischen Gesamtübersicht

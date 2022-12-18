@@ -23,13 +23,13 @@
       <version>17.0.2</version>
       <type>pom</type>
     </dependency>
-    <!-- for fxml 
+    <!-- for fxml  -->  
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
       <version>17.0.2</version>
     </dependency> 
-    -->   
+    
   </dependencies>
   
   <build>

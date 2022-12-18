@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+	prefWidth="400" prefHeight="300"
+	fx:controller="de.pbma.java.MainGUIController">
+	<top>
+		<MenuBar fx:id="menuBar" maxWidth="99999">
+			<menus>
+				<Menu text="Datei">
+					<items>
+						<MenuItem text="Laden" onAction="#handleLoadAction" />
+						<MenuItem text="Speichern" onAction="#handleSaveAction" />
+						<MenuItem text="Neuen Notensatz anlegen"
+							onAction="#handleNewAction" />
+					</items>
+				</Menu>
+				<Menu text="Einstellungen">
+					<items>
+						<MenuItem text="Light Mode" onAction="#handleLightAction"/>
+						<MenuItem text="Dark Mode" onAction="#handleDarkAction"/>
+					</items>
+				</Menu>
+				<Menu text="Hilfe">
+					<items>
+
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
+	</top>
+	<left></left>
+	<center></center>
+	<right></right>
+	<bottom></bottom>
+</BorderPane>
+

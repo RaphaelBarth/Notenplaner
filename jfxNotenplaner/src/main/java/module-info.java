@@ -8,6 +8,6 @@ module de.pbma.java {
 	requires transitive javafx.graphics;
 	
 	// for fxml
-	// requires transitive javafx.fxml;
-	// opens de.pbma.java to javafx.fxml;
+	requires transitive javafx.fxml;
+	opens de.pbma.java to javafx.fxml;
 }

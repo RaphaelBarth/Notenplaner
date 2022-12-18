@@ -5,43 +5,34 @@ import javafx.fxml.FXML;
 import javafx.scene.control.MenuBar;
 
 public class MainGUIController {
-	@FXML private MenuBar menuBar;
-	private boolean isLight;
-	
-	public MainGUIController(){
-		isLight=true;
+	private MenuBarLogic menuBarLogic;
+
+	public MainGUIController() {
+		this.menuBarLogic = new MenuBarLogic();
 	}
-	
+
 	@FXML
 	private void handleLoadAction(ActionEvent ae) {
-		System.out.println("Datei laden");
+		menuBarLogic.fileLoad();
 	}
-	
+
 	@FXML
 	private void handleSaveAction(ActionEvent ae) {
-		System.out.println("Datei speichern");
+		menuBarLogic.fileSave();
 	}
-	
+
 	@FXML
 	private void handleNewAction(ActionEvent ae) {
-		System.out.println("Neu");
+		menuBarLogic.fileNew();
 	}
-	
+
 	@FXML
 	private void handleLightAction(ActionEvent ae) {
-		setMode(true);
+		menuBarLogic.settingsMode(true);
 	}
-	
+
 	@FXML
 	private void handleDarkAction(ActionEvent ae) {
-		setMode(false);
-	}
-	
-	private void setMode(boolean light) {
-		if(isLight==light) {
-			return;
-		}
-		System.out.println("Farbe wechseln");
-		isLight = light;
+		menuBarLogic.settingsMode(false);
 	}
 }

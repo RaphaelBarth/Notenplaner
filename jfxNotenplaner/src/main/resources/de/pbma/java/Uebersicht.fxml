@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml/1" hgap="10"
+	vgap="10" alignment="CENTER" maxWidth="999999" maxHeight="99999">
+	<Label text="Studiengang:" GridPane.columnIndex="0"
+		GridPane.rowIndex="0" />
+	<Label text="MTB" GridPane.columnIndex="1" GridPane.rowIndex="0"
+		GridPane.columnSpan="2" />
+	<Separator GridPane.columnIndex="0" GridPane.rowIndex="1"
+		GridPane.columnSpan="3"></Separator>
+	<Label text="akt. CPS:" GridPane.columnIndex="0"
+		GridPane.rowIndex="2" />
+	<Label text="50" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+	<Label text="max. CPS:" GridPane.columnIndex="0"
+		GridPane.rowIndex="3" />
+	<Label text="210" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+	<ProgressIndicator progress="0.24"
+		GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+	<Label text="aktuelle Note:" GridPane.columnIndex="0"
+		GridPane.rowIndex="4" />
+	<Label text="2,0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+	<Separator GridPane.columnIndex="0" GridPane.rowIndex="5"
+		GridPane.columnSpan="3"></Separator>
+	<Label text="bestmöglichste Note:" GridPane.columnIndex="0"
+		GridPane.rowIndex="6" />
+	<Label text="1,0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+	<Label text="schlechteste Note:" GridPane.columnIndex="0"
+		GridPane.rowIndex="7" />
+	<Label text="4,0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+</GridPane>
+

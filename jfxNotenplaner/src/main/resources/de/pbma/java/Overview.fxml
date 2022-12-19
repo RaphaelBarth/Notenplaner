@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import java.util.*?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml/1" hgap="10"
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.pbma.java.OverviewController" hgap="10"
 	vgap="10" alignment="CENTER" maxWidth="999999" maxHeight="99999">
 	<Label text="Studiengang:" GridPane.columnIndex="0"
 		GridPane.rowIndex="0" />

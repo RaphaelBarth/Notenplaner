@@ -3,10 +3,10 @@ package de.pbma.java;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class MenueBarController {
+public class MenuBarController {
 	private MenuBarLogic menuBarLogic;
 
-	public MenueBarController() {
+	public MenuBarController() {
 		this.menuBarLogic = new MenuBarLogic();
 	}
 

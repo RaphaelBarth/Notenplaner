@@ -6,16 +6,17 @@
 <?import java.lang.*?>
 <?import java.util.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.pbma.java.GradeViewController">
+<VBox fx:controller="de.pbma.java.GradeViewController"
+	xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<HBox maxWidth="99999">
-		<children>
-		<TextField maxWidth="99999" HBox.hgrow="ALWAYS"></TextField>
-		<Button text="Filtern"/>
-		</children>
+			<children>
+				<TextField maxWidth="99999" HBox.hgrow="ALWAYS"></TextField>
+				<Button text="Filtern" fx:id="btFilter" />
+			</children>
 		</HBox>
-		<TableView maxWidth="99999" maxHeight="99999">
-		</TableView>
+		<TableView maxWidth="99999" maxHeight="99999"
+			VBox.vgrow="ALWAYS" fx:id="tvGrades" />
 	</children>
 </VBox>
 

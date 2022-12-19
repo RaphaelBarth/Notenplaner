@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import java.util.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.pbma.java.GradeViewController">
 	<children>
 		<HBox maxWidth="99999">
 		<children>

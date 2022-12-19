@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import java.util.*?>
 
-<MenuBar fx:controller="de.pbma.java.MenueBarController" xmlns:fx="http://javafx.com/fxml/1" maxWidth="99999">
+<MenuBar fx:controller="de.pbma.java.MenuBarController" xmlns:fx="http://javafx.com/fxml/1" maxWidth="99999">
 	<menus>
 		<Menu text="Datei">
 			<items>

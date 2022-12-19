@@ -7,23 +7,22 @@
 <?import java.util.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml/1"
-	prefWidth="400" prefHeight="300"
-	fx:controller="de.pbma.java.MainGUIController">
+	fx:id="bpRoot" fx:controller="de.pbma.java.MainGUIController"
+	prefWidth="400" prefHeight="300">
 	<top>
-		<fx:include fx:id="menuBar" source="MenuBar.fxml"/>
+		<fx:include fx:id="menuBar" source="MenuBar.fxml" />
 	</top>
 	<left>
-		<TabPane side="LEFT" tabClosingPolicy="UNAVAILABLE">
+		<TabPane fx:id="tabp" side="LEFT"
+			tabClosingPolicy="UNAVAILABLE" tabMaxHeight="99999"
+			maxHeight="Infinity">
 			<tabs>
-				<Tab text="Übersicht" />
-				<Tab text="Noten" />
+				<Tab fx:id="tabOverview" text="Übersicht" />
+				<Tab fx:id="tabGades" text="Noten" />
 			</tabs>
 		</TabPane>
 	</left>
-	<center>
-		<fx:include fx:id="overview" source="Uebersicht.fxml"/>
-		<!-- <fx:include fx:id="gradeview" source="GradeView.fxml" /> -->
-	</center>
+	<center></center>
 	<right></right>
 	<bottom></bottom>
 </BorderPane>

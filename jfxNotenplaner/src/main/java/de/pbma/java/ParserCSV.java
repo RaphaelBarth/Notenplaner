@@ -28,6 +28,17 @@ public class ParserCSV {
 		}
 		return subject;
 	}
+	
+	public static CompletedSubjects parseCSVStringToCompletedSubjects(String string) {
+		CompletedSubjects completedSubjects = new CompletedSubjects();
+		try (Scanner rowScanner = new Scanner(string)) {
+			rowScanner.useDelimiter(";");
+			completedSubjects.setSubjectShort(rowScanner.next());
+			completedSubjects.setSubject(rowScanner.next());
+			//completedSubjects.getGrade(Grades(rowScanner.nextDouble()));
+		}
+		return completedSubjects;
+	}
 
 	public static String parseSubjectToCSVString(Subject subject) {
 		StringBuilder stringBuilder = new StringBuilder();

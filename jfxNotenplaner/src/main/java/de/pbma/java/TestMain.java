@@ -15,6 +15,8 @@ public class TestMain {
 		
 		System.out.println(c);
 		new WriteCSV().writeCurricula(fileName2, c);
+		
+		System.out.println(Grades.FOUR);
 	}
 
 	private static void creatingFile(File file) {

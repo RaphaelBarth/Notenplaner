@@ -3,16 +3,13 @@ package de.pbma.java;
 import java.io.IOException;
 import java.net.URL;
 
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 
 public class MainGUIController {
 
@@ -23,36 +20,56 @@ public class MainGUIController {
 	@FXML
 	private Tab tabOverview;
 	@FXML
-	private Tab tabGades;
+	private Tab tabGrades;
+	@FXML
+	private Label lblStatus;
 
 	public MainGUIController() {
 	}
 
 	@FXML
 	public void initialize() {
-		setCurrentView(tabOverview);
+		lblStatus.setText("BananenPalme");
+		setCurrentView(ContentType.OVERVIEW);
 		tabp.getSelectionModel().selectedItemProperty().addListener(this::tabListener);
 
 	}
 
 	private void tabListener(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
-		setCurrentView(newValue);
+		var contentType = ContentType.getContentType(newValue.getId());
+		setCurrentView(contentType);
 	}
 
-	private void setCurrentView(Tab currentTab) {
-		final URL urlOverview = getClass().getResource("Overview.fxml");
-		final URL urlGradeView = getClass().getResource("GradeView.fxml");
-		URL url = null;
-		if (tabOverview.equals(currentTab)) {
-			url = urlOverview;
-		} else if (tabGades.equals(currentTab)) {
-			url = urlGradeView;
-		}
+	private void setCurrentView(ContentType contentType) {
 		try {
-			bpRoot.setCenter(FXMLLoader.load(url));
+			bpRoot.setCenter(FXMLLoader.load(contentType.url));
+			System.out.println("Changed content to: " + contentType.name());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
+	private enum ContentType {
+		OVERVIEW(ContentType.class.getResource("Overview.fxml"), "tabOverview"),
+		GRADEVIEW(ContentType.class.getResource("GradeView.fxml"), "tabGrades"),
+		ANALYSEVIEW(ContentType.class.getResource(""), ""), EDITORVIEW(ContentType.class.getResource(""), "");
+
+		public final URL url;
+		public final String id;
+
+		ContentType(URL url, String string) {
+			this.url = url;
+			this.id = string;
+		}
+
+		public static ContentType getContentType(String id) {
+			System.out.println(id);
+			for (ContentType contentType : ContentType.values()) {
+				if (contentType.id.equalsIgnoreCase(id)) {
+					return contentType;
+				}
+			}
+			return null;
+		}
+	}
 }

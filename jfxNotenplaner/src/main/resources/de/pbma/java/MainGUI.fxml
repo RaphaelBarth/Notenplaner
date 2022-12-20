@@ -18,11 +18,16 @@
 			maxHeight="Infinity">
 			<tabs>
 				<Tab fx:id="tabOverview" text="Übersicht" />
-				<Tab fx:id="tabGades" text="Noten" />
+				<Tab fx:id="tabGrades" text="Noten" />
 			</tabs>
 		</TabPane>
 	</left>
 	<center></center>
 	<right></right>
-	<bottom></bottom>
+	<bottom>
+		<HBox maxWidth="Infinity" spacing="10" >
+			<Label text="Status:"></Label>
+			<Label fx:id="lblStatus"></Label>
+		</HBox>
+	</bottom>
 </BorderPane>

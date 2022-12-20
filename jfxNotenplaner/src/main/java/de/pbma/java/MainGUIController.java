@@ -49,6 +49,8 @@ public class MainGUIController {
 		}
 	}
 
+	
+	
 	private enum ContentType {
 		OVERVIEW(ContentType.class.getResource("Overview.fxml"), "tabOverview"),
 		GRADEVIEW(ContentType.class.getResource("GradeView.fxml"), "tabGrades"),
@@ -63,7 +65,6 @@ public class MainGUIController {
 		}
 
 		public static ContentType getContentType(String id) {
-			System.out.println(id);
 			for (ContentType contentType : ContentType.values()) {
 				if (contentType.id.equalsIgnoreCase(id)) {
 					return contentType;

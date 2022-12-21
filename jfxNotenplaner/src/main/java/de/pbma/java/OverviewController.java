@@ -7,9 +7,9 @@ import javafx.scene.control.ProgressIndicator;
 public class OverviewController {
 
 	@FXML
-	private Label lblMatriculationNumber; //TODO in FXML hinzufügen
+	private Label lblMatriculationNumber;
 	@FXML
-	private Label lblStudentName; //TODO in FXML hinzufügen
+	private Label lblStudentName;
 	@FXML
 	private Label lblCourseOfStudies;
 	@FXML
@@ -24,20 +24,24 @@ public class OverviewController {
 	private Label lblWorstGrade;
 	@FXML
 	private ProgressIndicator pgiCredits;
-	
+
 	@FXML
 	public void initialize() {
-		//TODO connect to studentData
+		// TODO connect to studentData
 		var data = StudentData.getStudentData();
-//		lblStudentName.textProperty().bind(null);
-//		lblMatriculationNumber.textProperty().bind(data.getMatriculationNumberProperty());
+		lblStudentName.textProperty().bind(data.getNameProperty());
+		data.getMatriculationNumberProperty()
+				.addListener((observable, oldVal, newVal) -> lblMatriculationNumber.setText(newVal.toString()));
 		lblCourseOfStudies.textProperty().bind(data.getCourseOfStudiesProperty());
-//		lblCurrentCredits.textProperty().bind(null);
+		data.getCurrentCreditsProperty()
+				.addListener((observable, oldVal, newVal) -> lblCurrentCredits.setText(newVal.toString()));
 //		lblMaxCredits.textProperty().bind(null);
-//		lblCurrentGrade.textProperty().bind(null);
+		data.getCurrentGradeProperty()
+				.addListener((observable, oldVal, newVal) -> lblCurrentGrade.setText(newVal.toString()));
 //		lblBestGrade.textProperty().bind(null);
 //		lblWorstGrade.textProperty().bind(null);
 //		pgiCredits.progressProperty();
 
 	}
+
 }

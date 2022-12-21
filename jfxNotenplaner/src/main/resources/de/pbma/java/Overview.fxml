@@ -11,7 +11,7 @@
 	alignment="CENTER" maxWidth="999999" maxHeight="99999">
 	<Label text="Studiengang:" GridPane.columnIndex="0"
 		GridPane.rowIndex="0" />
-	<Label fx:id="lblCourseOfStudies" text="MTB"
+	<Label fx:id="lblCourseOfStudies" 
 		GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="2" />
 	<Separator GridPane.columnIndex="0" GridPane.rowIndex="1"
 		GridPane.columnSpan="3"></Separator>

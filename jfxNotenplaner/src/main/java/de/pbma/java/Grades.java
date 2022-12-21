@@ -26,7 +26,7 @@ public enum Grades {
 	}
 
 	public static Grades getByValue(Double value) {
-		return BY_VALUE.get(value);
+		return BY_VALUE.getOrDefault(value,FIVE);
 	}
 
 }

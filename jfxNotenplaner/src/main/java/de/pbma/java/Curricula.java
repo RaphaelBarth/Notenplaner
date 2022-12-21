@@ -8,22 +8,20 @@ public class Curricula {
 	private String name;
 	private String nameShort;
 	private int credits;
-	
+
 	private List<Subject> subjects;
-	
+
 	public Curricula() {
-		this("", "", 0);
+		this("", "", 0, new ArrayList<>());
 	}
-	
-	public Curricula(String name, String nameShort, int credits) {
+
+	public Curricula(String name, String nameShort, int credits, List<Subject> subjects) {
 		super();
 		this.name = name;
 		this.nameShort = nameShort;
 		this.credits = credits;
-		this.subjects = new ArrayList<>();
+		this.subjects = subjects;
 	}
-	
-	
 
 	@Override
 	public String toString() {
@@ -76,11 +74,9 @@ public class Curricula {
 	public void setCredits(int credits) {
 		this.credits = credits;
 	}
-	
+
 	public void addSubject(Subject subject) {
 		this.subjects.add(subject);
 	}
 
-	
-	
 }

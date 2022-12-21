@@ -18,6 +18,7 @@ public class StudentFileLogic {
 		try {
 			var student = parser.getStudent(); // TODO save student to ??
 			System.out.println(student);
+			StudentData.getStudentData().updateStudentData(student);			
 			userFiles.setStudentFile(file);
 			retval = true;
 		} catch (ParserException e) {

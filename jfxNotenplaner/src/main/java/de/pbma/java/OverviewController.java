@@ -27,9 +27,11 @@ public class OverviewController {
 	
 	@FXML
 	public void initialize() {
+		//TODO connect to studentData
+		var data = StudentData.getStudentData();
 //		lblStudentName.textProperty().bind(null);
-//		lblMatriculationNumber.textProperty().bind(null);
-//		lblCourseOfStudies.textProperty().bind(null);
+//		lblMatriculationNumber.textProperty().bind(data.getMatriculationNumberProperty());
+		lblCourseOfStudies.textProperty().bind(data.getCourseOfStudiesProperty());
 //		lblCurrentCredits.textProperty().bind(null);
 //		lblMaxCredits.textProperty().bind(null);
 //		lblCurrentGrade.textProperty().bind(null);

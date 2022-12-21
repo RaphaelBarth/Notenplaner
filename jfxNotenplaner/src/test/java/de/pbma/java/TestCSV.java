@@ -40,7 +40,7 @@ public class TestCSV {
 	@Test
 	public void testCurricula() throws ParserException {
 		var cFile = new File("c.csv");
-		var writeCSV = new WriteCSV(cFile);
+		var writeCSV = new CSVFileWriter(cFile);
 		writeCSV.saveCurricula(curricula);
 		var parser = new CSVFileParser(cFile);
 		assertEquals(curricula, parser.getCurricula());
@@ -50,7 +50,7 @@ public class TestCSV {
 	@Test
 	public void testStudent() throws ParserException {
 		var sFile = new File("s.csv");
-		var writeCSV = new WriteCSV(sFile);
+		var writeCSV = new CSVFileWriter(sFile);
 		writeCSV.saveStudent(student);
 		var parser = new CSVFileParser(sFile);
 		assertEquals(student,parser.getStudent() );

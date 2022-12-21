@@ -4,12 +4,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class WriteCSV {
+public class CSVFileWriter {
 
 	private final String DELIMITER = ";";
 	private File file;
 
-	public WriteCSV(File file) {
+	public CSVFileWriter(File file) {
 		super();
 		this.file = file;
 	}

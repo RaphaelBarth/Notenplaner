@@ -2,18 +2,19 @@ package de.pbma.java;
 
 import java.io.File;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuBar;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Stage;
 
 public class MenuBarController {
-	private MenuBarLogic menuBarLogic;
+	private StudentFileLogic studentFileLogic;
 
 	public MenuBarController() {
-		this.menuBarLogic = new MenuBarLogic();
+		this.studentFileLogic = new StudentFileLogic();
 	}
 
 	@FXML
@@ -21,22 +22,35 @@ public class MenuBarController {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("maven", "*.xml")); // TODO: filter anpassen
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Comma Separated Value", "*.csv"));
 		File file = fileChooser.showOpenDialog(null);
-		menuBarLogic.fileLoad(file);
+		new Thread(() -> {
+			var success = studentFileLogic.fileLoad(file);
+			if (!success) {
+				Platform.runLater(() -> {
+					final Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle(""); // TODO warnungen richtig schreiben
+					alert.setContentText("");
+					alert.show();
+				});
+			}
+		}).start();
 	}
 
 	@FXML
 	private void handleSaveAction(ActionEvent ae) {
+		File filePath = studentFileLogic.getCurrentFile();
+
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Save Resource File");
-		File filePath = menuBarLogic.fileToSave();
 		fileChooser.setInitialFileName(filePath.getName());
 		fileChooser.setInitialDirectory(filePath.getParentFile());
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("maven", "*.xml")); // TODO: filter anpassen
-
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Comma Separated Value", "*.csv"));
 		File file = fileChooser.showSaveDialog(null);
-		menuBarLogic.fileSave(file);
+
+		new Thread(() -> {
+			studentFileLogic.saveToFile(file);
+		});
 	}
 
 	@FXML
@@ -45,16 +59,16 @@ public class MenuBarController {
 		fileChooser.setTitle("New Resource File");
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 		File file = fileChooser.showSaveDialog(null);
-		menuBarLogic.fileNew(file);
+		studentFileLogic.fileNew(file);
 	}
 
 	@FXML
 	private void handleLightAction(ActionEvent ae) {
-		menuBarLogic.settingsMode(true);
+		System.out.println("Light Mode Design");
 	}
 
 	@FXML
 	private void handleDarkAction(ActionEvent ae) {
-		menuBarLogic.settingsMode(false);
+		System.out.println("Dark Mode Design");
 	}
 }

@@ -6,8 +6,16 @@ public class CompletedSubjects {
 	private String subjectShort;
 	private String subject;
 	private Grades grade;
-	
+
 	public CompletedSubjects() {
+		this("","",Grades.FIVE);
+	}
+	
+	public CompletedSubjects(String subjectShort, String subject, Grades grade) {
+		super();
+		this.subjectShort = subjectShort;
+		this.subject = subject;
+		this.grade = grade;
 	}
 
 	@Override
@@ -56,9 +64,5 @@ public class CompletedSubjects {
 	public void setGrade(Grades grade) {
 		this.grade = grade;
 	}
-	
-	
-	
-	
-	
+
 }

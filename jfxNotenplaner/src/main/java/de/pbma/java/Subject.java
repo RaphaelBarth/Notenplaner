@@ -3,8 +3,8 @@ package de.pbma.java;
 import java.util.Objects;
 
 public class Subject {
-	private String subject;
 	private String subjectShort;
+	private String subject;
 	private String focus;
 	private int semester;
 	private int credits;
@@ -13,7 +13,7 @@ public class Subject {
 		this("", "", "", 0, 0);
 	}
 
-	public Subject(String subject, String subjectShort, String focus, int semester, int credits) {
+	public Subject(String subjectShort,String subject, String focus, int semester, int credits) {
 		super();
 		this.subject = subject;
 		this.subjectShort = subjectShort;

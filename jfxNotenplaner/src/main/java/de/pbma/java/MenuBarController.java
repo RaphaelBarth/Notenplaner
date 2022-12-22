@@ -24,6 +24,7 @@ public class MenuBarController {
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Comma Separated Value", "*.csv"));
 		File file = fileChooser.showOpenDialog(null);
+		//TODO check if file null
 		new Thread(() -> {
 			var success = studentFileLogic.fileLoad(file);
 			if (!success) {
@@ -55,11 +56,8 @@ public class MenuBarController {
 
 	@FXML
 	private void handleNewAction(ActionEvent ae) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("New Resource File");
-		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-		File file = fileChooser.showSaveDialog(null);
-		studentFileLogic.fileNew(file);
+		File file = new File("Medizintechnik.csv");
+		UserFiles.getUserFiles().setCurriculumFile(file);
 	}
 
 	@FXML

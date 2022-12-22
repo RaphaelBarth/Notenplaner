@@ -5,10 +5,17 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import java.lang.Object?>
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="de.pbma.java.OverviewController" hgap="10" vgap="10"
-	alignment="CENTER" maxWidth="999999" maxHeight="99999">
+	fx:controller="de.pbma.java.OverviewController" hgap="5" vgap="10"
+	alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity">
+	<style> -fx-spacing: 5; -fx-padding: 10 </style>
+	<columnConstraints>
+		<ColumnConstraints percentWidth="50" />
+		<ColumnConstraints percentWidth="25" />
+		<ColumnConstraints percentWidth="25" />
+	</columnConstraints>
 	<Label text="Name:" GridPane.columnIndex="0"
 		GridPane.rowIndex="0" />
 	<Label fx:id="lblStudentName" GridPane.columnIndex="1"
@@ -17,37 +24,35 @@
 		GridPane.rowIndex="1" />
 	<Label fx:id="lblMatriculationNumber" GridPane.columnIndex="1"
 		GridPane.rowIndex="1" GridPane.columnSpan="2" />
-	<Separator GridPane.columnIndex="0" GridPane.rowIndex="2"
-		GridPane.columnSpan="3"></Separator>
 	<Label text="Studiengang:" GridPane.columnIndex="0"
-		GridPane.rowIndex="3" />
+		GridPane.rowIndex="2" />
 	<Label fx:id="lblCourseOfStudies" GridPane.columnIndex="1"
-		GridPane.rowIndex="3" GridPane.columnSpan="2" />
-	<Separator GridPane.columnIndex="0" GridPane.rowIndex="4"
+		GridPane.rowIndex="2" GridPane.columnSpan="2" />
+	<Separator GridPane.columnIndex="0" GridPane.rowIndex="3"
 		GridPane.columnSpan="3"></Separator>
 	<Label text="akt. CPS:" GridPane.columnIndex="0"
-		GridPane.rowIndex="5" />
+		GridPane.rowIndex="4" />
 	<Label fx:id="lblCurrentCredits" text="50"
-		GridPane.columnIndex="1" GridPane.rowIndex="5" />
+		GridPane.columnIndex="1" GridPane.rowIndex="4" />
 	<Label text="max. CPS:" GridPane.columnIndex="0"
-		GridPane.rowIndex="6" />
+		GridPane.rowIndex="5" />
 	<Label fx:id="lblMaxCredits" text="210" GridPane.columnIndex="1"
-		GridPane.rowIndex="6" />
+		GridPane.rowIndex="5" />
 	<ProgressIndicator fx:id="pgiCredits" progress="0.24"
-		GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.rowSpan="2" />
+		GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.rowSpan="2" />
 	<Label text="aktuelle Note:" GridPane.columnIndex="0"
-		GridPane.rowIndex="7" />
+		GridPane.rowIndex="6" />
 	<Label fx:id="lblCurrentGrade" text="2,0"
-		GridPane.columnIndex="1" GridPane.rowIndex="7" />
-	<Separator GridPane.columnIndex="0" GridPane.rowIndex="8"
+		GridPane.columnIndex="1" GridPane.rowIndex="6" />
+	<Separator GridPane.columnIndex="0" GridPane.rowIndex="7"
 		GridPane.columnSpan="3"></Separator>
 	<Label text="bestmöglichste Note:" GridPane.columnIndex="0"
-		GridPane.rowIndex="9" />
-	<Label fx:id="lblBestGrade" text="1,0" GridPane.columnIndex="2"
-		GridPane.rowIndex="9" />
+		GridPane.rowIndex="8" />
+	<Label fx:id="lblBestGrade" text="1,0" GridPane.columnIndex="1"
+		GridPane.rowIndex="8" />
 	<Label text="schlechteste Note:" GridPane.columnIndex="0"
-		GridPane.rowIndex="10" />
-	<Label fx:id="lblWorstGrade" text="4,0" GridPane.columnIndex="2"
-		GridPane.rowIndex="10" />
+		GridPane.rowIndex="9" />
+	<Label fx:id="lblWorstGrade" text="4,0" GridPane.columnIndex="1"
+		GridPane.rowIndex="9" />
 </GridPane>
 

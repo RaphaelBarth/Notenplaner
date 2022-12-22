@@ -15,7 +15,23 @@ public enum Grades {
 
 	@Override
 	public String toString() {
-		return String.format("%s(%.1f)", this.name(), this.value);
+		return String.format("%s(%.1f)", name(), value);
+	}
+
+	public String text() {
+		if (value < 1.7) {
+			return "sehr gut";
+		}
+		if (value < 2.7) {
+			return "gut";
+		}
+		if (value < 3.7) {
+			return "befriedigend";
+		}
+		if (value <= 4.0) {
+			return "ausreichend";
+		}
+		return "nicht ausreichend";
 	}
 
 	private static final Map<Double, Grades> BY_VALUE = new HashMap<>();
@@ -26,7 +42,7 @@ public enum Grades {
 	}
 
 	public static Grades getByValue(Double value) {
-		return BY_VALUE.getOrDefault(value,FIVE);
+		return BY_VALUE.getOrDefault(value, FIVE);
 	}
 
 }

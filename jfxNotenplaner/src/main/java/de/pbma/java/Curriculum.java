@@ -4,19 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Curricula {
+public class Curriculum {
 	private String name;
 	private String nameShort;
-	private int credits;
-
+	private double credits;
 	private List<Subject> subjects;
 
-	public Curricula() {
+	public Curriculum() {
 		this("", "", 0, new ArrayList<>());
 	}
 
-	public Curricula(String name, String nameShort, int credits, List<Subject> subjects) {
-		super();
+	public Curriculum(String name, String nameShort, double credits, List<Subject> subjects) {
 		this.name = name;
 		this.nameShort = nameShort;
 		this.credits = credits;
@@ -42,7 +40,7 @@ public class Curricula {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Curricula other = (Curricula) obj;
+		Curriculum other = (Curriculum) obj;
 		return credits == other.credits && Objects.equals(name, other.name)
 				&& Objects.equals(nameShort, other.nameShort) && Objects.equals(subjects, other.subjects);
 	}
@@ -55,7 +53,7 @@ public class Curricula {
 		return nameShort;
 	}
 
-	public int getCredits() {
+	public double getCredits() {
 		return credits;
 	}
 
@@ -71,7 +69,7 @@ public class Curricula {
 		this.nameShort = nameShort;
 	}
 
-	public void setCredits(int credits) {
+	public void setCredits(double credits) {
 		this.credits = credits;
 	}
 

@@ -10,12 +10,11 @@ public class CSVFileWriter {
 	private File file;
 
 	public CSVFileWriter(File file) {
-		super();
 		this.file = file;
 	}
 
-	public boolean saveCurricula(Curricula curricula) {
-		String csvString = this.toCSVString(curricula);
+	public boolean saveCurriculum(Curriculum curriculum) {
+		String csvString = this.toCSVString(curriculum);
 		return writeToCSV(csvString);
 	}
 
@@ -35,15 +34,15 @@ public class CSVFileWriter {
 		return retval;
 	}
 
-	private String toCSVString(Curricula curricula) {
+	private String toCSVString(Curriculum curriculum) {
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(curricula.getNameShort());
+		stringBuilder.append(curriculum.getNameShort());
 		stringBuilder.append(DELIMITER);
-		stringBuilder.append(curricula.getName());
+		stringBuilder.append(curriculum.getName());
 		stringBuilder.append(DELIMITER);
-		stringBuilder.append(curricula.getCredits());
+		stringBuilder.append(curriculum.getCredits());
 		stringBuilder.append("\n");
-		for (var subject : curricula.getSubjects()) {
+		for (var subject : curriculum.getSubjects()) {
 			var string = this.toCSVString(subject);
 			stringBuilder.append(string);
 		}

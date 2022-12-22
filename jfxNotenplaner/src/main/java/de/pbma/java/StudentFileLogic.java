@@ -1,6 +1,7 @@
 package de.pbma.java;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 public class StudentFileLogic {
 
@@ -14,14 +15,14 @@ public class StudentFileLogic {
 	public boolean fileLoad(File file) {
 		System.out.format("Datei \"%s\" laden\n", file.toString());
 		boolean retval = false;
-		CSVFileParser parser = new CSVFileParser(file);
 		try {
+			CSVFileParser parser = new CSVFileParser(file);
 			var student = parser.getStudent(); // TODO save student to ??
 			System.out.println(student);
 			StudentData.getStudentData().updateStudentData(student);			
 			userFiles.setStudentFile(file);
 			retval = true;
-		} catch (ParserException e) {
+		} catch (ParserException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		return retval;

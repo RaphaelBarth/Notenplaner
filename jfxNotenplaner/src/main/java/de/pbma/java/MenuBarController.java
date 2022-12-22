@@ -56,7 +56,7 @@ public class MenuBarController {
 
 	@FXML
 	private void handleNewAction(ActionEvent ae) {
-		File file = new File("Medizintechnik.csv");
+		File file = new File("MTB.csv");
 		UserFiles.getUserFiles().setCurriculumFile(file);
 	}
 

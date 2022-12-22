@@ -16,10 +16,10 @@ public class ModuleEntry implements Serializable {
 	private String name;
 	private String bereich;
 	private int sem;
-	private int cps;
+	private double cps;
 	private double note;
 
-	public ModuleEntry(String krz, String name, String bereich, int sem, int cps, double note) {
+	public ModuleEntry(String krz, String name, String bereich, int sem, double cps, double note) {
 		this.krz = krz;
 		this.name = name;
 		this.bereich = bereich;
@@ -28,7 +28,7 @@ public class ModuleEntry implements Serializable {
 		this.note = note;
 	}
 
-	public ModuleEntry(String krz, String name, String bereich, int sem, int cps) {
+	public ModuleEntry(String krz, String name, String bereich, int sem, double cps) {
 		this(krz, name, bereich, sem, cps, 0.0);
 	}
 
@@ -64,11 +64,11 @@ public class ModuleEntry implements Serializable {
 		this.sem = sem;
 	}
 
-	public int getCps() {
+	public double getCps() {
 		return cps;
 	}
 
-	public void setCps(int cps) {
+	public void setCps(double cps) {
 		this.cps = cps;
 	}
 

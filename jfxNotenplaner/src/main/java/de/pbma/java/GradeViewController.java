@@ -1,5 +1,6 @@
 package de.pbma.java;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,9 +26,23 @@ public class GradeViewController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO: echte Daten laden
-		ObservableList<ModuleEntry> olist = FXCollections.observableArrayList(
-				new ModuleEntry("BA", "Bachelorarbeit", "Sonstiges", 7, 5),
-				new ModuleEntry("DB", "Datenbanken", "Software", 3, 5));
+		ObservableList<ModuleEntry> olist = FXCollections.observableArrayList();
+		Curriculum c = null;
+		try {
+			CSVFileParser parser = new CSVFileParser(UserFiles.getUserFiles().getCurriculumFile());
+			c = parser.getCurriculum();
+		} catch (ParserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (var subject : c.getSubjects()) {
+			olist.add(new ModuleEntry(subject.getSubjectShort(), subject.getSubject(), subject.getFocus(),
+					subject.getSemester(), subject.getCredits()));
+		}
+
 		tvGrades.setItems(olist);
 		tvGrades.setEditable(true);
 		tvGrades.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);

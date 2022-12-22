@@ -7,14 +7,13 @@ public class Subject {
 	private String subject;
 	private String focus;
 	private int semester;
-	private int credits;
+	private double credits;
 
 	public Subject() {
 		this("", "", "", 0, 0);
 	}
 
-	public Subject(String subjectShort,String subject, String focus, int semester, int credits) {
-		super();
+	public Subject(String subjectShort,String subject, String focus, int semester, double credits) {
 		this.subject = subject;
 		this.subjectShort = subjectShort;
 		this.focus = focus;
@@ -62,7 +61,7 @@ public class Subject {
 		return semester;
 	}
 
-	public int getCredits() {
+	public double getCredits() {
 		return credits;
 	}
 
@@ -82,7 +81,7 @@ public class Subject {
 		this.semester = semester;
 	}
 
-	public void setCredits(int credits) {
+	public void setCredits(double credits) {
 		this.credits = credits;
 	}
 

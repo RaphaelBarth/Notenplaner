@@ -5,25 +5,21 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class CSVFileParser {
-	private final String DELIMITER = ";";
-	private File file;
+	private static final String DELIMITER = ";";
 
-	public CSVFileParser(File file) throws FileNotFoundException {
+	public static Curriculum getCurriculum(File file) throws ParserException, FileNotFoundException {
 		if (!file.exists()) {
 			throw new FileNotFoundException();
 		}
-		this.file = file;
-	}
 
-	public Curriculum getCurriculum() throws ParserException {
-		Curriculum curriculum = new Curriculum();
+		Curriculum curriculum = null;
 
 		try (Scanner scanner = new Scanner(file)) {
 			var header = scanner.nextLine();
-			curriculum = toCurriculum(header);
+			curriculum = CSVFileParser.toCurriculum(header);
 			while (scanner.hasNextLine()) {
 				var line = scanner.nextLine();
-				Subject subject = this.toSubject(line);
+				CurriculumSubject subject = toSubject(line);
 				curriculum.addSubject(subject);
 			}
 		} catch (FileNotFoundException e) {
@@ -32,16 +28,20 @@ public class CSVFileParser {
 		return curriculum;
 	}
 
-	public Student getStudent() throws ParserException {
-		Student student = new Student();
+	public static Student getStudent(File file) throws ParserException, FileNotFoundException {
+		if (!file.exists()) {
+			throw new FileNotFoundException();
+		}
+
+		Student student = null;
 
 		try (Scanner scanner = new Scanner(file)) {
 			var header = scanner.nextLine();
-			student = this.toStudent(header);
+			student = CSVFileParser.toStudent(header);
 			while (scanner.hasNextLine()) {
 				var line = scanner.nextLine();
-				CompletedSubjects completedSubjects = this.toCompletedSubjects(line);
-				student.addCompletedSubject(completedSubjects);
+				// CompletedSubject completedSubjects = CSVFileParser.toCompletedSubjects(line);
+				// student.addCompletedSubject(completedSubjects);
 			}
 		} catch (FileNotFoundException e) {
 			throw new ParserException(e.getMessage());
@@ -49,56 +49,55 @@ public class CSVFileParser {
 		return student;
 	}
 
-	private Curriculum toCurriculum(String string) throws ParserException {
-		Curriculum c = new Curriculum();
+	private static Curriculum toCurriculum(String string) throws ParserException {
+		Curriculum c = null;
 		try (Scanner rowScanner = new Scanner(string)) {
 			rowScanner.useDelimiter(DELIMITER);
-			c.setNameShort(rowScanner.next());
-			c.setName(rowScanner.next());
-			c.setCredits(Double.parseDouble(rowScanner.next()));
+			c = new Curriculum(rowScanner.next(), rowScanner.next(), Double.parseDouble(rowScanner.next()));
 		} catch (Exception e) {
 			throw new ParserException(e.getMessage());
 		}
 		return c;
 	}
 
-	private Subject toSubject(String string) throws ParserException {
-		Subject subject = new Subject();
+	private static CurriculumSubject toSubject(String string) throws ParserException {
+		CurriculumSubject subject = null;
 		System.out.println(string);
 		try (Scanner rowScanner = new Scanner(string)) {
 			rowScanner.useDelimiter(DELIMITER);
-			subject.setSubjectShort(rowScanner.next());
-			subject.setSubject(rowScanner.next());
-			subject.setFocus(rowScanner.next());
-			subject.setSemester(rowScanner.nextInt());
-			subject.setCredits(Double.parseDouble(rowScanner.next()));
+			var shortName = rowScanner.next();
+			var name = rowScanner.next();
+			var focus = rowScanner.next();
+			var s = new Subject(shortName, name, focus);
+			subject = new CurriculumSubject(s, rowScanner.nextInt(), Double.parseDouble(rowScanner.next()));
 		} catch (Exception e) {
 			throw new ParserException(e.getMessage());
 		}
 		return subject;
 	}
 
-	private CompletedSubjects toCompletedSubjects(String string) throws ParserException {
-		CompletedSubjects completedSubjects = new CompletedSubjects();
-		try (Scanner rowScanner = new Scanner(string)) {
-			rowScanner.useDelimiter(DELIMITER);
-			completedSubjects.setSubjectShort(rowScanner.next());
-			completedSubjects.setSubject(rowScanner.next());
-			Double gradeValue = Double.valueOf(rowScanner.next());
-			completedSubjects.setGrade(Grades.getByValue(gradeValue));
-		} catch (Exception e) {
-			throw new ParserException(e.getMessage());
-		}
-		return completedSubjects;
-	}
+//	private CompletedSubject toCompletedSubjects(String string) throws ParserException {
+//		CompletedSubject completedSubjects = new CompletedSubject();
+//		try (Scanner rowScanner = new Scanner(string)) {
+//			rowScanner.useDelimiter(DELIMITER);
+//			completedSubjects.setSubjectShort(rowScanner.next());
+//			completedSubjects.setSubject(rowScanner.next());
+//			Double gradeValue = Double.valueOf(rowScanner.next());
+//			completedSubjects.setGrade(Grades.getByValue(gradeValue));
+//		} catch (Exception e) {
+//			throw new ParserException(e.getMessage());
+//		}
+//		return completedSubjects;
+//	}
 
-	private Student toStudent(String string) throws ParserException {
-		Student student = new Student();
+	private static Student toStudent(String string) throws ParserException {
+		Student student = null;
 		try (Scanner rowScanner = new Scanner(string)) {
 			rowScanner.useDelimiter(DELIMITER);
-			student.setName(rowScanner.next());
-			student.setMatriculationNumber(rowScanner.nextInt());
-			student.setCourseOfStudies(rowScanner.next());
+			var name = rowScanner.next();
+			var matriculationNumber = rowScanner.nextInt();
+			var courseOfStudies = rowScanner.next();
+			student = new Student(name, matriculationNumber, courseOfStudies);
 		} catch (Exception e) {
 			throw new ParserException(e.getMessage());
 		}

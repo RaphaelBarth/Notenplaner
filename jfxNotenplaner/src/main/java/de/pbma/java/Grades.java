@@ -5,7 +5,7 @@ import java.util.Map;
 
 public enum Grades {
 	ONE(1.0), ONEMINUS(1.3), TWOPLUS(1.7), TWO(2.0), TWOMINUS(2.3), THREEPLUS(2.7), THREE(3.0), THREEMINUS(3.3),
-	FOURPLUS(3.7), FOUR(4.0), FIVE(5.0);
+	FOURPLUS(3.7), FOUR(4.0), NOTPASSED(5.0), PASSED(0.0);
 
 	final public double value;
 
@@ -19,6 +19,9 @@ public enum Grades {
 	}
 
 	public String text() {
+		if (value == 0) {
+			return "bestanden";
+		}
 		if (value < 1.7) {
 			return "sehr gut";
 		}
@@ -42,7 +45,7 @@ public enum Grades {
 	}
 
 	public static Grades getByValue(Double value) {
-		return BY_VALUE.getOrDefault(value, FIVE);
+		return BY_VALUE.getOrDefault(value, NOTPASSED);
 	}
 
 }

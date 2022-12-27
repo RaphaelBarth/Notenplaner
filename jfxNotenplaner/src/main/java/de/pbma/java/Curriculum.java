@@ -5,20 +5,30 @@ import java.util.List;
 import java.util.Objects;
 
 public class Curriculum {
+
+	private Abschluss abschluss;
 	private String name;
 	private String nameShort;
 	private double credits;
-	private List<Subject> subjects;
+	private List<CurriculumSubject> subjects;
 
-	public Curriculum() {
-		this("", "", 0, new ArrayList<>());
-	}
-
-	public Curriculum(String name, String nameShort, double credits, List<Subject> subjects) {
+	public Curriculum(String name, String nameShort, double credits, List<CurriculumSubject> subjects) {
 		this.name = name;
 		this.nameShort = nameShort;
 		this.credits = credits;
 		this.subjects = subjects;
+		if (nameShort.endsWith("B")) {
+			abschluss = Abschluss.BACHELOR;
+		} else if (nameShort.endsWith("B")) {
+			abschluss = Abschluss.MASTER;
+		} else {
+			// throw new Exception("Abschluss konnte nicht bestimmt werden");
+			return;
+		}
+	}
+
+	public Curriculum(String name, String nameShort, double credits) {
+		this(name, nameShort, credits, new ArrayList<CurriculumSubject>());
 	}
 
 	@Override
@@ -57,24 +67,39 @@ public class Curriculum {
 		return credits;
 	}
 
-	public List<Subject> getSubjects() {
+	public List<CurriculumSubject> getSubjects() {
 		return subjects;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public boolean addSubject(Subject subject, int semester, double credits) {
+		var newSubject = new CurriculumSubject(subject, semester, credits);
+		return addSubject(newSubject);
 	}
 
-	public void setNameShort(String nameShort) {
-		this.nameShort = nameShort;
+	public boolean addSubject(CurriculumSubject newSubject) {
+		if (subjects.contains(newSubject)) {
+			return false;
+		}
+		return subjects.add(newSubject);
 	}
 
-	public void setCredits(double credits) {
-		this.credits = credits;
+	public void removeSubject(CurriculumSubject subject) {
+		subjects.remove(subject);
 	}
 
-	public void addSubject(Subject subject) {
-		this.subjects.add(subject);
+	public double getCreditsForSemester(int semester) {
+		double cp = 0;
+		for (var subject : subjects) {
+			// TODO nur eins der beiden WPF nehmen
+			if (subject.getSemester() == semester) {
+				cp += subject.getCreditPoints();
+			}
+		}
+		return cp;
+	}
+
+	public String getAbschluss() {
+		return abschluss.toString();
 	}
 
 }

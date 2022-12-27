@@ -49,7 +49,7 @@ public class CSVFileWriter {
 		return stringBuilder.toString();
 	}
 
-	private String toCSVString(Subject subject) {
+	private String toCSVString(CurriculumSubject subject) {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(subject.getSubjectShort());
 		stringBuilder.append(DELIMITER);
@@ -59,7 +59,7 @@ public class CSVFileWriter {
 		stringBuilder.append(DELIMITER);
 		stringBuilder.append(subject.getSemester());
 		stringBuilder.append(DELIMITER);
-		stringBuilder.append(subject.getCredits());
+		stringBuilder.append(subject.getCreditPoints());
 		stringBuilder.append("\n");
 		return stringBuilder.toString();
 	}
@@ -72,21 +72,21 @@ public class CSVFileWriter {
 		stringBuilder.append(DELIMITER);
 		stringBuilder.append(student.getCourseOfStudies());
 		stringBuilder.append("\n");
-		for (var completedSubject : student.getCompletedSubjects()) {
-			var string = this.toCSVString(completedSubject);
-			stringBuilder.append(string);
-		}
+//		for (var completedSubject : student.getCompletedSubjects()) {
+//			var string = this.toCSVString(completedSubject);
+//			stringBuilder.append(string);
+//		}
 		return stringBuilder.toString();
 	}
 
-	private String toCSVString(CompletedSubjects completedSubject) {
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(completedSubject.getSubjectShort());
-		stringBuilder.append(DELIMITER);
-		stringBuilder.append(completedSubject.getSubject());
-		stringBuilder.append(DELIMITER);
-		stringBuilder.append(completedSubject.getGrade().value);
-		stringBuilder.append("\n");
-		return stringBuilder.toString();
-	}
+//	private String toCSVString(CompletedSubject completedSubject) {
+//		StringBuilder stringBuilder = new StringBuilder();
+//		stringBuilder.append(completedSubject.getSubjectShort());
+//		stringBuilder.append(DELIMITER);
+//		stringBuilder.append(completedSubject.getSubject());
+//		stringBuilder.append(DELIMITER);
+//		stringBuilder.append(completedSubject.getGrade().value);
+//		stringBuilder.append("\n");
+//		return stringBuilder.toString();
+//	}
 }

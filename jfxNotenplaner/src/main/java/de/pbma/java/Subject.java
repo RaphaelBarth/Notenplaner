@@ -4,32 +4,29 @@ import java.util.Objects;
 
 public class Subject {
 	private String subjectShort;
-	private String subject;
+	private String name;
 	private String focus;
-	private int semester;
-	private double credits;
+	private boolean gradeAsEvaluation;
 
-	public Subject() {
-		this("", "", "", 0, 0);
-	}
-
-	public Subject(String subjectShort,String subject, String focus, int semester, double credits) {
-		this.subject = subject;
+	public Subject(String subjectShort, String subject, String focus, boolean gradeAsEvaluation) {
+		name = subject;
 		this.subjectShort = subjectShort;
 		this.focus = focus;
-		this.semester = semester;
-		this.credits = credits;
+		this.gradeAsEvaluation = gradeAsEvaluation;
+	}
+
+	public Subject(String subjectShort, String subject, String focus) {
+		this(subjectShort, subject, focus, true);
 	}
 
 	@Override
 	public String toString() {
-		return "Subject [subject=" + subject + ", subjectShort=" + subjectShort + ", focus=" + focus + ", semester="
-				+ semester + ", credits=" + credits + "]";
+		return "Subject [subject=" + name + ", subjectShort=" + subjectShort + ", focus=" + focus + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(credits, focus, semester, subject, subjectShort);
+		return Objects.hash(focus, name, subjectShort);
 	}
 
 	@Override
@@ -41,48 +38,32 @@ public class Subject {
 		if (getClass() != obj.getClass())
 			return false;
 		Subject other = (Subject) obj;
-		return credits == other.credits && Objects.equals(focus, other.focus) && semester == other.semester
-				&& Objects.equals(subject, other.subject) && Objects.equals(subjectShort, other.subjectShort);
-	}
-
-	public String getSubject() {
-		return subject;
-	}
-
-	public String getSubjectShort() {
-		return subjectShort;
+		return Objects.equals(focus, other.focus) && Objects.equals(name, other.name)
+				&& Objects.equals(subjectShort, other.subjectShort);
 	}
 
 	public String getFocus() {
 		return focus;
 	}
 
-	public int getSemester() {
-		return semester;
+	public boolean isWahlfach() {
+		return subjectShort.startsWith("WF");
 	}
 
-	public double getCredits() {
-		return credits;
+	public String getName() {
+		return name;
 	}
 
-	public void setSubject(String subject) {
-		this.subject = subject;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setSubjectShort(String subjectShort) {
-		this.subjectShort = subjectShort;
+	public String getShort() {
+		return subjectShort;
 	}
 
-	public void setFocus(String focus) {
-		this.focus = focus;
-	}
-
-	public void setSemester(int semester) {
-		this.semester = semester;
-	}
-
-	public void setCredits(double credits) {
-		this.credits = credits;
+	public boolean hasGradeAsEvaluation() {
+		return gradeAsEvaluation;
 	}
 
 }

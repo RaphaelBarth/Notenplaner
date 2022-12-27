@@ -13,6 +13,7 @@ import javafx.beans.property.StringProperty;
 public class StudentData implements Serializable {
 	private static final long serialVersionUID = -1395111219643358238L;
 	private static StudentData studentData;
+	private Student student;
 
 	private final StringProperty name = new SimpleStringProperty(this, "name");
 	private final StringProperty courseOfStudies = new SimpleStringProperty(this, "courseOfStudies");
@@ -34,7 +35,7 @@ public class StudentData implements Serializable {
 		final String name = student.getName();
 		final String courseOfStudies = student.getCourseOfStudies();
 		final int matriculationNumber = student.getMatriculationNumber();
-		//TODO  calculate StudentData
+		// TODO calculate StudentData
 		final int currentGrade = 0;
 		final int currentCredits = 0;
 
@@ -46,6 +47,10 @@ public class StudentData implements Serializable {
 			this.currentGrade.setValue(currentGrade);
 		});
 
+	}
+
+	public Student getStudent() {
+		return student;
 	}
 
 	public StringProperty getNameProperty() {

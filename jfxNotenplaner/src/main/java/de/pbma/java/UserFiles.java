@@ -8,12 +8,12 @@ public class UserFiles {
 	private File studentFile;
 	private File curriculumFile;
 
-	//TODO string property for filepath
-	
+	// TODO string property for filepath ?
+
 	private UserFiles() {
 	}
 
-	public static UserFiles getUserFiles() {
+	public synchronized static UserFiles getUserFiles() {
 		if (userFiles == null) {
 			userFiles = new UserFiles();
 		}

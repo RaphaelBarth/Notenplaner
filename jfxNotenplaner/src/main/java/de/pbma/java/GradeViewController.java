@@ -1,17 +1,13 @@
 package de.pbma.java;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class GradeViewController implements Initializable {
@@ -25,25 +21,9 @@ public class GradeViewController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO: echte Daten laden
-		ObservableList<ModuleEntry> olist = FXCollections.observableArrayList();
-		Curriculum c = null;
-		try {
-			CSVFileParser parser = new CSVFileParser(UserFiles.getUserFiles().getCurriculumFile());
-			c = parser.getCurriculum();
-		} catch (ParserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		for (var subject : c.getSubjects()) {
-			olist.add(new ModuleEntry(subject.getSubjectShort(), subject.getSubject(), subject.getFocus(),
-					subject.getSemester(), subject.getCredits()));
-		}
-
-		tvGrades.setItems(olist);
+		var viewModel = new GradeViewModel();
+		tvGrades.setItems(viewModel.getOListProperty());
+		viewModel.getSelectedItemProperty().bind(tvGrades.getSelectionModel().selectedItemProperty());
 		tvGrades.setEditable(true);
 		tvGrades.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -60,7 +40,6 @@ public class GradeViewController implements Initializable {
 		TableColumn<ModuleEntry, Double> tcNote = new TableColumn<>("Note");
 		tcNote.setCellValueFactory(new PropertyValueFactory<>(ModuleEntry.NOTE));
 		// TODO alle möglichen Noten und - als Optionen anzeigen
-		tcNote.setCellFactory(ComboBoxTableCell.<ModuleEntry, Double>forTableColumn(1.0, 2.0));
 
 		tvGrades.getColumns().addAll(tcKrz, tcName, tcBereich, tcSem, tcCps, tcNote);
 

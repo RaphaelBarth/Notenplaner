@@ -17,9 +17,9 @@ public class ModuleEntry implements Serializable {
 	private String bereich;
 	private int sem;
 	private double cps;
-	private double note;
+	private String note;
 
-	public ModuleEntry(String krz, String name, String bereich, int sem, double cps, double note) {
+	public ModuleEntry(String krz, String name, String bereich, int sem, double cps, String note) {
 		this.krz = krz;
 		this.name = name;
 		this.bereich = bereich;
@@ -29,7 +29,7 @@ public class ModuleEntry implements Serializable {
 	}
 
 	public ModuleEntry(String krz, String name, String bereich, int sem, double cps) {
-		this(krz, name, bereich, sem, cps, 0.0);
+		this(krz, name, bereich, sem, cps, "-");
 	}
 
 	public String getKrz() {
@@ -52,31 +52,19 @@ public class ModuleEntry implements Serializable {
 		return bereich;
 	}
 
-	public void setBereich(String bereich) {
-		this.bereich = bereich;
-	}
-
 	public int getSem() {
 		return sem;
-	}
-
-	public void setSem(int sem) {
-		this.sem = sem;
 	}
 
 	public double getCps() {
 		return cps;
 	}
 
-	public void setCps(double cps) {
-		this.cps = cps;
-	}
-
-	public double getNote() {
+	public String getNote() {
 		return note;
 	}
 
-	public void setNote(double note) {
+	public void setNote(String note) {
 		this.note = note;
 	}
 
@@ -102,7 +90,6 @@ public class ModuleEntry implements Serializable {
 			return false;
 		ModuleEntry other = (ModuleEntry) obj;
 		return Objects.equals(bereich, other.bereich) && cps == other.cps && Objects.equals(krz, other.krz)
-				&& Objects.equals(name, other.name)
-				&& Double.doubleToLongBits(note) == Double.doubleToLongBits(other.note) && sem == other.sem;
+				&& Objects.equals(name, other.name) && Objects.equals(note, other.note) && sem == other.sem;
 	}
 }

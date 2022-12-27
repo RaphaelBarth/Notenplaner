@@ -8,22 +8,30 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class GradeViewController implements Initializable {
+public class GradeView implements Initializable {
 	@FXML
 	private TableView<ModuleEntry> tvGrades;
 	@FXML
 	private Button btFilter;
+	@FXML
+	private TextField tfFilter;
 
-	public GradeViewController() {
-	}
+	GradeViewModel gradeViewModel = new GradeViewModel();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		var viewModel = new GradeViewModel();
-		tvGrades.setItems(viewModel.getOListProperty());
-		viewModel.getSelectedItemProperty().bind(tvGrades.getSelectionModel().selectedItemProperty());
+		tfFilter.textProperty()
+            .bindBidirectional(gradeViewModel.filterProperty());
+
+		tfFilter.disableProperty().bind(gradeViewModel.curriculumListEmpty());
+		btFilter.disableProperty()
+            .bind(gradeViewModel.buttonDisabledProperty());
+		
+		tvGrades.setItems(gradeViewModel.getOListProperty());
+		gradeViewModel.getSelectedItemProperty().bind(tvGrades.getSelectionModel().selectedItemProperty());
 		tvGrades.setEditable(true);
 		tvGrades.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -45,5 +53,10 @@ public class GradeViewController implements Initializable {
 
 		// Default: sortieren nach Fachsemester
 		tvGrades.getSortOrder().addAll(tcSem, tcKrz, tcName);
+	}
+	
+	@FXML
+	public void onFilter() {
+		gradeViewModel.filterList();
 	}
 }

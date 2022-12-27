@@ -1,7 +1,8 @@
 package de.pbma.java;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class Student {
@@ -9,44 +10,28 @@ public class Student {
 	private String name;
 	private int matriculationNumber;
 	private String courseOfStudies;
-	private List<CompletedSubjects> completedSubjects;
+	private Map<CurriculumSubject, Grades> subjectsGradeMap;
 
-	public Student() {
-		this("", 0, "", new ArrayList<>());
-	}
-
-	public Student(String name, int matriculationNumber, String courseOfStudies,
-			List<CompletedSubjects> completedSubjects) {
-		super();
+	public Student(String name, int matriculationNumber, String courseOfStudies, List<CurriculumSubject> subjects) {
 		this.name = name;
 		this.matriculationNumber = matriculationNumber;
 		this.courseOfStudies = courseOfStudies;
-		this.completedSubjects = completedSubjects;
+		subjectsGradeMap = new HashMap<>();
+		if (subjects != null) {
+			for (var s : subjects) {
+				setGradeForSubject(s, Grades.NOTPASSED);
+			}
+		}
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(completedSubjects, courseOfStudies, matriculationNumber, name);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Student other = (Student) obj;
-		return Objects.equals(completedSubjects, other.completedSubjects)
-				&& Objects.equals(courseOfStudies, other.courseOfStudies)
-				&& matriculationNumber == other.matriculationNumber && Objects.equals(name, other.name);
+	public Student(String name, int matriculationNumber, String courseOfStudies) {
+		this(name, matriculationNumber, courseOfStudies, null);
 	}
 
 	@Override
 	public String toString() {
 		return "Student [name=" + name + ", matriculationNumber=" + matriculationNumber + ", courseOfStudies="
-				+ courseOfStudies + ", completedSubjects=" + completedSubjects + "]";
+				+ courseOfStudies + "]";
 	}
 
 	public String getName() {
@@ -72,13 +57,28 @@ public class Student {
 	public void setCourseOfStudies(String courseOfStudies) {
 		this.courseOfStudies = courseOfStudies;
 	}
-
-	public List<CompletedSubjects> getCompletedSubjects() {
-		return completedSubjects;
+	
+	public Map<CurriculumSubject, Grades> getSubjectGradeMap() {
+		return subjectsGradeMap;
+	}
+	
+	public boolean hasGradeForSubject(CurriculumSubject subject) {
+		return subjectsGradeMap.containsKey(subject);
+	}
+	
+	public Grades getGradeForSubject(CurriculumSubject subject) {
+		if(subjectsGradeMap.containsKey(subject)) {
+			return subjectsGradeMap.get(subject);
+		}
+		return Grades.NOTPASSED;
 	}
 
-	public void addCompletedSubject(CompletedSubjects completedSubjects) {
-		this.completedSubjects.add(completedSubjects);
+	public void setGradeForSubject(CurriculumSubject subject, Grades grade) {
+		subjectsGradeMap.put(subject, grade);
+	}
+
+	public void removeGradeForSubject(CurriculumSubject subject) {
+		subjectsGradeMap.remove(subject);
 	}
 
 }

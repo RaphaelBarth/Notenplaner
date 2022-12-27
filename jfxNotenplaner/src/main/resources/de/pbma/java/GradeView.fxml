@@ -16,7 +16,11 @@
 			</children>
 		</HBox>
 		<TableView maxWidth="99999" maxHeight="99999"
-			VBox.vgrow="ALWAYS" fx:id="tvGrades" />
+			VBox.vgrow="ALWAYS" fx:id="tvGrades">
+			<placeholder>
+				<Label text="Kein Curriculum ausgewählt."/>
+			</placeholder>
+		</TableView>
 	</children>
 </VBox>
 

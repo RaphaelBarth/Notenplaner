@@ -13,6 +13,8 @@ public class OverviewController {
 	@FXML
 	private Label lblCourseOfStudies;
 	@FXML
+	private Label lblAbschluss;
+	@FXML
 	private Label lblCurrentCredits;
 	@FXML
 	private Label lblMaxCredits;
@@ -30,11 +32,13 @@ public class OverviewController {
 		// TODO connect to studentData
 		var data = StudentData.getStudentData();
 		lblStudentName.textProperty().bind(data.getNameProperty());
-		data.getMatriculationNumberProperty()
-				.addListener((observable, oldVal, newVal) -> lblMatriculationNumber.setText(newVal.toString()));
+		lblMatriculationNumber.textProperty().bind(data.getMatriculationNumberProperty().asString());
 		lblCourseOfStudies.textProperty().bind(data.getCourseOfStudiesProperty());
+		//lblAbschluss.textProperty().bind(null);
 		data.getCurrentCreditsProperty()
 				.addListener((observable, oldVal, newVal) -> lblCurrentCredits.setText(newVal.toString()));
+//		lblAbschluss.textProperty().bind(data.getCourseOfStudiesProperty());
+
 //		lblMaxCredits.textProperty().bind(null);
 		data.getCurrentGradeProperty()
 				.addListener((observable, oldVal, newVal) -> lblCurrentGrade.setText(newVal.toString()));

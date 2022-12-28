@@ -15,7 +15,15 @@ public enum Grades {
 
 	@Override
 	public String toString() {
-		return String.format("%s(%.1f)", name(), value);
+		String retVal = null;
+		if (this == NOTPASSED) {
+			retVal = "-";
+		} else if (this == PASSED) {
+			retVal = "bestanden";
+		} else {
+			retVal = String.format("%.f", value);
+		}
+		return retVal;
 	}
 
 	public String text() {

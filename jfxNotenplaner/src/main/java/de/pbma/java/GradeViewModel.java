@@ -78,7 +78,7 @@ public class GradeViewModel {
 					s.getCreditPoints()));
 		}
 	}
-	
+
 	public void filterList() {
 		System.out.println("Filtere nach " + getFilterText());
 	}

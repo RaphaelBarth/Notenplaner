@@ -20,6 +20,9 @@ public class GradeViewModel {
 	public GradeViewModel() {
 		curriculumListEmpty.bind(Bindings.size(oList).isEqualTo(0));
 		buttonDisabled.bind(textFieldText.isEmpty()); // you can not filter, if nothing is entered
+		if (CurriculumData.getData().getCurriculum() != null) {
+			addSubjectsAndGradesToTable();
+		}
 	}
 
 	public StringProperty filterProperty() {
@@ -74,8 +77,18 @@ public class GradeViewModel {
 		// var student = StudentData.getStudentData().getStudent();
 		for (var s : CurriculumData.getData().getCurriculum().getSubjects()) {
 			// TODO use: student.getGradeForSubject(s).toString()
-			oList.add(new ModuleEntry(s.getSubjectShort(), s.getName(), s.getFocus(), s.getSemester(),
-					s.getCreditPoints()));
+			oList.add(new ModuleEntry(s.getShort(), s.getName(), s.getFocus(), s.getSemester(), s.getCreditPoints()));
+		}
+	}
+
+	public void addSubjectsAndGradesToTable() {
+		var student = StudentData.getStudentData().getStudent();
+		for (var s : CurriculumData.getData().getCurriculum().getSubjects()) {
+			var grade = student.getGradeForSubject(s.getShort()).toString();
+			var specificName = student.getNameForSubject(s.getShort());
+			var subjectName = specificName == null ? s.getName() : specificName;
+			oList.add(new ModuleEntry(s.getShort(), subjectName, s.getFocus(), s.getSemester(), s.getCreditPoints(),
+					grade));
 		}
 	}
 

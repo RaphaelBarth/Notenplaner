@@ -127,7 +127,7 @@ public class OverviewViewModel {
 	}
 
 	public void setMaxCredidts(double credits) {
-		maxCreditsProperty.set(credits);
+		maxCreditsProperty.setValue(credits);
 	}
 
 	public DoubleProperty getBestGradeProperty() {

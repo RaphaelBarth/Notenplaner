@@ -7,9 +7,31 @@
 <?import java.util.*?>
 <?import java.lang.Object?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1"
-	hgap="5" vgap="10"
-	alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" hgap="5"
+	vgap="10" alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity">
+	<style> -fx-spacing: 5; -fx-padding: 10 </style>
+	<columnConstraints>
+		<ColumnConstraints percentWidth="25" />
+		<ColumnConstraints percentWidth="75" />
+	</columnConstraints>
+	<Label text="Neuen Notensatz anlegen für..." GridPane.columnIndex="0"
+		GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+	<Label text="Name:" GridPane.columnIndex="0"
+		GridPane.rowIndex="1" />
+	<TextField fx:id="tfStudentName" GridPane.columnIndex="1"
+		GridPane.rowIndex="1" />
+	<Label text="Matrikel Nr:" GridPane.columnIndex="0"
+		GridPane.rowIndex="2" />
+	<TextField fx:id="tfMatriculationNumber"
+		GridPane.columnIndex="1" GridPane.rowIndex="2" />
+	<Label text="Studiengang:" GridPane.columnIndex="0"
+		GridPane.rowIndex="3" />
+	<ComboBox fx:id="cbCourseOfStudies" GridPane.columnIndex="1"
+		GridPane.rowIndex="3" promptText="Studiengang wählen" />
+	<HBox GridPane.rowIndex="5" GridPane.columnSpan="2" padding="5">
+		<Button text="Abbrechen" fx:id="btCancel" onAction="#onCancel" HBox.hgrow="ALWAYS"/>
+		<Button text="Okay" fx:id="btOkay" onAction="#onOkay" HBox.hgrow="ALWAYS"/>
+	</HBox>
 
-</VBox>
+</GridPane>
 

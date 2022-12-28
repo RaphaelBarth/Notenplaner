@@ -7,10 +7,12 @@ public class UserFiles {
 
 	private File studentFile;
 	private File curriculumFile;
+	private Object lock;
 
 	// TODO string property for filepath ?
 
 	private UserFiles() {
+		this.lock = new Object();
 	}
 
 	public synchronized static UserFiles getUserFiles() {
@@ -26,19 +28,27 @@ public class UserFiles {
 	}
 
 	public File getStudentFile() {
-		return studentFile;
+		synchronized (lock) {
+			return this.studentFile;
+		}
 	}
 
 	public void setStudentFile(File studentFile) {
-		this.studentFile = studentFile;
+		synchronized (lock) {
+			this.studentFile = studentFile;			
+		}
 	}
 
 	public File getCurriculumFile() {
-		return this.curriculumFile;
+		synchronized (lock) {
+			return this.curriculumFile;			
+		}
 	}
 
 	public void setCurriculumFile(File curriculumFile) {
-		this.curriculumFile = curriculumFile;
+		synchronized (lock) {
+			this.curriculumFile = curriculumFile;			
+		}
 	}
 
 }

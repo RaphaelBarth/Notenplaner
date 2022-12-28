@@ -2,6 +2,9 @@ package de.pbma.java;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FileLogic {
 
@@ -60,7 +63,6 @@ public class FileLogic {
 			e.printStackTrace();
 		}
 		return retval;
-
 	}
 
 	public Curriculum getCurriculum() {
@@ -70,7 +72,20 @@ public class FileLogic {
 	public void setCurriculum(Curriculum curriculum) {
 		this.curriculum = curriculum;
 	}
+
 	public File getCurrentCurriculumFile() {
 		return userFiles.getCurriculumFile();
+	}
+
+	public Map<String,File> getCurriculumFiles() {
+		final String directory = "data/";
+		final String extension = ".csv";
+		var fileSet = Stream.of(new File(directory).listFiles())
+			.filter(file -> !file.isDirectory())
+			.filter(file -> file.getName().endsWith(extension))
+			.collect(Collectors.toMap(
+					file -> file.getName().replaceFirst("[.][^.]+$",""),
+					file -> file));
+		return fileSet;
 	}
 }

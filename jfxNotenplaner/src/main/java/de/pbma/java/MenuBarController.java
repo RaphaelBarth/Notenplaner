@@ -1,9 +1,6 @@
 package de.pbma.java;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,24 +27,26 @@ public class MenuBarController {
 			return;
 		}
 		new Thread(() -> {
-			String msg = null;
+			String msgTmp = null;
 			if (fileLogic.loadStudentFile(file)) {
-				File cFile = Paths.get("data/" + fileLogic.getStudent().getCourseOfStudies() + ".csv").toFile();
-				if (Files.exists(cFile.toPath()) && fileLogic.loadCurriculumFile(cFile)) {
+				var curriculum = fileLogic.getStudent().getCourseOfStudies();
+				var curriculumFile = fileLogic.getCurriculumFiles().get(curriculum);
+				if (curriculumFile != null && fileLogic.loadCurriculumFile(curriculumFile)) {
 					CurriculumData.getData().update(fileLogic.getCurriculum());
 					StudentData.getStudentData().updateStudentData(fileLogic.getStudent());
 				} else {
-					msg = "Curriculum für Notensatz konnte nicht gefunden werden.";
+					msgTmp = "Curriculum für Notensatz konnte nicht gefunden werden.";
 				}
 
 			} else {
-				msg = "Fehler beim Laden des Notensatzes.";
+				msgTmp = "Fehler beim Laden des Notensatzes.";
 			}
-			if (msg != null) {
+			final String msg = msgTmp;
+			if (msgTmp != null) {
 				Platform.runLater(() -> {
 					final Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Fehler beim Laden der Datei");
-					alert.setContentText(""); // TODO warnungen richtig schreiben
+					alert.setContentText(msg);
 					alert.show();
 				});
 			}
@@ -76,8 +75,7 @@ public class MenuBarController {
 
 	@FXML
 	private void handleNewAction(ActionEvent ae) {
-		File file = new File("IEB.csv");
-		UserFiles.getUserFiles().setCurriculumFile(file);
+		MenuBarController.class.getResource("NewFile.fxml");
 	}
 
 	@FXML

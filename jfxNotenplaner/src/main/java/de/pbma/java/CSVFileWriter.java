@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.javatuples.Pair;
+
 public class CSVFileWriter {
 
 	private final String DELIMITER = ";";
@@ -77,19 +79,19 @@ public class CSVFileWriter {
 		for (var ele : student.getSubjectGradeMap().entrySet()) {
 			System.out.println(student);
 			System.out.println(ele);
-			var string = this.toCSVString(ele.getKey(), ele.getValue().value);
+			var string = this.toCSVString(ele.getKey(), ele.getValue());
 			stringBuilder.append(string);
 		}
 		return stringBuilder.toString();
 	}
 
-	private Object toCSVString(CurriculumSubject subject, double grade) {
+	private String toCSVString(String key, Pair<String,Grades> value) {
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(subject.getShort());
+		stringBuilder.append(key);
 		stringBuilder.append(DELIMITER);
-		stringBuilder.append(subject.getName());
+		stringBuilder.append(value.getValue0());
 		stringBuilder.append(DELIMITER);
-		stringBuilder.append(grade);
+		stringBuilder.append(value.getValue1().value);
 		stringBuilder.append("\n");
 		return stringBuilder.toString();
 	}

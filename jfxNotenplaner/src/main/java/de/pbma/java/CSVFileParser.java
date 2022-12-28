@@ -2,7 +2,12 @@ package de.pbma.java;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Map.Entry;
 import java.util.Scanner;
+
+import org.javatuples.Pair;
+import org.javatuples.Triplet;
+import org.javatuples.Tuple;
 
 public class CSVFileParser {
 	private static final String DELIMITER = ";";
@@ -36,8 +41,8 @@ public class CSVFileParser {
 			student = CSVFileParser.toStudent(header);
 			while (scanner.hasNextLine()) {
 				var line = scanner.nextLine();
-				// CompletedSubject completedSubjects = CSVFileParser.toCompletedSubjects(line);
-				// student.addCompletedSubject(completedSubjects);
+				var ele = toCompletedSubjects(line);
+				student.setGradeForSubject(ele.getValue0(), ele.getValue1(),ele.getValue2());
 			}
 		} catch (FileNotFoundException e) {
 			throw new ParserException(e.getMessage());
@@ -70,26 +75,27 @@ public class CSVFileParser {
 			var hasGradeAsEvaluation = rowScanner.nextBoolean();
 			var semester = rowScanner.nextInt();
 			var credits = Double.parseDouble(rowScanner.next());
-			curriculumSubject = new CurriculumSubject(shortName,name,focus,hasGradeAsEvaluation,semester,credits);
+			curriculumSubject = new CurriculumSubject(shortName, name, focus, hasGradeAsEvaluation, semester, credits);
 		} catch (Exception e) {
 			throw new ParserException(e.getMessage());
 		}
 		return curriculumSubject;
 	}
 
-//	private CompletedSubject toCompletedSubjects(String string) throws ParserException {
-//		CompletedSubject completedSubjects = new CompletedSubject();
-//		try (Scanner rowScanner = new Scanner(string)) {
-//			rowScanner.useDelimiter(DELIMITER);
-//			completedSubjects.setSubjectShort(rowScanner.next());
-//			completedSubjects.setSubject(rowScanner.next());
-//			Double gradeValue = Double.valueOf(rowScanner.next());
-//			completedSubjects.setGrade(Grades.getByValue(gradeValue));
-//		} catch (Exception e) {
-//			throw new ParserException(e.getMessage());
-//		}
-//		return completedSubjects;
-//	}
+	private static Triplet<String, String, Grades> toCompletedSubjects(String string) throws ParserException {
+		Triplet<String, String, Grades> triplet = null;
+		try (Scanner rowScanner = new Scanner(string)) {
+			rowScanner.useDelimiter(DELIMITER);
+			var subjectShort = rowScanner.next();
+			var subjectName = rowScanner.next();
+			var gradeValue = Double.valueOf(rowScanner.next());
+			var grade = Grades.getByValue(gradeValue);
+			triplet = new Triplet<>(subjectShort, subjectName, grade);
+		} catch (Exception e) {
+			throw new ParserException(e.getMessage());
+		}
+		return triplet;
+	}
 
 	private static Student toStudent(String string) throws ParserException {
 		Student student = null;

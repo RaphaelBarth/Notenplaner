@@ -5,30 +5,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import org.javatuples.Pair;
+
 public class Student {
 
 	private String name;
 	private int matriculationNumber;
 	private String courseOfStudies;
-	private Map<CurriculumSubject, Grades> subjectsGradeMap;
+	private Map<String, Pair<String, Grades>> subjectsGradeMap;
 
-	public Student(String name, int matriculationNumber, String courseOfStudies, List<CurriculumSubject> subjects) {
+	public Student(String name, int matriculationNumber, String courseOfStudies) {
 		this.name = name;
 		this.matriculationNumber = matriculationNumber;
 		this.courseOfStudies = courseOfStudies;
 		subjectsGradeMap = new HashMap<>();
-		if (subjects != null) {
-			for (var s : subjects) {
-				setGradeForSubject(s, Grades.NOTPASSED);
-			}
-		}
 	}
-
-	public Student(String name, int matriculationNumber, String courseOfStudies) {
-		this(name, matriculationNumber, courseOfStudies, null);
-	}
-
-
 
 	@Override
 	public String toString() {
@@ -59,28 +50,54 @@ public class Student {
 	public void setCourseOfStudies(String courseOfStudies) {
 		this.courseOfStudies = courseOfStudies;
 	}
-	
-	public Map<CurriculumSubject, Grades> getSubjectGradeMap() {
+
+	public Map<String, Pair<String, Grades>> getSubjectGradeMap() {
 		return subjectsGradeMap;
 	}
-	
-	public boolean hasGradeForSubject(CurriculumSubject subject) {
-		return subjectsGradeMap.containsKey(subject);
+
+	public boolean hasValueForSubject(String subjectShort) {
+		return subjectsGradeMap.containsKey(subjectShort);
 	}
-	
-	public Grades getGradeForSubject(CurriculumSubject subject) {
-		if(subjectsGradeMap.containsKey(subject)) {
-			return subjectsGradeMap.get(subject);
+
+	public Grades getGradeForSubject(String subjectShort) {
+		if (!hasValueForSubject(subjectShort)) {
+			return Grades.NOTPASSED;
 		}
-		return Grades.NOTPASSED;
+		return subjectsGradeMap.get(subjectShort).getValue1();
 	}
 
-	public void setGradeForSubject(CurriculumSubject subject, Grades grade) {
-		subjectsGradeMap.put(subject, grade);
+	public String getNameForSubject(String subjectShort) {
+		if (!hasValueForSubject(subjectShort)) {
+			return null;
+		}
+		return subjectsGradeMap.get(subjectShort).getValue0();
 	}
 
-	public void removeGradeForSubject(CurriculumSubject subject) {
-		subjectsGradeMap.remove(subject);
+	public void setGradeForSubject(String subjectShort, String subjectName, Grades grade) {
+		subjectsGradeMap.put(subjectShort, new Pair<String, Grades>(subjectName, grade));
+	}
+
+	public void removeGradeForSubject(String subjectShort) {
+		subjectsGradeMap.remove(courseOfStudies);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(courseOfStudies, matriculationNumber, name, subjectsGradeMap);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		return Objects.equals(courseOfStudies, other.courseOfStudies)
+				&& matriculationNumber == other.matriculationNumber && Objects.equals(name, other.name)
+				&& Objects.equals(subjectsGradeMap, other.subjectsGradeMap);
 	}
 
 }

@@ -23,13 +23,11 @@ public class GradeView implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		tfFilter.textProperty()
-            .bindBidirectional(gradeViewModel.filterProperty());
+		tfFilter.textProperty().bindBidirectional(gradeViewModel.filterProperty());
 
 		tfFilter.disableProperty().bind(gradeViewModel.curriculumListEmpty());
-		btFilter.disableProperty()
-            .bind(gradeViewModel.buttonDisabledProperty());
-		
+		btFilter.disableProperty().bind(gradeViewModel.buttonDisabledProperty());
+
 		tvGrades.setItems(gradeViewModel.getOListProperty());
 		gradeViewModel.getSelectedItemProperty().bind(tvGrades.getSelectionModel().selectedItemProperty());
 		tvGrades.setEditable(true);
@@ -54,7 +52,7 @@ public class GradeView implements Initializable {
 		// Default: sortieren nach Fachsemester
 		tvGrades.getSortOrder().addAll(tcSem, tcKrz, tcName);
 	}
-	
+
 	@FXML
 	public void onFilter() {
 		gradeViewModel.filterList();

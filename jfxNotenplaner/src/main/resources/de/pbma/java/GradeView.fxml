@@ -11,14 +11,15 @@
 	<children>
 		<HBox maxWidth="99999">
 			<children>
-				<TextField fx:id="tfFilter" maxWidth="99999" HBox.hgrow="ALWAYS" promptText="Fächer filtern"/>
-				<Button text="Filtern" fx:id="btFilter" onAction="#onFilter"/>
+				<TextField fx:id="tfFilter" maxWidth="99999"
+					HBox.hgrow="ALWAYS" promptText="Fächer filtern" />
+				<Button text="Filtern" fx:id="btFilter" onAction="#onFilter" />
 			</children>
 		</HBox>
 		<TableView maxWidth="99999" maxHeight="99999"
 			VBox.vgrow="ALWAYS" fx:id="tvGrades">
 			<placeholder>
-				<Label text="Kein Curriculum ausgewählt."/>
+				<Label text="Kein Curriculum ausgewählt." />
 			</placeholder>
 		</TableView>
 	</children>

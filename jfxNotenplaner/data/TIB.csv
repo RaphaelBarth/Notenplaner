@@ -1,38 +1,38 @@
 TIB;Technische Informatik;210.0
-EIP;Einführung in die Programmierung;true;Software;1;7.0
-ETI;Einführung in die Technische Informatik;true;Software;1;2.0
-ET1;Elektrotechnik 1;true;Grundlagen;1;5.0
-DT;Digitaltechnik;true;Grundlagen;1;5.0
-MA1;Mathematik 1;true;Grundlagen;1;5.0
-PH;Physik;true;Grundlagen;1;6.0
-WST;Wechselstromtechnik;true;Elektronik;2;4.0
-GST;Grundlagen der Schaltungstechnik;true;Elektronik;2;4.0
-MA2;Mathematik 2;true;Grundlagen;2;6.0
-RA;Rechnerarchitektur;true;Grundlagen;2;5.0
-ADS;Algorithmen und Datenstrukturen;true;Grundlagen;2;5.0
-OOP;Objektorientierte Programmierung;true;Software;2;6.0
-HPS;Höhere Programmiersprachen;true;Software;3;5.0
-CN1;Computernetzwerke;true;Vernetzung;3;5.0
-MA3;Mathematik 3;true;Grundlagen;3;6.0
-DB;Datenbanken;true;Software;3;5.0
-SS;Signale und Systeme;true;Signalverarbeitung;3;5.0
-DMC;Digital- und Microcomputertechnik;true;Embedded;3;5.0
-SOE;Software-Engineering;true;Software;4;5.0
-SET;Software-Entwicklungsmethoden und -Entwicklungstools;true;Software;4;5.0
-DSV;Digitale Signalverarbeitung;true;Signalverarbeitung;4;5.0
-EMB;Embedded Systems;true;Embedded;4;5.0
-BS;Betriebssysteme;true;Software;4;5.0
-CN2;Internet-Anwendungen und Protokolle;true;Vernetzung;4;5.0
-PS;Praxissemester;false;Praxis;5;25.0
-BV;Blockveranstaltung;false;Praxis;5;4.0
-RT;Regelungstechnik;true;Elektronik;6;5.0
-ML;Machine Learning;true;Software;6;5.0
-PLB;Programmierbare Logikbausteine;true;Schaltungen;6;5.0
-WF1;;true;Wahlfach;6;5.0
-QPM;Qualitäts- und Projektmanagementslehre;true;Management;6;5.0
-WAI;Web-Anwendungen;true;Medizin;6;5.0
-VS;Verteilte Systeme;true;Elektronik;6;5.0
-WF2;;true;Wahlfach;7;5.0
-WF3;;true;Wahlfach;7;5.0
-MOA;Mobile Anwendungen;true;Software;7;5.0
-BA;Bachelorarbeit;true;Wahlfach;7;15.0
+EIP;Einführung in die Programmierung;Software;true;1;7.0
+ETI;Einführung in die Technische Informatik;Software;true;1;2.0
+ET1;Elektrotechnik 1;Grundlagen;true;1;5.0
+DT;Digitaltechnik;Grundlagen;true;1;5.0
+MA1;Mathematik 1;Grundlagen;true;1;5.0
+PH;Physik;Grundlagen;true;1;6.0
+WST;Wechselstromtechnik;Elektronik;true;2;4.0
+GST;Grundlagen der Schaltungstechnik;Elektronik;true;2;4.0
+MA2;Mathematik 2;Grundlagen;true;2;6.0
+RA;Rechnerarchitektur;Grundlagen;true;2;5.0
+ADS;Algorithmen und Datenstrukturen;Grundlagen;true;2;5.0
+OOP;Objektorientierte Programmierung;Software;true;2;6.0
+HPS;Höhere Programmiersprachen;Software;true;3;5.0
+CN1;Computernetzwerke;Vernetzung;true;3;5.0
+MA3;Mathematik 3;Grundlagen;true;3;6.0
+DB;Datenbanken;Software;true;3;5.0
+SS;Signale und Systeme;Signalverarbeitung;true;3;5.0
+DMC;Digital- und Microcomputertechnik;Embedded;true;3;5.0
+SOE;Software-Engineering;Software;true;4;5.0
+SET;Software-Entwicklungsmethoden und -Entwicklungstools;Software;true;4;5.0
+DSV;Digitale Signalverarbeitung;Signalverarbeitung;true;4;5.0
+EMB;Embedded Systems;Embedded;true;4;5.0
+BS;Betriebssysteme;Software;true;4;5.0
+CN2;Internet-Anwendungen und Protokolle;Vernetzung;true;4;5.0
+PS;Praxissemester;Praxis;false;5;25.0
+BV;Blockveranstaltung;Praxis;false;5;4.0
+RT;Regelungstechnik;Elektronik;true;6;5.0
+ML;Machine Learning;Software;true;6;5.0
+PLB;Programmierbare Logikbausteine;Schaltungen;true;6;5.0
+WF1;;Wahlfach;true;6;5.0
+QPM;Qualitäts- und Projektmanagementslehre;Management;true;6;5.0
+WAI;Web-Anwendungen;Medizin;true;6;5.0
+VS;Verteilte Systeme;Elektronik;true;6;5.0
+WF2;;Wahlfach;true;7;5.0
+WF3;;Wahlfach;true;7;5.0
+MOA;Mobile Anwendungen;Software;true;7;5.0
+BA;Bachelorarbeit;Wahlfach;true;7;15.0

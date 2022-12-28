@@ -1,24 +1,15 @@
 package de.pbma.java;
 
-import java.io.Serializable;
-
-import javafx.application.Platform;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
-public class StudentData implements Serializable {
-	private static final long serialVersionUID = -1395111219643358238L;
+public class StudentData {
 	private static StudentData studentData;
 	private Student student;
+	private Object lock;
 
 	private StudentData() {
+		this.lock = new Object();
 	}
 
-	public static StudentData getStudentData() {
+	public static synchronized StudentData getStudentData() {
 		if (studentData == null) {
 			studentData = new StudentData();
 		}
@@ -26,11 +17,15 @@ public class StudentData implements Serializable {
 	}
 
 	public void updateStudentData(Student student) {
-		this.student = student;
+		synchronized (lock) {
+			this.student = student;
+		}
 
 	}
 
 	public Student getStudent() {
-		return student;
+		synchronized (lock) {
+			return (student == null) ? null : (Student) student.clone();
+		}
 	}
 }

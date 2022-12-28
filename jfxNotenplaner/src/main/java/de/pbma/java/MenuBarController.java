@@ -25,7 +25,7 @@ public class MenuBarController {
 		fileChooser.setTitle("Open Resource File");
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Comma Separated Value", "*.csv"));
-		File file = fileChooser.showOpenDialog(null);
+		final File file = fileChooser.showOpenDialog(null);
 		if (file == null) {
 			return;
 		}
@@ -63,13 +63,15 @@ public class MenuBarController {
 		fileChooser.setInitialFileName(filePath.getName());
 		fileChooser.setInitialDirectory(filePath.getParentFile());
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Comma Separated Value", "*.csv"));
-		File file = fileChooser.showSaveDialog(null);
+		final File file = fileChooser.showSaveDialog(null);
 		if (file == null) {
 			return;
 		}
 		new Thread(() -> {
+			var student = StudentData.getStudentData().getStudent();
+			fileLogic.setStudent(student);
 			fileLogic.saveStudentFile(file);
-		});
+		}).start();
 	}
 
 	@FXML

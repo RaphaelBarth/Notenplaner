@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Curriculum {
+public class Curriculum implements Cloneable {
 
 	private Abschluss abschluss;
 	private String name;
@@ -12,14 +12,14 @@ public class Curriculum {
 	private double credits;
 	private List<CurriculumSubject> subjects;
 
-	public Curriculum(String nameShort, String name, double credits, List<CurriculumSubject> subjects) {
+	public Curriculum(String nameShort, String name, double credits) {
 		this.name = name;
 		this.nameShort = nameShort;
 		this.credits = credits;
-		this.subjects = subjects;
+		this.subjects = new ArrayList<CurriculumSubject>();
 		if (nameShort.endsWith("B")) {
 			abschluss = Abschluss.BACHELOR;
-		} else if (nameShort.endsWith("B")) {
+		} else if (nameShort.endsWith("M")) {
 			abschluss = Abschluss.MASTER;
 		} else {
 			// throw new Exception("Abschluss konnte nicht bestimmt werden");
@@ -27,33 +27,6 @@ public class Curriculum {
 		}
 	}
 
-	public Curriculum(String nameShort, String name, double credits) {
-		this(nameShort, name, credits, new ArrayList<CurriculumSubject>());
-	}
-
-	@Override
-	public String toString() {
-		return "courseOfStudies [name=" + name + ", nameShort=" + nameShort + ", credits=" + credits + ", subjects="
-				+ subjects + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(credits, name, nameShort, subjects);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Curriculum other = (Curriculum) obj;
-		return credits == other.credits && Objects.equals(name, other.name)
-				&& Objects.equals(nameShort, other.nameShort) && Objects.equals(subjects, other.subjects);
-	}
 
 	public String getName() {
 		return name;
@@ -100,6 +73,51 @@ public class Curriculum {
 
 	public String getAbschluss() {
 		return abschluss.toString();
+	}
+
+	@Override
+	public String toString() {
+		return "courseOfStudies [name=" + name + ", nameShort=" + nameShort + ", credits=" + credits + ", subjects="
+				+ subjects + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(credits, name, nameShort, subjects);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Curriculum other = (Curriculum) obj;
+		return credits == other.credits && Objects.equals(name, other.name)
+				&& Objects.equals(nameShort, other.nameShort) && Objects.equals(subjects, other.subjects);
+	}
+
+	@Override
+	public Object clone() {
+		Curriculum newCurriculum = null;
+		try {
+			return (Curriculum) super.clone();
+		} catch (CloneNotSupportedException e) {
+			newCurriculum = new Curriculum(this.nameShort, this.name, this.credits);
+			for (var ele : this.subjects) {
+				var name = ele.getName();
+				var nameShort = ele.getShort();
+				var focus = ele.getFocus();
+				var eval = ele.hasGradeAsEvaluation();
+				var semester = ele.getSemester();
+				var credits = ele.getCreditPoints();
+				var curriculumSubject = new CurriculumSubject(name, nameShort, focus, eval, semester, credits);
+				newCurriculum.addSubject(curriculumSubject);
+			}
+			return newCurriculum;
+		}
 	}
 
 }

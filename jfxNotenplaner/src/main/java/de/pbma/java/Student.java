@@ -1,13 +1,12 @@
 package de.pbma.java;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import org.javatuples.Pair;
 
-public class Student {
+public class Student implements Cloneable{
 
 	private String name;
 	private int matriculationNumber;
@@ -19,12 +18,6 @@ public class Student {
 		this.matriculationNumber = matriculationNumber;
 		this.courseOfStudies = courseOfStudies;
 		subjectsGradeMap = new HashMap<>();
-	}
-
-	@Override
-	public String toString() {
-		return "Student [name=" + name + ", matriculationNumber=" + matriculationNumber + ", courseOfStudies="
-				+ courseOfStudies + ", subjectsGradeMap=" + subjectsGradeMap + "]";
 	}
 
 	public String getName() {
@@ -100,4 +93,26 @@ public class Student {
 				&& Objects.equals(subjectsGradeMap, other.subjectsGradeMap);
 	}
 
+	@Override
+	public String toString() {
+		return "Student [name=" + name + ", matriculationNumber=" + matriculationNumber + ", courseOfStudies="
+				+ courseOfStudies + ", subjectsGradeMap=" + subjectsGradeMap + "]";
+	}
+
+	@Override
+	public Object clone() {
+		Student newStudent = null;
+		try {
+			return (Student) super.clone();
+		} catch (CloneNotSupportedException e) {
+			newStudent = new Student(this.name, this.matriculationNumber, this.courseOfStudies);
+			for (var ele : this.subjectsGradeMap.entrySet()) {
+				var subjectShort = ele.getKey();
+				var subjectName = ele.getValue().getValue0();
+				var subjectGrade = ele.getValue().getValue1();
+				newStudent.setGradeForSubject(subjectShort, subjectName, subjectGrade);
+			}
+			return newStudent;
+		}
+	}
 }

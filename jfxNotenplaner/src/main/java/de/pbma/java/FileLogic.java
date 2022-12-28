@@ -11,7 +11,7 @@ public class FileLogic {
 
 	public FileLogic() {
 		this.userFiles = UserFiles.getUserFiles();
-		this.setCurriculum(null);
+		this.curriculum = null;
 		this.student = null;
 	}
 
@@ -69,5 +69,8 @@ public class FileLogic {
 
 	public void setCurriculum(Curriculum curriculum) {
 		this.curriculum = curriculum;
+	}
+	public File getCurrentCurriculumFile() {
+		return userFiles.getCurriculumFile();
 	}
 }

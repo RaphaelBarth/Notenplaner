@@ -15,12 +15,6 @@ public class StudentData implements Serializable {
 	private static StudentData studentData;
 	private Student student;
 
-	private final StringProperty name = new SimpleStringProperty(this, "name");
-	private final StringProperty courseOfStudies = new SimpleStringProperty(this, "courseOfStudies");
-	private final IntegerProperty matriculationNumber = new SimpleIntegerProperty(this, "matriculationNumber");
-	private final IntegerProperty currentCredits = new SimpleIntegerProperty(this, "currentCredits");
-	private final DoubleProperty currentGrade = new SimpleDoubleProperty(this, "currentGrade");
-
 	private StudentData() {
 	}
 
@@ -32,65 +26,11 @@ public class StudentData implements Serializable {
 	}
 
 	public void updateStudentData(Student student) {
-		final String name = student.getName();
-		final String courseOfStudies = student.getCourseOfStudies();
-		final int matriculationNumber = student.getMatriculationNumber();
-		// TODO calculate StudentData
-		final int currentGrade = 0;
-		final int currentCredits = 0;
-
-		Platform.runLater(() -> {
-			this.name.set(name);
-			this.courseOfStudies.setValue(courseOfStudies);
-			this.matriculationNumber.setValue(matriculationNumber);
-			this.currentCredits.setValue(currentCredits);
-			this.currentGrade.setValue(currentGrade);
-		});
+		this.student = student;
 
 	}
 
 	public Student getStudent() {
 		return student;
 	}
-
-	public StringProperty getNameProperty() {
-		return name;
-	}
-
-	public String getName() {
-		return name.getValue();
-	}
-
-	public StringProperty getCourseOfStudiesProperty() {
-		return courseOfStudies;
-	}
-
-	public String getCourseOfStudies() {
-		return courseOfStudies.getValue();
-	}
-
-	public IntegerProperty getMatriculationNumberProperty() {
-		return matriculationNumber;
-	}
-
-	public int getMatriculationNumber() {
-		return matriculationNumber.getValue();
-	}
-
-	public IntegerProperty getCurrentCreditsProperty() {
-		return currentCredits;
-	}
-
-	public int getCurrentCredits() {
-		return currentCredits.getValue();
-	}
-
-	public DoubleProperty getCurrentGradeProperty() {
-		return currentGrade;
-	}
-
-	public double getCurrentGrade() {
-		return currentGrade.getValue();
-	}
-
 }

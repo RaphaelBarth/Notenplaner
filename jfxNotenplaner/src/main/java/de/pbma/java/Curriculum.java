@@ -27,7 +27,6 @@ public class Curriculum implements Cloneable {
 		}
 	}
 
-
 	public String getName() {
 		return name;
 	}
@@ -40,8 +39,17 @@ public class Curriculum implements Cloneable {
 		return credits;
 	}
 
-	public List<CurriculumSubject> getSubjects() {
+	public List<CurriculumSubject> getAllSubjects() {
 		return subjects;
+	}
+
+	public CurriculumSubject getSubject(String subjectShort) {
+		for (var subject : subjects) {
+			if (subject.getShort().equals(subjectShort)) {
+				return subject;
+			}
+		}
+		return null;
 	}
 
 	public boolean addSubject(Subject subject, int semester, double credits) {

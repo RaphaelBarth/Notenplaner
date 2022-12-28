@@ -12,7 +12,7 @@ public class Curriculum {
 	private double credits;
 	private List<CurriculumSubject> subjects;
 
-	public Curriculum(String name, String nameShort, double credits, List<CurriculumSubject> subjects) {
+	public Curriculum(String nameShort, String name, double credits, List<CurriculumSubject> subjects) {
 		this.name = name;
 		this.nameShort = nameShort;
 		this.credits = credits;
@@ -27,8 +27,8 @@ public class Curriculum {
 		}
 	}
 
-	public Curriculum(String name, String nameShort, double credits) {
-		this(name, nameShort, credits, new ArrayList<CurriculumSubject>());
+	public Curriculum(String nameShort, String name, double credits) {
+		this(nameShort, name, credits, new ArrayList<CurriculumSubject>());
 	}
 
 	@Override

@@ -2,58 +2,51 @@ package de.pbma.java;
 
 import java.util.Objects;
 
-public class CurriculumSubject {
-	Subject subject;
+public class CurriculumSubject extends Subject {
 	int semester;
 	double credits;
 
-	public CurriculumSubject(Subject s, int semester, double credits) {
-		subject = s;
+	public CurriculumSubject(String subjectShort, String subject, String focus, boolean hasGradeAsEvaluation,
+			int semester, double credits) {
+		super(subjectShort, subject, focus, hasGradeAsEvaluation);
 		this.semester = semester;
 		this.credits = credits;
+	}
+
+	public CurriculumSubject(Subject s, int semester, double credits) {
+		this(s.getName(), s.getShort(), s.getFocus(), s.hasGradeAsEvaluation(), semester, credits);
 	}
 
 	public double getCreditPoints() {
 		return credits;
 	}
 
-	public Subject getSubject() {
-		return subject;
-	}
-
-	public String getFocus() {
-		return subject.getFocus();
-	}
-
-	public String getSubjectShort() {
-		return subject.getShort();
-	}
-
 	public int getSemester() {
 		return semester;
 	}
-	
-	public String getName() {
-		return subject.getName();
-	}
-	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(credits, semester, subject.getShort());
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(credits, semester);
+		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		CurriculumSubject other = (CurriculumSubject) obj;
-		return Double.doubleToLongBits(credits) == Double.doubleToLongBits(other.credits) && semester == other.semester
-				&& Objects.equals(subject.getShort(), other.subject.getShort());
+		if (Double.doubleToLongBits(credits) != Double.doubleToLongBits(other.credits))
+			return false;
+		if (semester != other.semester)
+			return false;
+		return true;
 	}
-
 
 }

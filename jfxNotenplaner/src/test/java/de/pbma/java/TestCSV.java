@@ -1,7 +1,6 @@
 package de.pbma.java;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,79 +18,87 @@ public class TestCSV {
 	@Before
 	public void setUp() {
 		// setup curriculum
-		List<Subject> subjects = new ArrayList<>();
-		subjects.add(new Subject("EIP", "Einführung in die Programmierung", "Software", 1, 7));
-		subjects.add(new Subject("ET1", "Elektrotechnik 1", "Grundlagen", 1, 5));
-		subjects.add(new Subject("MED1", "Grundlagen der Medizin", "Medizin", 1, 3.5));
-		subjects.add(new Subject("DT", "Digitaltechnik", "Grundlagen", 1, 5));
-		subjects.add(new Subject("MA1", "Mathematik 1", "Grundlagen", 1, 5));
-		subjects.add(new Subject("PH", "Physik", "Grundlagen", 1, 6));
-
-		subjects.add(new Subject("MED2", "Anatomie, Physiologie, Biochemie", "Medizin", 2, 3.5));
-		subjects.add(new Subject("WST", "Wechselstromtechnik", "Elektronik", 2, 4));
-		subjects.add(new Subject("GST", "Grundlagen der Schaltungstechnik", "Elektronik", 2, 4));
-		subjects.add(new Subject("MA2", "Mathematik 2", "Grundlagen", 2, 6));
-		subjects.add(new Subject("OOP", "Objektorientierte Programmierung", "Software", 2, 6));
-
-		subjects.add(new Subject("HPS", "Höhere Programmiersprachen", "Software", 3, 5));
-		subjects.add(new Subject("EMT", "Einführung in die Medizintechnik", "Medizin", 3, 1));
-		subjects.add(new Subject("EEL", "Entwurf elektronischer Schaltungen", "Elektronik", 3, 5));
-		subjects.add(new Subject("WPF1a", "Felder", "Elektronik", 3, 5));
-		subjects.add(new Subject("DB", "Datenbanken", "Software", 3, 5));
-		subjects.add(new Subject("SS", "Signale und Systeme", "Signalverarbeitung", 3, 5));
-		subjects.add(new Subject("DMC", "Digital- und Microcomputertechnik", "Embedded", 3, 5));
-		subjects.add(new Subject("MA3", "Mathematik 3", "Grundlagen", 3, 6));
-
-		subjects.add(new Subject("SOE", "Software-Engineering", "Software", 4, 5));
-		subjects.add(new Subject("SET", "Software-Entwicklungsmethoden und -Entwicklungstools", "Software", 4, 5));
-		subjects.add(new Subject("APH", "Angewandte Physik", "Grundlagen", 4, 5));
-		subjects.add(new Subject("DSV", "Digitale Signalverarbeitung", "Signalverarbeitung", 4, 5));
-		subjects.add(new Subject("EMB", "Embedded Systems", "Embedded", 4, 5));
-		subjects.add(new Subject("BS", "Betriebssysteme", "Software", 4, 5));
-		subjects.add(new Subject("HF", "Hochfrequenztechnik", "Elektronik", 4, 5));
-
-		subjects.add(new Subject("PS", "Praxissemester", "Software", 5, 25));
-		subjects.add(new Subject("BV", "Blockveranstaltung", "Software", 5, 5));
-
-		subjects.add(new Subject("BVM", "Bilgebende Verfahren in der Medizintechnik", "Medizin", 6, 5));
-		subjects.add(new Subject("MED3", "Klinische Medizin", "Medizin", 6, 4));
-		subjects.add(new Subject("KIM", "Künstliche Intelligenz in der Medizintechnik", "Medizin", 6, 5));
-		subjects.add(new Subject("NE", "Neural Engineering", "Elektronik", 6, 5));
-		subjects.add(new Subject("PLB", "Programmierbare Logikbausteine", "Schaltungen", 6, 5));
-		subjects.add(new Subject("MST", "Mess- und Sensortechnik", "Elektronik", 6, 5));
-		subjects.add(new Subject("RT", "Regelungstechnik", "Elektronik", 6, 5));
-		subjects.add(new Subject("ML", "Machine Learning", "Software", 6, 5));
-
-		subjects.add(new Subject("WF1", "", "Wahlfach", 7, 5));
-		subjects.add(new Subject("WF2", "", "Wahlfach", 7, 5));
-		subjects.add(new Subject("ZMP", "Zulassung von Medizinprodukten", "Medizin", 7, 5));
-
-		subjects.add(new Subject("BA", "Bachelorarbeit", "Wahlfach", 7, 15));
-		curriculum = new Curriculum("Medizintechnik", "MTB", 210, subjects);
+		List<CurriculumSubject> CurriculumSubjects = new ArrayList<>();
+//		CurriculumSubjects.add(new CurriculumSubject("EIP", "Einführung in die Programmierung", "Software", 1, 7));
+//		CurriculumSubjects.add(new CurriculumSubject("ET1", "Elektrotechnik 1", "Grundlagen", 1, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("MED1", "Grundlagen der Medizin", "Medizin", 1, 3.5));
+//		CurriculumSubjects.add(new CurriculumSubject("DT", "Digitaltechnik", "Grundlagen", 1, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("MA1", "Mathematik 1", "Grundlagen", 1, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("PH", "Physik", "Grundlagen", 1, 6));
+//
+//		CurriculumSubjects.add(new CurriculumSubject("MED2", "Anatomie, Physiologie, Biochemie", "Medizin", 2, 3.5));
+//		CurriculumSubjects.add(new CurriculumSubject("WST", "Wechselstromtechnik", "Elektronik", 2, 4));
+//		CurriculumSubjects.add(new CurriculumSubject("GST", "Grundlagen der Schaltungstechnik", "Elektronik", 2, 4));
+//		CurriculumSubjects.add(new CurriculumSubject("MA2", "Mathematik 2", "Grundlagen", 2, 6));
+//		CurriculumSubjects.add(new CurriculumSubject("OOP", "Objektorientierte Programmierung", "Software", 2, 6));
+//
+//		CurriculumSubjects.add(new CurriculumSubject("HPS", "Höhere Programmiersprachen", "Software", 3, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("EMT", "Einführung in die Medizintechnik", "Medizin", 3, 1));
+//		CurriculumSubjects.add(new CurriculumSubject("EEL", "Entwurf elektronischer Schaltungen", "Elektronik", 3, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("WPF1a", "Felder", "Elektronik", 3, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("DB", "Datenbanken", "Software", 3, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("SS", "Signale und Systeme", "Signalverarbeitung", 3, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("DMC", "Digital- und Microcomputertechnik", "Embedded", 3, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("MA3", "Mathematik 3", "Grundlagen", 3, 6));
+//
+//		CurriculumSubjects.add(new CurriculumSubject("SOE", "Software-Engineering", "Software", 4, 5));
+//		CurriculumSubjects.add(
+//				new CurriculumSubject("SET", "Software-Entwicklungsmethoden und -Entwicklungstools", "Software", 4, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("APH", "Angewandte Physik", "Grundlagen", 4, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("DSV", "Digitale Signalverarbeitung", "Signalverarbeitung", 4, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("EMB", "Embedded Systems", "Embedded", 4, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("BS", "Betriebssysteme", "Software", 4, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("HF", "Hochfrequenztechnik", "Elektronik", 4, 5));
+//
+//		CurriculumSubjects.add(new CurriculumSubject("PS", "Praxissemester", "Software", 5, 25));
+//		CurriculumSubjects.add(new CurriculumSubject("BV", "Blockveranstaltung", "Software", 5, 5));
+//
+//		CurriculumSubjects
+//				.add(new CurriculumSubject("BVM", "Bilgebende Verfahren in der Medizintechnik", "Medizin", 6, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("MED3", "Klinische Medizin", "Medizin", 6, 4));
+//		CurriculumSubjects
+//				.add(new CurriculumSubject("KIM", "Künstliche Intelligenz in der Medizintechnik", "Medizin", 6, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("NE", "Neural Engineering", "Elektronik", 6, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("PLB", "Programmierbare Logikbausteine", "Schaltungen", 6, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("MST", "Mess- und Sensortechnik", "Elektronik", 6, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("RT", "Regelungstechnik", "Elektronik", 6, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("ML", "Machine Learning", "Software", 6, 5));
+//
+//		CurriculumSubjects.add(new CurriculumSubject("WF1", "", "Wahlfach", 7, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("WF2", "", "Wahlfach", 7, 5));
+//		CurriculumSubjects.add(new CurriculumSubject("ZMP", "Zulassung von Medizinprodukten", "Medizin", 7, 5));
+//
+		CurriculumSubjects.add(new CurriculumSubject("BA", "Bachelorarbeit", "Wahlfach",true, 7, 15));
+		curriculum = new Curriculum("Medizintechnik", "MTB", 210, CurriculumSubjects);
 
 		// setup student
-		List<CompletedSubjects> completedSubjects = new ArrayList<>();
-		completedSubjects.add(new CompletedSubjects("PI", "Praktische Informatik", Grades.FOURPLUS));
-		completedSubjects.add(new CompletedSubjects("ES", "Elektrische Schaltungen", Grades.ONE));
-		completedSubjects.add(new CompletedSubjects("WF1", "Java", Grades.ONE));
-		completedSubjects.add(new CompletedSubjects("EMB", "Embedded Systems", Grades.TWOMINUS));
-		completedSubjects.add(new CompletedSubjects("MA", "Mathematik", Grades.THREEPLUS));
-		completedSubjects.add(new CompletedSubjects("DB", "Datenbanken", Grades.TWOPLUS));
-		student = new Student("Hans Baum", 123456789, "MTB", completedSubjects);
+		student = new Student("Hans Baum", 123456789, "MTB");
+		student.setGradeForSubject(
+				new CurriculumSubject("BVM", "Bilgebende Verfahren in der Medizintechnik", "Medizin",true, 6, 5),
+				Grades.ONE);
+		student.setGradeForSubject(new CurriculumSubject("MED3", "Klinische Medizin", "Medizin",true, 6, 4),
+				Grades.THREEMINUS);
+		student.setGradeForSubject(
+				new CurriculumSubject("KIM", "Künstliche Intelligenz in der Medizintechnik", "Medizin",true, 6, 5),
+				Grades.FOUR);
+		student.setGradeForSubject(new CurriculumSubject("NE", "Neural Engineering", "Elektronik",true, 6, 5),
+				Grades.PASSED);
+		student.setGradeForSubject(new CurriculumSubject("PLB", "Programmierbare Logikbausteine", "Schaltungen",true, 6, 5),
+				Grades.TWO);
+		student.setGradeForSubject(new CurriculumSubject("MST", "Mess- und Sensortechnik", "Elektronik",true, 6, 5),
+				Grades.THREE);
+		student.setGradeForSubject(new CurriculumSubject("RT", "Regelungstechnik", "Elektronik",true, 6, 5),
+				Grades.NOTPASSED);
+		student.setGradeForSubject(new CurriculumSubject("ML", "Machine Learning", "Software",true, 6, 5), Grades.FOUR);
+
 	}
 
 	@Test
-	public void testCurricula() throws ParserException, FileNotFoundException {
+	public void testCurriculum() throws ParserException, FileNotFoundException {
 		var cFile = new File(curriculum.getNameShort() + ".csv");
 		var writeCSV = new CSVFileWriter(cFile);
 		writeCSV.saveCurriculum(curriculum);
-		CSVFileParser parser = null;
-		try {
-			parser = new CSVFileParser(cFile);
-		} catch (FileNotFoundException e) {
-			assertTrue(true);
-		}
-		assertEquals(curriculum, parser.getCurriculum());
+		assertEquals(curriculum, CSVFileParser.getCurriculum(cFile));
 		// cFile.delete();
 	}
 
@@ -100,8 +107,7 @@ public class TestCSV {
 		var sFile = new File("s.csv");
 		var writeCSV = new CSVFileWriter(sFile);
 		writeCSV.saveStudent(student);
-		var parser = new CSVFileParser(sFile);
-		assertEquals(student, parser.getStudent());
+		assertEquals(student, CSVFileParser.getStudent(sFile));
 		sFile.delete();
 	}
 

@@ -2,12 +2,10 @@ package de.pbma.java;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Map.Entry;
 import java.util.Scanner;
 
-import org.javatuples.Pair;
 import org.javatuples.Triplet;
-import org.javatuples.Tuple;
+
 
 public class CSVFileParser {
 	private static final String DELIMITER = ";";
@@ -77,6 +75,7 @@ public class CSVFileParser {
 			var credits = Double.parseDouble(rowScanner.next());
 			curriculumSubject = new CurriculumSubject(shortName, name, focus, hasGradeAsEvaluation, semester, credits);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new ParserException(e.getMessage());
 		}
 		return curriculumSubject;

@@ -1,38 +1,38 @@
 TIB;Technische Informatik;210.0
-EIP;Einführung in die Programmierung;Software;1;7.0
-ETI;Einführung in die Technische Informatik;Software;1;2.0
-ET1;Elektrotechnik 1;Grundlagen;1;5.0
-DT;Digitaltechnik;Grundlagen;1;5.0
-MA1;Mathematik 1;Grundlagen;1;5.0
-PH;Physik;Grundlagen;1;6.0
-WST;Wechselstromtechnik;Elektronik;2;4.0
-GST;Grundlagen der Schaltungstechnik;Elektronik;2;4.0
-MA2;Mathematik 2;Grundlagen;2;6.0
-RA;Rechnerarchitektur;Grundlagen;2;5.0
-ADS;Algorithmen und Datenstrukturen;Grundlagen;2;5.0
-OOP;Objektorientierte Programmierung;Software;2;6.0
-HPS;Höhere Programmiersprachen;Software;3;5.0
-CN1;Computernetzwerke;Vernetzung;3;5.0
-MA3;Mathematik 3;Grundlagen;3;6.0
-DB;Datenbanken;Software;3;5.0
-SS;Signale und Systeme;Signalverarbeitung;3;5.0
-DMC;Digital- und Microcomputertechnik;Embedded;3;5.0
-SOE;Software-Engineering;Software;4;5.0
-SET;Software-Entwicklungsmethoden und -Entwicklungstools;Software;4;5.0
-DSV;Digitale Signalverarbeitung;Signalverarbeitung;4;5.0
-EMB;Embedded Systems;Embedded;4;5.0
-BS;Betriebssysteme;Software;4;5.0
-CN2;Internet-Anwendungen und Protokolle;Vernetzung;4;5.0
-PS;Praxissemester;Praxis;5;25.0
-BV;Blockveranstaltung;Praxis;5;4.0
-RT;Regelungstechnik;Elektronik;6;5.0
-ML;Machine Learning;Software;6;5.0
-PLB;Programmierbare Logikbausteine;Schaltungen;6;5.0
-WF1;;Wahlfach;6;5.0
-QPM;Qualitäts- und Projektmanagementslehre;Management;6;5.0
-WAI;Web-Anwendungen;Medizin;6;5.0
-VS;Verteilte Systeme;Elektronik;6;5.0
-WF2;;Wahlfach;7;5.0
-WF3;;Wahlfach;7;5.0
-MOA;Mobile Anwendungen;Software;7;5.0
-BA;Bachelorarbeit;Wahlfach;7;15.0
+EIP;Einführung in die Programmierung;true;Software;1;7.0
+ETI;Einführung in die Technische Informatik;true;Software;1;2.0
+ET1;Elektrotechnik 1;true;Grundlagen;1;5.0
+DT;Digitaltechnik;true;Grundlagen;1;5.0
+MA1;Mathematik 1;true;Grundlagen;1;5.0
+PH;Physik;true;Grundlagen;1;6.0
+WST;Wechselstromtechnik;true;Elektronik;2;4.0
+GST;Grundlagen der Schaltungstechnik;true;Elektronik;2;4.0
+MA2;Mathematik 2;true;Grundlagen;2;6.0
+RA;Rechnerarchitektur;true;Grundlagen;2;5.0
+ADS;Algorithmen und Datenstrukturen;true;Grundlagen;2;5.0
+OOP;Objektorientierte Programmierung;true;Software;2;6.0
+HPS;Höhere Programmiersprachen;true;Software;3;5.0
+CN1;Computernetzwerke;true;Vernetzung;3;5.0
+MA3;Mathematik 3;true;Grundlagen;3;6.0
+DB;Datenbanken;true;Software;3;5.0
+SS;Signale und Systeme;true;Signalverarbeitung;3;5.0
+DMC;Digital- und Microcomputertechnik;true;Embedded;3;5.0
+SOE;Software-Engineering;true;Software;4;5.0
+SET;Software-Entwicklungsmethoden und -Entwicklungstools;true;Software;4;5.0
+DSV;Digitale Signalverarbeitung;true;Signalverarbeitung;4;5.0
+EMB;Embedded Systems;true;Embedded;4;5.0
+BS;Betriebssysteme;true;Software;4;5.0
+CN2;Internet-Anwendungen und Protokolle;true;Vernetzung;4;5.0
+PS;Praxissemester;false;Praxis;5;25.0
+BV;Blockveranstaltung;false;Praxis;5;4.0
+RT;Regelungstechnik;true;Elektronik;6;5.0
+ML;Machine Learning;true;Software;6;5.0
+PLB;Programmierbare Logikbausteine;true;Schaltungen;6;5.0
+WF1;;true;Wahlfach;6;5.0
+QPM;Qualitäts- und Projektmanagementslehre;true;Management;6;5.0
+WAI;Web-Anwendungen;true;Medizin;6;5.0
+VS;Verteilte Systeme;true;Elektronik;6;5.0
+WF2;;true;Wahlfach;7;5.0
+WF3;;true;Wahlfach;7;5.0
+MOA;Mobile Anwendungen;true;Software;7;5.0
+BA;Bachelorarbeit;true;Wahlfach;7;15.0

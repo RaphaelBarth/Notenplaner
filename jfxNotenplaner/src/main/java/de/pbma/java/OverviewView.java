@@ -39,11 +39,11 @@ public class OverviewView implements Initializable {
 		lblMatriculationNumber.textProperty().bind(overviewViewModel.getMatNrProperty().asString());
 		lblCourseOfStudies.textProperty().bind(overviewViewModel.getCourseOfStudiesProperty());
 		lblAbschluss.textProperty().bind(overviewViewModel.getAbschlussProperty());
-		lblCurrentGrade.textProperty().bind(overviewViewModel.getCurrentGradeProperty().asString());
+		lblCurrentGrade.textProperty().bind(overviewViewModel.getCurrentGradeProperty().asString("%.1f"));
 		lblCurrentCredits.textProperty().bind(overviewViewModel.getCurrentCredidtsProperty().asString());
 		lblMaxCredits.textProperty().bind(overviewViewModel.getMaxCreditsProperty().asString());
-		lblBestGrade.textProperty().bind(overviewViewModel.getBestGradeProperty().asString());
-		lblWorstGrade.textProperty().bind(overviewViewModel.getWorstGradeProperty().asString());
+		lblBestGrade.textProperty().bind(overviewViewModel.getBestGradeProperty().asString("%.1f"));
+		lblWorstGrade.textProperty().bind(overviewViewModel.getWorstGradeProperty().asString("%.1f"));
 		pgiCredits.progressProperty().bind(overviewViewModel.getProgressProperty());
 		lblMatriculationNumber.visibleProperty().bind(overviewViewModel.getVisibilityProperty());
 		lblCurrentGrade.visibleProperty().bind(overviewViewModel.getVisibilityProperty());

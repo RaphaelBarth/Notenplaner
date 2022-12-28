@@ -1,5 +1,6 @@
 package de.pbma.java;
 
+import javafx.application.Platform;
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -27,23 +28,60 @@ public class OverviewViewModel {
 		NumberBinding progress = currentCredidtsProperty.divide(maxCreditsProperty);
 		progressProperty.bind(progress);
 		visibilityProperty.bind(nameProperty.isNotEmpty());
-		if (StudentData.getStudentData().getStudent() != null) {
-			showStudent(StudentData.getStudentData().getStudent());
-		}
-		if (CurriculumData.getData().getCurriculum() != null) {
-			showCurriculumData(CurriculumData.getData().getCurriculum());
-		}
+		updateView();
 	}
 
-	public void showStudent(Student student) {
-		setName(student.getName());
-		setMatNr(student.getMatriculationNumber());
-		setCourseOfStudies(student.getCourseOfStudies());
-	}
+	public void updateView() {
+		new Thread(() -> {
 
-	public void showCurriculumData(Curriculum curriculum) {
-		setAbschluss(curriculum.getAbschluss());
-		setMaxCredidts(curriculum.getCredits());
+			final var student = StudentData.getStudentData().getStudent();
+			final var curriculum = CurriculumData.getData().getCurriculum();
+			if (student == null || curriculum == null) {
+				return;
+			}
+			var currentGradeTmp = 0.0;
+			var currentGradeCreditsTmp = 0.0;
+			var currentCreditsTmp = 0.0;
+			for(var subject : student.getSubjectGradeMap().entrySet()) {
+				var credits = curriculum.getSubject(subject.getKey()).getCreditPoints();
+				currentCreditsTmp+=credits;
+				var grade = subject.getValue().getValue1();
+				if(grade == Grades.PASSED || grade == Grades.NOTPASSED) {
+					continue;
+				}
+				currentGradeCreditsTmp += credits;
+				currentGradeTmp += (credits*grade.value);
+			}
+			final var currentGrade =currentGradeTmp / currentGradeCreditsTmp;
+			final var currentCredits = currentCreditsTmp;
+			
+			var bestGradeTmp = currentGradeTmp;
+			var wortsGradeTmp = currentGradeTmp;
+			for(var subject : curriculum.getAllSubjects()) {
+				if(!subject.hasGradeAsEvaluation()) {
+					continue;
+				}
+				if(student.hasValueForSubject(subject.getShort())) {
+					continue;
+				}
+				currentGradeCreditsTmp += subject.getCreditPoints();
+				bestGradeTmp += subject.getCreditPoints()*Grades.ONE.value;
+				wortsGradeTmp += subject.getCreditPoints()*Grades.FOUR.value;
+			}
+			final var bestGrade = bestGradeTmp/currentGradeCreditsTmp;
+			final var wortsGrade = wortsGradeTmp/currentGradeCreditsTmp;
+			Platform.runLater(() -> {
+				setName(student.getName());
+				setMatNr(student.getMatriculationNumber());
+				setCourseOfStudies(student.getCourseOfStudies());
+				setAbschluss(curriculum.getAbschluss());
+				setCurrentCredidts(currentCredits);
+				setMaxCredidts(curriculum.getCredits());
+				setCurrentGrade(currentGrade);
+				setBestGrade(bestGrade);
+				setWorstGrade(wortsGrade);
+			});
+		}).start();;
 	}
 
 	public StringProperty getNameProperty() {

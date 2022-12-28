@@ -75,7 +75,7 @@ public class GradeViewModel {
 
 	public void addSubjectsToTable() {
 		// var student = StudentData.getStudentData().getStudent();
-		for (var s : CurriculumData.getData().getCurriculum().getSubjects()) {
+		for (var s : CurriculumData.getData().getCurriculum().getAllSubjects()) {
 			// TODO use: student.getGradeForSubject(s).toString()
 			oList.add(new ModuleEntry(s.getShort(), s.getName(), s.getFocus(), s.getSemester(), s.getCreditPoints()));
 		}
@@ -83,7 +83,7 @@ public class GradeViewModel {
 
 	public void addSubjectsAndGradesToTable() {
 		var student = StudentData.getStudentData().getStudent();
-		for (var s : CurriculumData.getData().getCurriculum().getSubjects()) {
+		for (var s : CurriculumData.getData().getCurriculum().getAllSubjects()) {
 			var grade = student.getGradeForSubject(s.getShort()).toString();
 			var specificName = student.getNameForSubject(s.getShort());
 			var subjectName = specificName == null ? s.getName() : specificName;

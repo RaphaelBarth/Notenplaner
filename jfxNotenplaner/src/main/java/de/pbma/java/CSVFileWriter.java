@@ -44,7 +44,7 @@ public class CSVFileWriter {
 		stringBuilder.append(DELIMITER);
 		stringBuilder.append(curriculum.getCredits());
 		stringBuilder.append("\n");
-		for (var subject : curriculum.getSubjects()) {
+		for (var subject : curriculum.getAllSubjects()) {
 			var string = this.toCSVString(subject);
 			stringBuilder.append(string);
 		}

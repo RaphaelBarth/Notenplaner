@@ -21,7 +21,7 @@ public enum Grades {
 		} else if (this == PASSED) {
 			retVal = "bestanden";
 		} else {
-			retVal = String.format("%.f", value);
+			retVal = String.format("%.1f", value);
 		}
 		return retVal;
 	}

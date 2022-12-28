@@ -9,5 +9,6 @@ module de.pbma.java {
 	
 	// for fxml
 	requires transitive javafx.fxml;
+	requires javatuples;
 	opens de.pbma.java to javafx.fxml;
 }

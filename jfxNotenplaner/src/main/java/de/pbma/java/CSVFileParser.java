@@ -11,15 +11,13 @@ public class CSVFileParser {
 		if (!file.exists()) {
 			throw new FileNotFoundException();
 		}
-
 		Curriculum curriculum = null;
-
 		try (Scanner scanner = new Scanner(file)) {
 			var header = scanner.nextLine();
 			curriculum = CSVFileParser.toCurriculum(header);
 			while (scanner.hasNextLine()) {
 				var line = scanner.nextLine();
-				CurriculumSubject subject = toSubject(line);
+				CurriculumSubject subject = toCurriculumSubject(line);
 				curriculum.addSubject(subject);
 			}
 		} catch (FileNotFoundException e) {
@@ -32,9 +30,7 @@ public class CSVFileParser {
 		if (!file.exists()) {
 			throw new FileNotFoundException();
 		}
-
 		Student student = null;
-
 		try (Scanner scanner = new Scanner(file)) {
 			var header = scanner.nextLine();
 			student = CSVFileParser.toStudent(header);
@@ -50,30 +46,35 @@ public class CSVFileParser {
 	}
 
 	private static Curriculum toCurriculum(String string) throws ParserException {
-		Curriculum c = null;
+		Curriculum curriculum = null;
 		try (Scanner rowScanner = new Scanner(string)) {
 			rowScanner.useDelimiter(DELIMITER);
-			c = new Curriculum(rowScanner.next(), rowScanner.next(), Double.parseDouble(rowScanner.next()));
+			var nameShort = rowScanner.next();
+			var name = rowScanner.next();
+			var credits = Double.parseDouble(rowScanner.next());
+			curriculum = new Curriculum(nameShort, name, credits);
 		} catch (Exception e) {
 			throw new ParserException(e.getMessage());
 		}
-		return c;
+		return curriculum;
 	}
 
-	private static CurriculumSubject toSubject(String string) throws ParserException {
-		CurriculumSubject subject = null;
+	private static CurriculumSubject toCurriculumSubject(String string) throws ParserException {
+		CurriculumSubject curriculumSubject = null;
 		System.out.println(string);
 		try (Scanner rowScanner = new Scanner(string)) {
 			rowScanner.useDelimiter(DELIMITER);
 			var shortName = rowScanner.next();
 			var name = rowScanner.next();
 			var focus = rowScanner.next();
-			var s = new Subject(shortName, name, focus);
-			subject = new CurriculumSubject(s, rowScanner.nextInt(), Double.parseDouble(rowScanner.next()));
+			var hasGradeAsEvaluation = rowScanner.nextBoolean();
+			var semester = rowScanner.nextInt();
+			var credits = Double.parseDouble(rowScanner.next());
+			curriculumSubject = new CurriculumSubject(shortName,name,focus,hasGradeAsEvaluation,semester,credits);
 		} catch (Exception e) {
 			throw new ParserException(e.getMessage());
 		}
-		return subject;
+		return curriculumSubject;
 	}
 
 //	private CompletedSubject toCompletedSubjects(String string) throws ParserException {

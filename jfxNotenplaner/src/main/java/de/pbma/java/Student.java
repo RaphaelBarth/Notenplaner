@@ -28,10 +28,12 @@ public class Student {
 		this(name, matriculationNumber, courseOfStudies, null);
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Student [name=" + name + ", matriculationNumber=" + matriculationNumber + ", courseOfStudies="
-				+ courseOfStudies + "]";
+				+ courseOfStudies + ", subjectsGradeMap=" + subjectsGradeMap + "]";
 	}
 
 	public String getName() {

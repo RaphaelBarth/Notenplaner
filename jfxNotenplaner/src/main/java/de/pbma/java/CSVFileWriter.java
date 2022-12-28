@@ -51,11 +51,13 @@ public class CSVFileWriter {
 
 	private String toCSVString(CurriculumSubject subject) {
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(subject.getSubjectShort());
+		stringBuilder.append(subject.getShort());
 		stringBuilder.append(DELIMITER);
-		stringBuilder.append(subject.getSubject());
+		stringBuilder.append(subject.getName());
 		stringBuilder.append(DELIMITER);
 		stringBuilder.append(subject.getFocus());
+		stringBuilder.append(DELIMITER);
+		stringBuilder.append(subject.hasGradeAsEvaluation());
 		stringBuilder.append(DELIMITER);
 		stringBuilder.append(subject.getSemester());
 		stringBuilder.append(DELIMITER);
@@ -72,21 +74,24 @@ public class CSVFileWriter {
 		stringBuilder.append(DELIMITER);
 		stringBuilder.append(student.getCourseOfStudies());
 		stringBuilder.append("\n");
-//		for (var completedSubject : student.getCompletedSubjects()) {
-//			var string = this.toCSVString(completedSubject);
-//			stringBuilder.append(string);
-//		}
+		for (var ele : student.getSubjectGradeMap().entrySet()) {
+			System.out.println(student);
+			System.out.println(ele);
+			var string = this.toCSVString(ele.getKey(), ele.getValue().value);
+			stringBuilder.append(string);
+		}
 		return stringBuilder.toString();
 	}
 
-//	private String toCSVString(CompletedSubject completedSubject) {
-//		StringBuilder stringBuilder = new StringBuilder();
-//		stringBuilder.append(completedSubject.getSubjectShort());
-//		stringBuilder.append(DELIMITER);
-//		stringBuilder.append(completedSubject.getSubject());
-//		stringBuilder.append(DELIMITER);
-//		stringBuilder.append(completedSubject.getGrade().value);
-//		stringBuilder.append("\n");
-//		return stringBuilder.toString();
-//	}
+	private Object toCSVString(CurriculumSubject subject, double grade) {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(subject.getShort());
+		stringBuilder.append(DELIMITER);
+		stringBuilder.append(subject.getName());
+		stringBuilder.append(DELIMITER);
+		stringBuilder.append(grade);
+		stringBuilder.append("\n");
+		return stringBuilder.toString();
+	}
+
 }

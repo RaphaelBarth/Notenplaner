@@ -49,8 +49,6 @@ public class MainGUIController {
 		}
 	}
 
-	
-	
 	private enum ContentType {
 		OVERVIEW(ContentType.class.getResource("Overview.fxml"), "tabOverview"),
 		GRADEVIEW(ContentType.class.getResource("GradeView.fxml"), "tabGrades"),

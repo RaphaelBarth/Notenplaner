@@ -1,14 +1,18 @@
 package de.pbma.java;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class GradeView implements Initializable {
@@ -21,6 +25,7 @@ public class GradeView implements Initializable {
 
 	GradeViewModel gradeViewModel = new GradeViewModel();
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		tfFilter.textProperty().bindBidirectional(gradeViewModel.filterProperty());
@@ -43,9 +48,11 @@ public class GradeView implements Initializable {
 		tcSem.setCellValueFactory(new PropertyValueFactory<>(ModuleEntry.SEM));
 		TableColumn<ModuleEntry, Integer> tcCps = new TableColumn<>("CPs");
 		tcCps.setCellValueFactory(new PropertyValueFactory<>(ModuleEntry.CPS));
-		TableColumn<ModuleEntry, Double> tcNote = new TableColumn<>("Note");
+		TableColumn<ModuleEntry, String> tcNote = new TableColumn<>("Note");
 		tcNote.setCellValueFactory(new PropertyValueFactory<>(ModuleEntry.NOTE));
-		// TODO alle möglichen Noten und - als Optionen anzeigen
+		ObservableList<String> gradeOList = FXCollections.observableArrayList();
+		Arrays.asList(Grades.values()).forEach(v -> gradeOList.add(v.toString()));
+		tcNote.setCellFactory(ComboBoxTableCell.forTableColumn(gradeOList.sorted()));
 
 		tvGrades.getColumns().addAll(tcKrz, tcName, tcBereich, tcSem, tcCps, tcNote);
 

@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 public class GradeView implements Initializable {
 	@FXML
@@ -42,6 +43,7 @@ public class GradeView implements Initializable {
 		tcKrz.setCellValueFactory(new PropertyValueFactory<>(ModuleEntry.KRZ));
 		TableColumn<ModuleEntry, String> tcName = new TableColumn<>("Name");
 		tcName.setCellValueFactory(new PropertyValueFactory<>(ModuleEntry.NAME));
+		tcName.setCellFactory(TextFieldTableCell.forTableColumn());
 		TableColumn<ModuleEntry, String> tcBereich = new TableColumn<>("Bereich");
 		tcBereich.setCellValueFactory(new PropertyValueFactory<>(ModuleEntry.BEREICH));
 		TableColumn<ModuleEntry, Integer> tcSem = new TableColumn<>("Fachsem");
@@ -53,6 +55,8 @@ public class GradeView implements Initializable {
 		ObservableList<String> gradeOList = FXCollections.observableArrayList();
 		Arrays.asList(Grades.values()).forEach(v -> gradeOList.add(v.toString()));
 		tcNote.setCellFactory(ComboBoxTableCell.forTableColumn(gradeOList.sorted()));
+		// TODO auf Änderungen in der ComboBox reagiern
+		// TODO ComboBox Optionen abhängig davon ob Fach Noten bekommen kann
 
 		tvGrades.getColumns().addAll(tcKrz, tcName, tcBereich, tcSem, tcCps, tcNote);
 

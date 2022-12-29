@@ -7,7 +7,7 @@
 <?import java.util.*?>
 <?import java.lang.Object?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml/1" hgap="5"
+<GridPane fx:controller="de.pbma.java.NewFileController" xmlns:fx="http://javafx.com/fxml/1" hgap="5"
 	vgap="10" alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity">
 	<style> -fx-spacing: 5; -fx-padding: 10 </style>
 	<columnConstraints>

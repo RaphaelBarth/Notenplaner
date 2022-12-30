@@ -68,7 +68,7 @@ public class OverviewViewModel {
 				if (!subject.hasGradeAsEvaluation()) {
 					continue;
 				}
-				if (student.hasValueForSubject(subject.getShort())) {
+				if (student.hasGradeForSubject(subject.getShort())) {
 					continue;
 				}
 				currentGradeCreditsTmp += subject.getCreditPoints();

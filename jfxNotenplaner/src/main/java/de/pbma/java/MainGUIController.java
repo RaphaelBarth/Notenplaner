@@ -59,7 +59,7 @@ public class MainGUIController {
 	private enum ContentType {
 		OVERVIEW(ContentType.class.getResource("Overview.fxml"), "tabOverview", "Übersicht"),
 		GRADEVIEW(ContentType.class.getResource("GradeView.fxml"), "tabGrades", "Noten"),
-		ANALYSEVIEW(ContentType.class.getResource("AnalyseView.fxml"), "AnalyseView", "AnalyseView"),
+		ANALYSEVIEW(ContentType.class.getResource("AnalyseView.fxml"), "AnalyseView", "Analyse"),
 		EDITORVIEW(ContentType.class.getResource("EditorView.fxml"), "EditorView", "Editor")
 		;
 

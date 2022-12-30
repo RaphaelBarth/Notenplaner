@@ -2,6 +2,7 @@ package de.pbma.java;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -64,9 +65,13 @@ public class FileLogic {
 		}
 		return retval;
 	}
-	
-	public void saveCurriculumFile(File file) {
-		System.out.format("Datei \"%s\" speichern\n", file.toString());
+
+	public void saveCurriculumFile(String curriculumShort) {
+		final String directory = "data/";
+		final String extension = ".csv";
+		String fileName = directory + curriculumShort + extension;
+		System.out.format("Datei \"%s\" speichern\n", fileName);
+		File file = Paths.get(fileName).toFile();
 		userFiles.setCurriculumFile(file);
 		CSVFileWriter writer = new CSVFileWriter(file);
 		writer.saveCurriculum(curriculum);
@@ -84,15 +89,12 @@ public class FileLogic {
 		return userFiles.getCurriculumFile();
 	}
 
-	public Map<String,File> getCurriculumFiles() {
+	public Map<String, File> getCurriculumFiles() {
 		final String directory = "data/";
 		final String extension = ".csv";
-		var fileSet = Stream.of(new File(directory).listFiles())
-			.filter(file -> !file.isDirectory())
-			.filter(file -> file.getName().endsWith(extension))
-			.collect(Collectors.toMap(
-					file -> file.getName().replaceFirst("[.][^.]+$",""),
-					file -> file));
+		var fileSet = Stream.of(new File(directory).listFiles()).filter(file -> !file.isDirectory())
+				.filter(file -> file.getName().endsWith(extension))
+				.collect(Collectors.toMap(file -> file.getName().replaceFirst("[.][^.]+$", ""), file -> file));
 		return fileSet;
 	}
 }

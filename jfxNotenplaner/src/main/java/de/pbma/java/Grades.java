@@ -56,10 +56,10 @@ public enum Grades {
 	public static Grades getByValue(Double value) {
 		return BY_VALUE.getOrDefault(value, NOTPASSED);
 	}
-	
+
 	public static Grades fromString(String value) throws DataFormatException {
-		for(var grade: Grades.values()) {
-			if(grade.toString().equals(value)) {
+		for (var grade : Grades.values()) {
+			if (grade.toString().equals(value)) {
 				return grade;
 			}
 		}

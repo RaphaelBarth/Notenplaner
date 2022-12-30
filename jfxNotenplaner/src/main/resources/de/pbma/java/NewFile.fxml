@@ -6,6 +6,7 @@
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import java.lang.Object?>
+<?import de.pbma.java.NumberTextField?>
 
 <GridPane fx:controller="de.pbma.java.NewFileController" xmlns:fx="http://javafx.com/fxml/1" hgap="5"
 	vgap="10" alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity">
@@ -22,7 +23,7 @@
 		GridPane.rowIndex="1" />
 	<Label text="Matrikel Nr:" GridPane.columnIndex="0"
 		GridPane.rowIndex="2" />
-	<TextField fx:id="tfMatriculationNumber"
+	<NumberTextField fx:id="tfMatriculationNumber"
 		GridPane.columnIndex="1" GridPane.rowIndex="2" />
 	<Label text="Studiengang:" GridPane.columnIndex="0"
 		GridPane.rowIndex="3" />

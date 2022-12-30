@@ -39,7 +39,6 @@ public class OverviewView implements Initializable {
 		lblMatriculationNumber.textProperty().bind(overviewViewModel.getMatNrProperty().asString());
 		lblCourseOfStudies.textProperty().bind(overviewViewModel.getCourseOfStudiesProperty());
 		lblAbschluss.textProperty().bind(overviewViewModel.getAbschlussProperty());
-		lblCurrentGrade.textProperty().bind(overviewViewModel.getCurrentGradeProperty().asString("%.1f"));
 		lblCurrentCredits.textProperty().bind(overviewViewModel.getCurrentCredidtsProperty().asString());
 		lblMaxCredits.textProperty().bind(overviewViewModel.getMaxCreditsProperty().asString());
 		lblBestGrade.textProperty().bind(overviewViewModel.getBestGradeProperty().asString("%.1f"));
@@ -52,6 +51,11 @@ public class OverviewView implements Initializable {
 		lblWorstGrade.visibleProperty().bind(overviewViewModel.getVisibilityProperty());
 		lblCurrentCredits.visibleProperty().bind(overviewViewModel.getVisibilityProperty());
 		pgiCredits.visibleProperty().bind(overviewViewModel.getVisibilityProperty());
+
+		overviewViewModel.getCurrentGradeProperty().addListener((observable, oldValue, newValue) -> {
+			var gradeText = Double.isNaN((double) newValue) ? "keine Note" : String.format("%.1f", newValue);
+			lblCurrentGrade.setText(gradeText);
+		});
 
 	}
 

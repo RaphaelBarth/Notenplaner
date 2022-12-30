@@ -2,6 +2,7 @@ package de.pbma.java;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.stream.Stream;
 
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -32,7 +33,13 @@ public class MainGUIController {
 		lblStatus.setText("BananenPalme");
 		setCurrentView(ContentType.OVERVIEW);
 		tabp.getSelectionModel().selectedItemProperty().addListener(this::tabListener);
-
+		var tabs = Stream.of(ContentType.values()).map(content -> {
+			var tab = new Tab();
+			tab.setId(content.id);
+			tab.setText(content.name);
+			return tab;
+		}).toList();
+		tabp.getTabs().addAll(tabs);
 	}
 
 	private void tabListener(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
@@ -50,16 +57,20 @@ public class MainGUIController {
 	}
 
 	private enum ContentType {
-		OVERVIEW(ContentType.class.getResource("Overview.fxml"), "tabOverview"),
-		GRADEVIEW(ContentType.class.getResource("GradeView.fxml"), "tabGrades"),
-		ANALYSEVIEW(ContentType.class.getResource(""), ""), EDITORVIEW(ContentType.class.getResource(""), "");
+		OVERVIEW(ContentType.class.getResource("Overview.fxml"), "tabOverview", "Übersicht"),
+		GRADEVIEW(ContentType.class.getResource("GradeView.fxml"), "tabGrades", "Noten"),
+		ANALYSEVIEW(ContentType.class.getResource("AnalyseView.fxml"), "AnalyseView", "AnalyseView"),
+		EDITORVIEW(ContentType.class.getResource("EditorView.fxml"), "EditorView", "Editor")
+		;
 
 		public final URL url;
 		public final String id;
+		public final String name;
 
-		ContentType(URL url, String string) {
+		ContentType(URL url, String string, String name) {
 			this.url = url;
 			this.id = string;
+			this.name = name;
 		}
 
 		public static ContentType getContentType(String id) {

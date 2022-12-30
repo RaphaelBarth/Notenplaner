@@ -1,7 +1,15 @@
 package de.pbma.java;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
 
 public class ModuleEntry implements Serializable {
 	private static final long serialVersionUID = -8674008613457029157L;
@@ -12,72 +20,78 @@ public class ModuleEntry implements Serializable {
 	public static final String CPS = "cps";
 	public static final String NOTE = "note";
 
-	private String krz;
-	private String name;
-	private String bereich;
-	private int sem;
-	private double cps;
-	private String note;
+	private final static List<String> normalEvaluation = FXCollections
+			.observableArrayList(Arrays.asList(Grades.PASSED.toString(), Grades.NOTPASSED.toString()));
+	private final static List<String> gradeEvaluation = FXCollections.observableArrayList(Stream.of(Grades.values())
+			.filter(g -> g != Grades.PASSED).map(g -> g.toString()).sorted().collect(Collectors.toList()));
 
-	public ModuleEntry(String krz, String name, String bereich, int sem, double cps, String note) {
-		this.krz = krz;
-		this.name = name;
-		this.bereich = bereich;
-		this.sem = sem;
-		this.cps = cps;
-		this.note = note;
-	}
+	private ModuleEntryData entryData;
+	private StringProperty gradeProperty;
+	private StringProperty nameProperty;
 
-	public ModuleEntry(String krz, String name, String bereich, int sem, double cps) {
-		this(krz, name, bereich, sem, cps, "-");
+	public ModuleEntry(ModuleEntryData entryData) {
+		this.entryData = entryData;
+		this.gradeProperty = new SimpleStringProperty();
+		this.nameProperty = new SimpleStringProperty();
+		this.nameProperty.setValue(entryData.getName());
+		this.gradeProperty.setValue(entryData.getNote());
+
 	}
 
 	public String getKrz() {
-		return krz;
+		return entryData.getKrz();
 	}
 
 	public void setKrz(String krz) {
-		this.krz = krz;
+		this.entryData.setKrz(krz);
 	}
 
 	public String getName() {
-		return name;
+		return this.nameProperty.getValue();
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.nameProperty.setValue(name);
+		this.entryData.setName(name);
 	}
 
 	public String getBereich() {
-		return bereich;
+		return this.entryData.getBereich();
 	}
 
 	public int getSem() {
-		return sem;
+		return this.entryData.getSem();
 	}
 
 	public double getCps() {
-		return cps;
+		return this.entryData.getCps();
 	}
 
 	public String getNote() {
-		return note;
+		return this.gradeProperty.getValue();
 	}
 
 	public void setNote(String note) {
-		this.note = note;
+		this.gradeProperty.setValue(note);
+		this.entryData.setNote(note);
+	}
+
+	public List<String> getPossibleEvaluations() {
+		return (this.entryData.isGreadEvaluation()) ? gradeEvaluation : normalEvaluation;
+	}
+
+	public Boolean nameIsEditable() {
+		return this.entryData.getIsWahlfach();
 	}
 
 	@Override
 	public String toString() {
-		return "ModuleEntry [" + (krz != null ? "krz=" + krz + ", " : "") + (name != null ? "name=" + name + ", " : "")
-				+ (bereich != null ? "bereich=" + bereich + ", " : "") + "sem=" + sem + ", cps=" + cps + ", note="
-				+ note + "]";
+		return "ModuleEntry [entryData=" + entryData + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(bereich, cps, krz, name, note, sem);
+		return Objects.hash(entryData);
 	}
 
 	@Override
@@ -89,7 +103,15 @@ public class ModuleEntry implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ModuleEntry other = (ModuleEntry) obj;
-		return Objects.equals(bereich, other.bereich) && cps == other.cps && Objects.equals(krz, other.krz)
-				&& Objects.equals(name, other.name) && Objects.equals(note, other.note) && sem == other.sem;
+		return Objects.equals(entryData, other.entryData);
 	}
+
+	public StringProperty getGradeProperty() {
+		return gradeProperty;
+	}
+
+	public StringProperty getNameProperty() {
+		return nameProperty;
+	}
+
 }

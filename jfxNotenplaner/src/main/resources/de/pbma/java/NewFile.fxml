@@ -27,10 +27,10 @@
 	<Label text="Studiengang:" GridPane.columnIndex="0"
 		GridPane.rowIndex="3" />
 	<ComboBox fx:id="cbCourseOfStudies" GridPane.columnIndex="1"
-		GridPane.rowIndex="3" promptText="Studiengang wählen" />
-	<HBox GridPane.rowIndex="5" GridPane.columnSpan="2" padding="5">
-		<Button text="Abbrechen" fx:id="btCancel" onAction="#onCancel" HBox.hgrow="ALWAYS"/>
-		<Button text="Okay" fx:id="btOkay" onAction="#onOkay" HBox.hgrow="ALWAYS"/>
+		GridPane.rowIndex="3" promptText="Studiengang wählen" maxWidth="Infinity"/>
+	<HBox GridPane.rowIndex="5" GridPane.columnSpan="2" spacing="5">
+		<Button text="Abbrechen" fx:id="btCancel" onAction="#onCancel" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+		<Button text="Okay" fx:id="btOkay" onAction="#onOkay" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
 	</HBox>
 
 </GridPane>

@@ -1,13 +1,22 @@
 package de.pbma.java;
 
 import java.io.File;
+import java.io.IOException;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class MenuBarController {
 	private FileLogic fileLogic;
@@ -18,11 +27,12 @@ public class MenuBarController {
 
 	@FXML
 	private void handleLoadAction(ActionEvent ae) {
+		Window owner = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Comma Separated Value", "*.csv"));
-		final File file = fileChooser.showOpenDialog(null);
+		final File file = fileChooser.showOpenDialog(owner);
 		if (file == null) {
 			return;
 		}
@@ -32,8 +42,8 @@ public class MenuBarController {
 				var curriculum = fileLogic.getStudent().getCourseOfStudies();
 				var curriculumFile = fileLogic.getCurriculumFiles().get(curriculum);
 				if (curriculumFile != null && fileLogic.loadCurriculumFile(curriculumFile)) {
-					CurriculumData.getData().update(fileLogic.getCurriculum());
-					StudentData.getStudentData().updateStudentData(fileLogic.getStudent());
+					CurriculumData.getData().setCurriculum(fileLogic.getCurriculum());
+					StudentData.getData().setStudentData(fileLogic.getStudent());
 				} else {
 					msgTmp = "Curriculum für Notensatz konnte nicht gefunden werden.";
 				}
@@ -56,18 +66,21 @@ public class MenuBarController {
 	@FXML
 	private void handleSaveAction(ActionEvent ae) {
 		File filePath = fileLogic.getCurrentStudentFile();
-
+		if (filePath == null) {
+			return;
+		}
+		Window owner = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Save Resource File");
 		fileChooser.setInitialFileName(filePath.getName());
 		fileChooser.setInitialDirectory(filePath.getParentFile());
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Comma Separated Value", "*.csv"));
-		final File file = fileChooser.showSaveDialog(null);
-		if (file == null) {
+		final File file = fileChooser.showSaveDialog(owner);
+		final var student = StudentData.getData().getStudent();
+		if (file == null || student == null) {
 			return;
 		}
 		new Thread(() -> {
-			var student = StudentData.getStudentData().getStudent();
 			fileLogic.setStudent(student);
 			fileLogic.saveStudentFile(file);
 		}).start();
@@ -75,7 +88,20 @@ public class MenuBarController {
 
 	@FXML
 	private void handleNewAction(ActionEvent ae) {
-		MenuBarController.class.getResource("NewFile.fxml");
+		final var url = MenuBarController.class.getResource("NewFile.fxml");
+		Window owner = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+		Stage stage = new Stage();
+		Parent root;
+		try {
+			root = FXMLLoader.load(url);
+			stage.setScene(new Scene(root));
+			stage.setTitle("My modal window");
+			stage.initModality(Modality.WINDOW_MODAL);
+			stage.initOwner(owner);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML

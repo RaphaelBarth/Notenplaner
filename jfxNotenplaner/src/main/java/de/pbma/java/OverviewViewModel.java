@@ -24,17 +24,24 @@ public class OverviewViewModel {
 	private DoubleProperty progressProperty = new SimpleDoubleProperty();
 	private BooleanProperty visibilityProperty = new SimpleBooleanProperty();
 
+
 	public OverviewViewModel() {
 		NumberBinding progress = currentCredidtsProperty.divide(maxCreditsProperty);
 		progressProperty.bind(progress);
 		visibilityProperty.bind(nameProperty.isNotEmpty());
+		CurriculumData.getData().getObjectProperty().addListener((observable, oldValue, newValue) ->{
+			updateView();
+		});
+		StudentData.getData().getObjectProperty().addListener((observable, oldValue, newValue) ->{
+			updateView();
+		});
 		updateView();
 	}
 
 	public void updateView() {
 		new Thread(() -> {
 
-			final var student = StudentData.getStudentData().getStudent();
+			final var student = StudentData.getData().getStudent();
 			final var curriculum = CurriculumData.getData().getCurriculum();
 			if (student == null || curriculum == null) {
 				return;
@@ -42,34 +49,34 @@ public class OverviewViewModel {
 			var currentGradeTmp = 0.0;
 			var currentGradeCreditsTmp = 0.0;
 			var currentCreditsTmp = 0.0;
-			for(var subject : student.getSubjectGradeMap().entrySet()) {
+			for (var subject : student.getSubjectGradeMap().entrySet()) {
 				var credits = curriculum.getSubject(subject.getKey()).getCreditPoints();
-				currentCreditsTmp+=credits;
+				currentCreditsTmp += credits;
 				var grade = subject.getValue().getValue1();
-				if(grade == Grades.PASSED || grade == Grades.NOTPASSED) {
+				if (grade == Grades.PASSED || grade == Grades.NOTPASSED) {
 					continue;
 				}
 				currentGradeCreditsTmp += credits;
-				currentGradeTmp += (credits*grade.value);
+				currentGradeTmp += (credits * grade.value);
 			}
-			final var currentGrade =currentGradeTmp / currentGradeCreditsTmp;
+			final var currentGrade = currentGradeTmp / currentGradeCreditsTmp;
 			final var currentCredits = currentCreditsTmp;
-			
+
 			var bestGradeTmp = currentGradeTmp;
 			var wortsGradeTmp = currentGradeTmp;
-			for(var subject : curriculum.getAllSubjects()) {
-				if(!subject.hasGradeAsEvaluation()) {
+			for (var subject : curriculum.getAllSubjects()) {
+				if (!subject.hasGradeAsEvaluation()) {
 					continue;
 				}
-				if(student.hasValueForSubject(subject.getShort())) {
+				if (student.hasValueForSubject(subject.getShort())) {
 					continue;
 				}
 				currentGradeCreditsTmp += subject.getCreditPoints();
-				bestGradeTmp += subject.getCreditPoints()*Grades.ONE.value;
-				wortsGradeTmp += subject.getCreditPoints()*Grades.FOUR.value;
+				bestGradeTmp += subject.getCreditPoints() * Grades.ONE.value;
+				wortsGradeTmp += subject.getCreditPoints() * Grades.FOUR.value;
 			}
-			final var bestGrade = bestGradeTmp/currentGradeCreditsTmp;
-			final var wortsGrade = wortsGradeTmp/currentGradeCreditsTmp;
+			final var bestGrade = bestGradeTmp / currentGradeCreditsTmp;
+			final var wortsGrade = wortsGradeTmp / currentGradeCreditsTmp;
 			Platform.runLater(() -> {
 				setName(student.getName());
 				setMatNr(student.getMatriculationNumber());
@@ -81,7 +88,8 @@ public class OverviewViewModel {
 				setBestGrade(bestGrade);
 				setWorstGrade(wortsGrade);
 			});
-		}).start();;
+		}).start();
+		;
 	}
 
 	public StringProperty getNameProperty() {

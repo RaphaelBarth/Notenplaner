@@ -2,6 +2,7 @@ package de.pbma.java;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
@@ -51,8 +52,13 @@ public class NewFileController implements Initializable {
 		btOkay.disableProperty()
 				.bind(Bindings.isEmpty(tfMatriculationNumber.textProperty())
 						.or(Bindings.isEmpty(tfStudentName.textProperty()))
-						.or(Bindings.isNull(cbCourseOfStudies.valueProperty()))); 
+						.or(Bindings.isNull(cbCourseOfStudies.valueProperty())));
 		cbCourseOfStudies.setItems(oList);
+		tfStudentName.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (!newValue.matches("\\sa-zA-ZäöüÄÖÜß*")) {
+				tfStudentName.setText(newValue.replaceAll("[^\\sa-zA-ZäöüÄÖÜß]", ""));
+			}
+		});
 	}
 
 	@FXML
@@ -65,10 +71,11 @@ public class NewFileController implements Initializable {
 	public void onOkay() {
 		System.out.println("neue notenübersicht erstellen");
 		Window owner = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
-		
+
 		var curriculumType = cbCourseOfStudies.getSelectionModel().getSelectedItem();
 		File fileTmp = fileLogic.getCurriculumFiles().getOrDefault(curriculumType, null);
-		if (curriculumType.equals(newCurriculum)) {
+		final var externesCurriculum = (fileTmp==null)?true:false;
+		if (externesCurriculum) {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open Resource File");
 			fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
@@ -76,20 +83,23 @@ public class NewFileController implements Initializable {
 			fileTmp = fileChooser.showOpenDialog(owner);
 		}
 		if (fileTmp == null) {
-			exit();
+			return;
 		}
 		final File file = fileTmp;
 		new Thread(() -> {
 			if (!fileLogic.loadCurriculumFile(file)) {
 				errorDialog("Banane", "Erdbeere");
 			}
-			fileLogic.saveCurriculumFile(file);
 			Curriculum curriculum = fileLogic.getCurriculum();
+			if(externesCurriculum) {
+				fileLogic.saveCurriculumFile(curriculum.getNameShort());
+			}
 			CurriculumData.getData().setCurriculum(curriculum);
 			var name = tfStudentName.getText();
 			var matriculationNumber = Integer.parseInt(tfMatriculationNumber.getText());
 			Student student = new Student(name, matriculationNumber, curriculum.getNameShort());
 			StudentData.getData().setStudentData(student);
+			UserFiles.getUserFiles().setStudentFile(Paths.get(student.getName()+".csv").toFile());
 		}).start();
 		exit();
 

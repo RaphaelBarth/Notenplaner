@@ -121,11 +121,19 @@ public class GradeViewModel {
 		Grades grade;
 		try {
 			grade = Grades.fromString(newGrade);
-			student.setGradeForSubject(subjectShort, subjectName, grade);
+			System.out.format("neuer Note: %s\n", newGrade);
+			student.setGradeForSubject(subjectShort, grade);
 		} catch (DataFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public void setSubjectName(String subjectShort, String subjectName) {
+		var student = StudentData.getData().getStudent();
+		student.setNameForSubject(subjectShort, subjectName);
+		System.out.format("neuer Name: %s\n", subjectName);
+
 	}
 
 }

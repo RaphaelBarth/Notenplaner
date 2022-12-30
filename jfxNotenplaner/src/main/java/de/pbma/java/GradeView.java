@@ -74,14 +74,31 @@ public class GradeView implements Initializable {
 					}
 				}
 			});
+			cell.itemProperty().addListener((obs, oldName, newName) -> {
+				TableRow<ModuleEntry> row = cell.getTableRow();
+				if (row == null) {
+					return;
+				} else {
+					ModuleEntry item = (ModuleEntry) cell.getTableRow().getItem();
+					if (item == null || !item.nameIsEditable()) {
+						return;
+					} else {
+						if (oldName == null || newName == null) {
+							return;
+						}
+						if (!newName.equals(item.getSubjectName())) {
+							item.setSubjectName(newName);
+							gradeViewModel.setSubjectName(item.getShortName(), newName);
+						}
+					}
+				}
+			});
 			return cell;
 		});
 
-		// TODO auf Änderungen in der ComboBox und im Namen reagiern
-
 		tcNote.setCellFactory(cellFactoryComboBoxColumn);
 		tvGrades.getColumns().addAll(Arrays.asList(tcKrz, tcName, tcBereich, tcSem, tcCps, tcNote));
-		// Default: sortieren nach Fachsemester
+		// Default: sortieren nach Fachsemester, Kürzel und Name
 		tvGrades.getSortOrder().addAll(Arrays.asList(tcSem, tcKrz, tcName));
 	}
 

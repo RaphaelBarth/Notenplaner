@@ -5,25 +5,16 @@ Java-Projekt: Notenplaner
     git clone https://scm.inftech.hs-mannheim.de/scm2/repo/2022/javagb
 * Starten Sie Eclipse mit einem beliebigen (am besten neuen) workspace
   NEHMEN SIE *NICHT* *NOT* *NON* *STOP* DIESEN ORDNER ALS WORKSPACE
-  
-In Eclipse erstellen Sie ein
-  *neues* Java-Projekt im Ordner Prgs als Java-Projekt.
-Eclipse kriegt dann alles richtig hin.
 
-Sie können alle Aufgaben in diesem einen Projekt Prgs erledigen.
-Sie können das in Java in Pakten organisieren
-* nur Kleinbuchstaben, keine Ziffern am Anfang, keine Leer-/Sonderzeichen
-* Pakete sind Ordner
-Sie dürfen auch weitere Java-Projekte in diesem Ordner anlegen, die
-dann parallel/neben Prgs liegen.
+Das Projekt kann über den Ordner jfxNotenplaner in Eclipse geöffnet werden. 
+
 
 ## Aufgabe
 Verwaltung mehrerer Curricula von Studiengängen. 
-Die Daten eines Studiengangs halten Sie als Text-Datei, zum Beispiel als CSV1-Datei vor. 
+Die Daten eines Studiengangs halten Sie als als CSV-Datei vor. 
 Für jedes Modul, das in die Endnote eingeht, merken Sie sich Name, Kürzel, Bereich, Fachsemester und Credit-Points(CP).
 
-Noten für Module, die zwischen 1,0 und 4,0 in den übli-
-chen Abständen liegen, geben Sie über das GUI ein. 
+Noten für Module, die zwischen 1,0 und 4,0 in den üblichen Abständen liegen, geben Sie über das GUI ein. 
 
 Das Curriculum soll unabhängig von den Einzel-Daten eines Studenten bleiben. 
 Beachten Sie, dass keine Note und eine Note große Unterschiede machen. 
@@ -53,7 +44,7 @@ Unsere Ideen
 + Ziele setzen: Anzeige welche Noten erreicht werden müssen, um Ziel zu erreichen
 + Notenschnitt eines Semesters
 + Notenverteilung: Welche Noten der Student schon bekommen hat zB. 5x 1,0, 2x2,3, usw... als Balkendiagramm oder ähnliches
-+ Dropdownliste beim Laden von Noten, dass nur verfügbare Dateien angezeigt werden.
++ Dropdownliste beim Laden von Noten, dass nur verfügbare Noten angezeigt werden.
 + zwei Notensätze laden und Vergleiche anbieten
 
 Ideen von Barth

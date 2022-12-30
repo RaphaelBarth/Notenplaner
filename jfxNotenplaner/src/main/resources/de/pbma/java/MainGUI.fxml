@@ -16,10 +16,6 @@
 		<TabPane fx:id="tabp" side="LEFT"
 			tabClosingPolicy="UNAVAILABLE" tabMaxHeight="99999"
 			maxHeight="Infinity">
-			<tabs>
-				<Tab fx:id="tabOverview" text="Übersicht" />
-				<Tab fx:id="tabGrades" text="Noten" />
-			</tabs>
 		</TabPane>
 	</left>
 	<center></center>

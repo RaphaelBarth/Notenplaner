@@ -40,8 +40,9 @@ public class CSVFileParser {
 			while (scanner.hasNextLine()) {
 				var line = scanner.nextLine();
 				var ele = toCompletedSubjects(line);
-				student.setGradeForSubject(ele.getValue0(), ele.getValue1(),ele.getValue2());
-			}
+				student.setNameForSubject(ele.getValue0(),ele.getValue1());
+				student.setGradeForSubject(ele.getValue0(),ele.getValue2());
+}
 		} catch (FileNotFoundException e) {
 			throw new ParserException(e.getMessage());
 		}

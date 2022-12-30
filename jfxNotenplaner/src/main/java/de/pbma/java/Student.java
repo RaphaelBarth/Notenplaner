@@ -6,7 +6,7 @@ import java.util.Objects;
 
 import org.javatuples.Pair;
 
-public class Student implements Cloneable{
+public class Student implements Cloneable {
 
 	private String name;
 	private int matriculationNumber;
@@ -66,8 +66,23 @@ public class Student implements Cloneable{
 		return subjectsGradeMap.get(subjectShort).getValue0();
 	}
 
-	public void setGradeForSubject(String subjectShort, String subjectName, Grades grade) {
+	public void setValuesForSubject(String subjectShort, String subjectName, Grades grade) {
 		subjectsGradeMap.put(subjectShort, new Pair<String, Grades>(subjectName, grade));
+	}
+
+	public void setGradeForSubject(String subjectShort, Grades grade) {
+		var values = subjectsGradeMap.getOrDefault(subjectShort, null);
+		String value0 = (values != null) ? values.getValue0() : "";
+		Grades value1 = grade;
+		setValuesForSubject(subjectShort, value0, value1);
+
+	}
+
+	public void setNameForSubject(String subjectShort, String subjectName) {
+		var values = subjectsGradeMap.getOrDefault(subjectShort, null);
+		String value0 = subjectName;
+		Grades value1 = (values != null) ? values.getValue1() : Grades.NOTPASSED;
+		setValuesForSubject(subjectShort, value0, value1);
 	}
 
 	public void removeGradeForSubject(String subjectShort) {
@@ -110,7 +125,7 @@ public class Student implements Cloneable{
 				var subjectShort = ele.getKey();
 				var subjectName = ele.getValue().getValue0();
 				var subjectGrade = ele.getValue().getValue1();
-				newStudent.setGradeForSubject(subjectShort, subjectName, subjectGrade);
+				newStudent.setValuesForSubject(subjectShort, subjectName, subjectGrade);
 			}
 			return newStudent;
 		}

@@ -75,14 +75,14 @@ public class TestCSV {
 
 		// setup student
 		student = new Student("Hans Baum", 123456789, "MTB");
-		student.setGradeForSubject("BVM", "Bilgebende Verfahren in der Medizintechnik", Grades.FOUR);
-		student.setGradeForSubject("MED3", "Klinische Medizin", Grades.THREEMINUS);
-		student.setGradeForSubject("KIM", "Künstliche Intelligenz in der Medizintechnik", Grades.FOUR);
-		student.setGradeForSubject("NE", "Neural Engineering", Grades.PASSED);
-		student.setGradeForSubject("PLB", "Programmierbare Logikbausteine", Grades.TWO);
-		student.setGradeForSubject("MST", "Mess- und Sensortechnik", Grades.THREE);
-		student.setGradeForSubject("RT", "Regelungstechnik", Grades.NOTPASSED);
-		student.setGradeForSubject("ML", "Machine Learning", Grades.FOUR);
+		student.setValuesForSubject("BVM", "Bilgebende Verfahren in der Medizintechnik", Grades.FOUR);
+		student.setValuesForSubject("MED3", "Klinische Medizin", Grades.THREEMINUS);
+		student.setValuesForSubject("KIM", "Künstliche Intelligenz in der Medizintechnik", Grades.FOUR);
+		student.setValuesForSubject("NE", "Neural Engineering", Grades.PASSED);
+		student.setValuesForSubject("PLB", "Programmierbare Logikbausteine", Grades.TWO);
+		student.setValuesForSubject("MST", "Mess- und Sensortechnik", Grades.THREE);
+		student.setValuesForSubject("RT", "Regelungstechnik", Grades.NOTPASSED);
+		student.setValuesForSubject("ML", "Machine Learning", Grades.FOUR);
 
 	}
 

@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 public class GradeViewModel {
@@ -20,8 +21,50 @@ public class GradeViewModel {
 	public GradeViewModel() {
 		curriculumListEmpty.bind(Bindings.size(oList).isEqualTo(0));
 		buttonDisabled.bind(textFieldText.isEmpty()); // you can not filter, if nothing is entered
-		if (CurriculumData.getData().getCurriculum() != null) {
-			addSubjectsAndGradesToTable();
+		CurriculumData.getData().getObjectProperty().addListener((observable, oldValue, newValue) -> {
+			updateView();
+		});
+		StudentData.getData().getObjectProperty().addListener((observable, oldValue, newValue) -> {
+			updateView();
+		});
+		updateView();
+		oList.addListener(new ListChangeListener<ModuleEntry>() {
+			@Override
+			public void onChanged(Change<? extends ModuleEntry> c) {
+
+				System.out.println(c);
+
+			}
+		});
+	}
+
+	public void updateView() {
+		var student = StudentData.getData().getStudent();
+		var curriculum = CurriculumData.getData().getCurriculum();
+		if (curriculum == null) {
+			return;
+		}
+		if (student == null) {
+			addSubjectsToTable(curriculum);
+		} else {
+			addSubjectsAndGradesToTable(curriculum, student);
+		}
+	}
+
+	private void addSubjectsToTable(Curriculum curriculum) {
+		for (var curriculumSubject : curriculum.getAllSubjects()) {
+			var entryData = new ModuleEntryData(curriculumSubject);
+			oList.add(new ModuleEntry(entryData));
+		}
+	}
+
+	private void addSubjectsAndGradesToTable(Curriculum curriculum, Student student) {
+		for (var curriculumSubject : curriculum.getAllSubjects()) {
+			var grade = student.getGradeForSubject(curriculumSubject.getShort()).toString();
+			var specificName = student.getNameForSubject(curriculumSubject.getShort());
+			var subjectName = specificName == null ? curriculumSubject.getName() : specificName;
+			var entryData = new ModuleEntryData(curriculumSubject, subjectName, grade);
+			oList.add(new ModuleEntry(entryData));
 		}
 	}
 
@@ -62,6 +105,7 @@ public class GradeViewModel {
 	}
 
 	public void setSelectedItem(ModuleEntry me) {
+		System.out.println(me);
 		selectedItem.setValue(me);
 	}
 
@@ -71,25 +115,6 @@ public class GradeViewModel {
 
 	public void clear() {
 		oList.clear();
-	}
-
-	public void addSubjectsToTable() {
-		// var student = StudentData.getStudentData().getStudent();
-		for (var s : CurriculumData.getData().getCurriculum().getAllSubjects()) {
-			// TODO use: student.getGradeForSubject(s).toString()
-			oList.add(new ModuleEntry(s.getShort(), s.getName(), s.getFocus(), s.getSemester(), s.getCreditPoints()));
-		}
-	}
-
-	public void addSubjectsAndGradesToTable() {
-		var student = StudentData.getStudentData().getStudent();
-		for (var s : CurriculumData.getData().getCurriculum().getAllSubjects()) {
-			var grade = student.getGradeForSubject(s.getShort()).toString();
-			var specificName = student.getNameForSubject(s.getShort());
-			var subjectName = specificName == null ? s.getName() : specificName;
-			oList.add(new ModuleEntry(s.getShort(), subjectName, s.getFocus(), s.getSemester(), s.getCreditPoints(),
-					grade));
-		}
 	}
 
 	public void filterList() {

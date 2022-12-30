@@ -64,6 +64,13 @@ public class FileLogic {
 		}
 		return retval;
 	}
+	
+	public void saveCurriculumFile(File file) {
+		System.out.format("Datei \"%s\" speichern\n", file.toString());
+		userFiles.setCurriculumFile(file);
+		CSVFileWriter writer = new CSVFileWriter(file);
+		writer.saveCurriculum(curriculum);
+	}
 
 	public Curriculum getCurriculum() {
 		return curriculum;

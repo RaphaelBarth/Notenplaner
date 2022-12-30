@@ -13,15 +13,15 @@ import javafx.collections.FXCollections;
 
 public class ModuleEntry implements Serializable {
 	private static final long serialVersionUID = -8674008613457029157L;
-	public static final String KRZ = "krz";
-	public static final String NAME = "name";
-	public static final String BEREICH = "bereich";
+	public static final String KRZ = "shortName";
+	public static final String NAME = "subjectName";
+	public static final String BEREICH = "focus";
 	public static final String SEM = "sem";
 	public static final String CPS = "cps";
-	public static final String NOTE = "note";
+	public static final String NOTE = "grade";
 
 	private final static List<String> normalEvaluation = FXCollections
-			.observableArrayList(Arrays.asList(Grades.PASSED.toString(), Grades.NOTPASSED.toString()));
+			.observableArrayList(Arrays.asList(Grades.NOTPASSED.toString(), Grades.PASSED.toString()));
 	private final static List<String> gradeEvaluation = FXCollections.observableArrayList(Stream.of(Grades.values())
 			.filter(g -> g != Grades.PASSED).map(g -> g.toString()).sorted().collect(Collectors.toList()));
 
@@ -33,30 +33,30 @@ public class ModuleEntry implements Serializable {
 		this.entryData = entryData;
 		this.gradeProperty = new SimpleStringProperty();
 		this.nameProperty = new SimpleStringProperty();
-		this.nameProperty.setValue(entryData.getName());
-		this.gradeProperty.setValue(entryData.getNote());
+		this.nameProperty.setValue(entryData.getSubjectName());
+		this.gradeProperty.setValue(entryData.getGrade());
 
 	}
 
-	public String getKrz() {
-		return entryData.getKrz();
+	public String getShortName() {
+		return entryData.getShortName();
 	}
 
-	public void setKrz(String krz) {
-		this.entryData.setKrz(krz);
+	public void setShortName(String shortName) {
+		this.entryData.setShortName(shortName);
 	}
 
-	public String getName() {
+	public String getSubjectName() {
 		return this.nameProperty.getValue();
 	}
 
-	public void setName(String name) {
+	public void setSubjectName(String name) {
 		this.nameProperty.setValue(name);
-		this.entryData.setName(name);
+		this.entryData.setSubjectName(name);
 	}
 
-	public String getBereich() {
-		return this.entryData.getBereich();
+	public String getFocus() {
+		return this.entryData.getFocus();
 	}
 
 	public int getSem() {
@@ -67,17 +67,17 @@ public class ModuleEntry implements Serializable {
 		return this.entryData.getCps();
 	}
 
-	public String getNote() {
+	public String getGrade() {
 		return this.gradeProperty.getValue();
 	}
 
-	public void setNote(String note) {
-		this.gradeProperty.setValue(note);
-		this.entryData.setNote(note);
+	public void setGrade(String grade) {
+		this.gradeProperty.setValue(grade);
+		this.entryData.setGrade(grade);
 	}
 
 	public List<String> getPossibleEvaluations() {
-		return (this.entryData.isGreadEvaluation()) ? gradeEvaluation : normalEvaluation;
+		return (this.entryData.hasGradeAsEvaluation()) ? gradeEvaluation : normalEvaluation;
 	}
 
 	public Boolean nameIsEditable() {

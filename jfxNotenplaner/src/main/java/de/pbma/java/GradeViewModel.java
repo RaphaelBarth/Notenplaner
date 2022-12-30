@@ -1,5 +1,7 @@
 package de.pbma.java;
 
+import java.util.zip.DataFormatException;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -44,6 +46,7 @@ public class GradeViewModel {
 		if (curriculum == null) {
 			return;
 		}
+		oList.clear();
 		if (student == null) {
 			addSubjectsToTable(curriculum);
 		} else {
@@ -84,14 +87,6 @@ public class GradeViewModel {
 		return buttonDisabled;
 	}
 
-//	public void setButtonDisabled(boolean buttonDisabled) {
-//		this.buttonDisabled.setValue(buttonDisabled);
-//	}
-//
-//	public boolean getButtonDisabled() {
-//		return this.buttonDisabled.getValue();
-//	}
-
 	public BooleanProperty curriculumListEmpty() {
 		return curriculumListEmpty;
 	}
@@ -119,6 +114,18 @@ public class GradeViewModel {
 
 	public void filterList() {
 		System.out.println("Filtere nach " + getFilterText());
+	}
+
+	public void setGrade(String subjectShort, String subjectName, String newGrade) {
+		var student = StudentData.getData().getStudent();
+		Grades grade;
+		try {
+			grade = Grades.fromString(newGrade);
+			student.setGradeForSubject(subjectShort, subjectName, grade);
+		} catch (DataFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

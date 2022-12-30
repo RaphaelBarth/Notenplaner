@@ -51,7 +51,7 @@ public class GradeView implements Initializable {
 		TableColumn<ModuleEntry, Integer> tcSem = new TableColumn<>("Fachsem");
 		tcSem.setCellValueFactory(new PropertyValueFactory<>(ModuleEntry.SEM));
 
-		TableColumn<ModuleEntry, Integer> tcCps = new TableColumn<>("CPs");
+		TableColumn<ModuleEntry, Double> tcCps = new TableColumn<>("CPs");
 		tcCps.setCellValueFactory(new PropertyValueFactory<>(ModuleEntry.CPS));
 
 		TableColumn<ModuleEntry, String> tcNote = new TableColumn<>("Note");
@@ -105,7 +105,11 @@ public class GradeView implements Initializable {
 						var tableViewComboBox = new ComboBox<String>();
 						tableViewComboBox.setItems((ObservableList<String>) moduleEntry.getPossibleEvaluations());
 						tableViewComboBox.setPrefWidth(param.getWidth() - 2);
-						tableViewComboBox.setValue(moduleEntry.getNote());
+						tableViewComboBox.setValue(moduleEntry.getGrade());
+						tableViewComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+							moduleEntry.setGrade(newValue);
+							gradeViewModel.setGrade(moduleEntry.getShortName(), moduleEntry.getSubjectName(), newValue);
+						});
 						setGraphic(tableViewComboBox);
 					}
 				}

@@ -2,6 +2,7 @@ package de.pbma.java;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.DataFormatException;
 
 public enum Grades {
 	ONE(1.0), ONEMINUS(1.3), TWOPLUS(1.7), TWO(2.0), TWOMINUS(2.3), THREEPLUS(2.7), THREE(3.0), THREEMINUS(3.3),
@@ -54,6 +55,15 @@ public enum Grades {
 
 	public static Grades getByValue(Double value) {
 		return BY_VALUE.getOrDefault(value, NOTPASSED);
+	}
+
+	public static Grades fromString(String value) throws DataFormatException {
+		for (var grade : Grades.values()) {
+			if (grade.toString().equals(value)) {
+				return grade;
+			}
+		}
+		throw new DataFormatException();
 	}
 
 }

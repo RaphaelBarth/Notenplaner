@@ -1,10 +1,13 @@
 Hans Baum;123456789;MTB
-RT;Regelungstechnik;5.0
+RT;Regelungstechnik;2.0
+WF2;;3.7
 MED3;Klinische Medizin;3.3
-NE;Neural Engineering;0.0
+WF1;Java;2.7
+BV;null;0.0
+NE;Neural Engineering;1.0
 PLB;Programmierbare Logikbausteine;2.0
 BVM;Bilgebende Verfahren in der Medizintechnik;4.0
 KIM;Künstliche Intelligenz in der Medizintechnik;4.0
 MST;Mess- und Sensortechnik;3.0
 ML;Machine Learning;4.0
-WF1;Java;2.7
+BA;null;1.7

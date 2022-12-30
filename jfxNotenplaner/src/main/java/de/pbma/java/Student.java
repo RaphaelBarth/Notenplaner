@@ -48,19 +48,31 @@ public class Student implements Cloneable {
 		return subjectsGradeMap;
 	}
 
-	public boolean hasValueForSubject(String subjectShort) {
-		return subjectsGradeMap.containsKey(subjectShort);
+	public boolean hasGradeForSubject(String subjectShort) {
+		if (!subjectsGradeMap.containsKey(subjectShort)) {
+			return false;
+		}
+		var val = subjectsGradeMap.get(subjectShort).getValue1();
+		return (val == null) ? false : true;
+	}
+	
+	public boolean hasNameForSubject(String subjectShort) {
+		if (!subjectsGradeMap.containsKey(subjectShort)) {
+			return false;
+		}
+		var val = subjectsGradeMap.get(subjectShort).getValue0();
+		return (val == null) ? false : true;
 	}
 
 	public Grades getGradeForSubject(String subjectShort) {
-		if (!hasValueForSubject(subjectShort)) {
+		if (!hasGradeForSubject(subjectShort)) {
 			return Grades.NOTPASSED;
 		}
 		return subjectsGradeMap.get(subjectShort).getValue1();
 	}
 
 	public String getNameForSubject(String subjectShort) {
-		if (!hasValueForSubject(subjectShort)) {
+		if (!hasNameForSubject(subjectShort)) {
 			return null;
 		}
 		return subjectsGradeMap.get(subjectShort).getValue0();
@@ -72,16 +84,15 @@ public class Student implements Cloneable {
 
 	public void setGradeForSubject(String subjectShort, Grades grade) {
 		var values = subjectsGradeMap.getOrDefault(subjectShort, null);
-		String value0 = (values != null) ? values.getValue0() : "";
+		String value0 = (values != null) ? values.getValue0() : null;
 		Grades value1 = grade;
 		setValuesForSubject(subjectShort, value0, value1);
-
 	}
 
 	public void setNameForSubject(String subjectShort, String subjectName) {
 		var values = subjectsGradeMap.getOrDefault(subjectShort, null);
 		String value0 = subjectName;
-		Grades value1 = (values != null) ? values.getValue1() : Grades.NOTPASSED;
+		Grades value1 = (values != null) ? values.getValue1() : null;
 		setValuesForSubject(subjectShort, value0, value1);
 	}
 

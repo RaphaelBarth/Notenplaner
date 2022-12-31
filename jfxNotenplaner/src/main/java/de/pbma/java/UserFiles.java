@@ -9,8 +9,6 @@ public class UserFiles {
 	private File curriculumFile;
 	private Object lock;
 
-	// TODO string property for filepath ?
-
 	private UserFiles() {
 		this.lock = new Object();
 	}
@@ -35,19 +33,19 @@ public class UserFiles {
 
 	public void setStudentFile(File studentFile) {
 		synchronized (lock) {
-			this.studentFile = studentFile;			
+			this.studentFile = studentFile;
 		}
 	}
 
 	public File getCurriculumFile() {
 		synchronized (lock) {
-			return this.curriculumFile;			
+			return this.curriculumFile;
 		}
 	}
 
 	public void setCurriculumFile(File curriculumFile) {
 		synchronized (lock) {
-			this.curriculumFile = curriculumFile;			
+			this.curriculumFile = curriculumFile;
 		}
 	}
 

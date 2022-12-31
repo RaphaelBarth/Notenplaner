@@ -60,8 +60,7 @@ public class MainGUIController {
 		OVERVIEW(ContentType.class.getResource("Overview.fxml"), "tabOverview", "Übersicht"),
 		GRADEVIEW(ContentType.class.getResource("GradeView.fxml"), "tabGrades", "Noten"),
 		ANALYSEVIEW(ContentType.class.getResource("AnalyseView.fxml"), "AnalyseView", "Analyse"),
-		EDITORVIEW(ContentType.class.getResource("EditorView.fxml"), "EditorView", "Editor")
-		;
+		EDITORVIEW(ContentType.class.getResource("EditorView.fxml"), "EditorView", "Editor");
 
 		public final URL url;
 		public final String id;

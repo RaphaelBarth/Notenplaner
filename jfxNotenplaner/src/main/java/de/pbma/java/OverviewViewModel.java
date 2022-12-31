@@ -24,15 +24,14 @@ public class OverviewViewModel {
 	private DoubleProperty progressProperty = new SimpleDoubleProperty();
 	private BooleanProperty visibilityProperty = new SimpleBooleanProperty();
 
-
 	public OverviewViewModel() {
 		NumberBinding progress = currentCredidtsProperty.divide(maxCreditsProperty);
 		progressProperty.bind(progress);
 		visibilityProperty.bind(nameProperty.isNotEmpty());
-		CurriculumData.getData().getObjectProperty().addListener((observable, oldValue, newValue) ->{
+		CurriculumData.getData().getObjectProperty().addListener((observable, oldValue, newValue) -> {
 			updateView();
 		});
-		StudentData.getData().getObjectProperty().addListener((observable, oldValue, newValue) ->{
+		StudentData.getData().getObjectProperty().addListener((observable, oldValue, newValue) -> {
 			updateView();
 		});
 		updateView();

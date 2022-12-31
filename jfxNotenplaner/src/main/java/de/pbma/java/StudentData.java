@@ -1,8 +1,6 @@
 package de.pbma.java;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 public class StudentData {
@@ -22,29 +20,22 @@ public class StudentData {
 		return studentData;
 	}
 
-	public void setStudentData(Student student) {
+	public void setStudent(Student student) {
 		synchronized (lock) {
 			this.objectProperty.setValue(student);
-		}
-	}
-	
-	public void updateStudentData() {
-		synchronized (lock) {
-			return;
 		}
 	}
 
 	public Student getStudent() {
 		synchronized (lock) {
-			var student =this.objectProperty.getValue(); 
-			//return (student == null) ? null : (Student) student.clone();
-			return student;
+			var student = this.objectProperty.getValue();
+			return (student == null) ? null : (Student) student.clone();
+			// return student;
 		}
 	}
 
 	public ObjectProperty<Student> getObjectProperty() {
 		return objectProperty;
 	}
-
 
 }

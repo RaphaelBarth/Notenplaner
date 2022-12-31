@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckMenuItem;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
@@ -19,6 +20,8 @@ import javafx.stage.Window;
 
 public class MenuBarController {
 	private FileLogic fileLogic;
+	@FXML
+	private CheckMenuItem checkDarkModeItem;
 
 	public MenuBarController() {
 		fileLogic = new FileLogic();
@@ -93,7 +96,9 @@ public class MenuBarController {
 		Parent root;
 		try {
 			root = FXMLLoader.load(url);
-			stage.setScene(new Scene(root));
+			var scene = new Scene(root);
+			scene.getStylesheets().addAll(root.getStylesheets());
+			stage.setScene(scene);
 			stage.setTitle("My modal window");
 			stage.initModality(Modality.WINDOW_MODAL);
 			stage.initOwner(owner);
@@ -104,12 +109,15 @@ public class MenuBarController {
 	}
 
 	@FXML
-	private void handleLightAction(ActionEvent ae) {
-		System.out.println("Light Mode Design");
-	}
-
-	@FXML
 	private void handleDarkAction(ActionEvent ae) {
 		System.out.println("Dark Mode Design");
+		final var url = MenuBarController.class.getResource("dark-theme.css").toString();
+		Window owner = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+		var scene = owner.getScene();
+		if (checkDarkModeItem.isSelected()) {
+			scene.getStylesheets().add(url);
+		} else {
+			scene.getStylesheets().remove(url);
+		}
 	}
 }

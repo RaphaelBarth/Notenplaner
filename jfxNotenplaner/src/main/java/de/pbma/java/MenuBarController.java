@@ -45,7 +45,7 @@ public class MenuBarController {
 				var curriculumFile = fileLogic.getCurriculumFiles().get(curriculum);
 				if (curriculumFile != null && fileLogic.loadCurriculumFile(curriculumFile)) {
 					CurriculumData.getData().setCurriculum(fileLogic.getCurriculum());
-					StudentData.getData().setStudentData(fileLogic.getStudent());
+					StudentData.getData().setStudent(fileLogic.getStudent());
 				} else {
 					msgTmp = "Curriculum für Notensatz konnte nicht gefunden werden.";
 				}

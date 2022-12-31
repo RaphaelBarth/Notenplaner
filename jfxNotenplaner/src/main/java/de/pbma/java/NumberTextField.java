@@ -11,7 +11,7 @@ public class NumberTextField extends TextField {
 	public NumberTextField(String text) {
 		super(text);
 	}
-	
+
 	@Override
 	public void replaceText(int start, int end, String text) {
 		if (text.matches("[0-9]*")) {

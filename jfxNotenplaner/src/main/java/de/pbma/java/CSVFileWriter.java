@@ -67,7 +67,7 @@ public class CSVFileWriter {
 	}
 
 	private String toCSVString(Student student) {
-		System.out.format("%s: %s\n",this.getClass().getName(),student.toString());
+		System.out.format("%s: %s\n", this.getClass().getName(), student.toString());
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(student.getName());
 		stringBuilder.append(DELIMITER);
@@ -76,14 +76,14 @@ public class CSVFileWriter {
 		stringBuilder.append(student.getCourseOfStudies());
 		stringBuilder.append("\n");
 		for (var key : student.getAllSubjectKeys()) {
-			var name = (student.hasNameForSubject(key))?student.getNameForSubject(key):"";
-			var grade = (student.hasGradeForSubject(key))?student.getGradeForSubject(key).name():"";
+			var name = (student.hasNameForSubject(key)) ? student.getNameForSubject(key) : "";
+			var grade = (student.hasGradeForSubject(key)) ? student.getGradeForSubject(key).name() : "";
 			stringBuilder.append(toCSVString(key, name, grade));
 		}
 		return stringBuilder.toString();
 	}
 
-	private String toCSVString(String key, String name , String grade) {
+	private String toCSVString(String key, String name, String grade) {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(key);
 		stringBuilder.append(DELIMITER);

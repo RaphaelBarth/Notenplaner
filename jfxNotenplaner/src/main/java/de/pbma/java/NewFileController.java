@@ -74,7 +74,7 @@ public class NewFileController implements Initializable {
 
 		var curriculumType = cbCourseOfStudies.getSelectionModel().getSelectedItem();
 		File fileTmp = fileLogic.getCurriculumFiles().getOrDefault(curriculumType, null);
-		final var externesCurriculum = (fileTmp==null)?true:false;
+		final var externesCurriculum = (fileTmp == null) ? true : false;
 		if (externesCurriculum) {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open Resource File");
@@ -91,7 +91,7 @@ public class NewFileController implements Initializable {
 				errorDialog("Banane", "Erdbeere");
 			}
 			Curriculum curriculum = fileLogic.getCurriculum();
-			if(externesCurriculum) {
+			if (externesCurriculum) {
 				fileLogic.saveCurriculumFile(curriculum.getNameShort());
 			}
 			CurriculumData.getData().setCurriculum(curriculum);
@@ -99,7 +99,7 @@ public class NewFileController implements Initializable {
 			var matriculationNumber = Integer.parseInt(tfMatriculationNumber.getText());
 			Student student = new Student(name, matriculationNumber, curriculum.getNameShort());
 			StudentData.getData().setStudent(student);
-			UserFiles.getUserFiles().setStudentFile(Paths.get(student.getName()+".csv").toFile());
+			UserFiles.getUserFiles().setStudentFile(Paths.get(student.getName() + ".csv").toFile());
 		}).start();
 		exit();
 

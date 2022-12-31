@@ -25,8 +25,8 @@ DSV;Digitale Signalverarbeitung;Signalverarbeitung;true;4;5.0
 EMB;Embedded Systems;Embedded;true;4;5.0
 BS;Betriebssysteme;Software;true;4;5.0
 HF;Hochfrequenztechnik;Elektronik;true;4;5.0
-PS;Praxissemester;Software;false;5;25.0
-BV;Blockveranstaltung;Software;false;5;5.0
+PS;Praxissemester;Praxis;false;5;25.0
+BV;Blockveranstaltung;Praxis;false;5;5.0
 BVM;Bilgebende Verfahren in der Medizintechnik;Medizin;true;6;5.0
 MED3;Klinische Medizin;Medizin;true;6;4.0
 KIM;Künstliche Intelligenz in der Medizintechnik;Medizin;true;6;5.0

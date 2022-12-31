@@ -1,6 +1,5 @@
 package de.pbma.java;
 
-
 import java.util.zip.DataFormatException;
 
 public enum Grades {

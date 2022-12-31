@@ -5,12 +5,12 @@ import javafx.beans.property.SimpleObjectProperty;
 
 public class CurriculumData {
 	private static CurriculumData curriculumData = null;
-	private ObjectProperty<Curriculum> objectProperty ;
+	private ObjectProperty<Curriculum> objectProperty;
 	private Object lock;
 
 	private CurriculumData() {
 		this.lock = new Object();
-		this.objectProperty = new SimpleObjectProperty<>(this,"curriculum");
+		this.objectProperty = new SimpleObjectProperty<>(this, "curriculum");
 	}
 
 	public static synchronized CurriculumData getData() {
@@ -22,7 +22,7 @@ public class CurriculumData {
 
 	public void setCurriculum(Curriculum c) {
 		synchronized (lock) {
-			this.objectProperty.setValue(c);		
+			this.objectProperty.setValue(c);
 		}
 	}
 
@@ -30,13 +30,13 @@ public class CurriculumData {
 		synchronized (lock) {
 			var curriculum = objectProperty.getValue();
 			return (curriculum == null) ? null : (Curriculum) curriculum.clone();
-			//return curriculum;
+			// return curriculum;
 		}
 	}
 
 	public ObjectProperty<Curriculum> getObjectProperty() {
 		synchronized (lock) {
-			return objectProperty;			
+			return objectProperty;
 		}
 	}
 

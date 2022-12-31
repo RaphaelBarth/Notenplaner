@@ -75,14 +75,16 @@ public class TestCSV {
 
 		// setup student
 		student = new Student("Hans Baum", 123456789, "MTB");
-		student.setValuesForSubject("BVM", "Bilgebende Verfahren in der Medizintechnik", Grades.FOUR);
-		student.setValuesForSubject("MED3", "Klinische Medizin", Grades.THREEMINUS);
-		student.setValuesForSubject("KIM", "Künstliche Intelligenz in der Medizintechnik", Grades.FOUR);
-		student.setValuesForSubject("NE", "Neural Engineering", Grades.PASSED);
-		student.setValuesForSubject("PLB", "Programmierbare Logikbausteine", Grades.TWO);
-		student.setValuesForSubject("MST", "Mess- und Sensortechnik", Grades.THREE);
-		student.setValuesForSubject("RT", "Regelungstechnik", Grades.NOTPASSED);
-		student.setValuesForSubject("ML", "Machine Learning", Grades.FOUR);
+		student.setGradeForSubject("BVM", Grades.FOUR);
+		student.setGradeForSubject("MED3", Grades.THREEMINUS);
+		student.setGradeForSubject("KIM", Grades.FOUR);
+		student.setGradeForSubject("NE", Grades.PASSED);
+		student.setGradeForSubject("PLB", Grades.TWO);
+		student.setGradeForSubject("MST", Grades.THREE);
+		student.setGradeForSubject("RT", Grades.NOTPASSED);
+		student.setGradeForSubject("ML", Grades.FOUR);
+		student.setValuesForSubject("WF1", "Java", Grades.ONE);
+		student.setNameForSubject("WF2", "Python");
 
 	}
 
@@ -92,11 +94,12 @@ public class TestCSV {
 		var writeCSV = new CSVFileWriter(cFile);
 		writeCSV.saveCurriculum(curriculum);
 		assertEquals(curriculum, CSVFileParser.getCurriculum(cFile));
-		// cFile.delete();
+		cFile.delete();
 	}
 
 	@Test
 	public void testStudent() throws ParserException, FileNotFoundException {
+		System.out.println(student);
 		var sFile = new File(student.getName() + ".csv");
 		var writeCSV = new CSVFileWriter(sFile);
 		writeCSV.saveStudent(student);

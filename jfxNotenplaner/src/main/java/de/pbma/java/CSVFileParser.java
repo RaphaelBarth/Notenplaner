@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import org.javatuples.Triplet;
-
 
 public class CSVFileParser {
 	private static final String DELIMITER = ";";
@@ -39,10 +37,8 @@ public class CSVFileParser {
 			student = CSVFileParser.toStudent(header);
 			while (scanner.hasNextLine()) {
 				var line = scanner.nextLine();
-				var ele = toCompletedSubjects(line);
-				student.setNameForSubject(ele.getValue0(),ele.getValue1());
-				student.setGradeForSubject(ele.getValue0(),ele.getValue2());
-}
+				toSubjects(student,line);
+			}
 		} catch (FileNotFoundException e) {
 			throw new ParserException(e.getMessage());
 		}
@@ -82,19 +78,22 @@ public class CSVFileParser {
 		return curriculumSubject;
 	}
 
-	private static Triplet<String, String, Grades> toCompletedSubjects(String string) throws ParserException {
-		Triplet<String, String, Grades> triplet = null;
-		try (Scanner rowScanner = new Scanner(string)) {
-			rowScanner.useDelimiter(DELIMITER);
-			var subjectShort = rowScanner.next();
-			var subjectName = rowScanner.next();
-			var gradeValue = Double.valueOf(rowScanner.next());
-			var grade = Grades.getByValue(gradeValue);
-			triplet = new Triplet<>(subjectShort, subjectName, grade);
-		} catch (Exception e) {
-			throw new ParserException(e.getMessage());
+	private static void toSubjects(Student student,String string) throws ParserException {
+		var stringArray = string.split(DELIMITER,-1);
+		if (stringArray.length != 3) {
+			throw new ParserException("Studentfile error while parsing Subjects");
 		}
-		return triplet;
+		var subjectShort = stringArray[0];
+		var subjectName = stringArray[1];
+		var subjectGrade = stringArray[2];
+		//System.out.format("(%s) (%s) (%s)\n",subjectShort,subjectName,subjectGrade);
+		if(!subjectName.isEmpty()) {
+			student.setNameForSubject(subjectShort, subjectName);			
+		}
+		if(!subjectGrade.isEmpty()) {
+			student.setGradeForSubject(subjectShort, Grades.valueOf(subjectGrade));			
+		}
+		return;
 	}
 
 	private static Student toStudent(String string) throws ParserException {

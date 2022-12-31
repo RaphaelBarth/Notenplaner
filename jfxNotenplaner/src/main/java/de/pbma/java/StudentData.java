@@ -20,22 +20,17 @@ public class StudentData {
 		return studentData;
 	}
 
-	public void setStudentData(Student student) {
+	public void setStudent(Student student) {
 		synchronized (lock) {
 			this.objectProperty.setValue(student);
-		}
-	}
-	
-	public void updateStudentData() {
-		synchronized (lock) {
-			return;
 		}
 	}
 
 	public Student getStudent() {
 		synchronized (lock) {
-			// return (student == null) ? null : (Student) student.clone();
-			return this.objectProperty.getValue();
+			var student = this.objectProperty.getValue();
+			return (student == null) ? null : (Student) student.clone();
+			// return student;
 		}
 	}
 

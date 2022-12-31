@@ -1,8 +1,10 @@
 package de.pbma.java;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class Curriculum implements Cloneable {
 
@@ -10,13 +12,13 @@ public class Curriculum implements Cloneable {
 	private String name;
 	private String nameShort;
 	private double credits;
-	private List<CurriculumSubject> subjects;
+	private Set<CurriculumSubject> subjects;
 
 	public Curriculum(String nameShort, String name, double credits) {
 		this.name = name;
 		this.nameShort = nameShort;
 		this.credits = credits;
-		this.subjects = new ArrayList<CurriculumSubject>();
+		this.subjects = new HashSet<CurriculumSubject>();
 		if (nameShort.endsWith("B")) {
 			abschluss = Abschluss.BACHELOR;
 		} else if (nameShort.endsWith("M")) {
@@ -39,7 +41,7 @@ public class Curriculum implements Cloneable {
 		return credits;
 	}
 
-	public List<CurriculumSubject> getAllSubjects() {
+	public Set<CurriculumSubject> getAllSubjects() {
 		return subjects;
 	}
 
@@ -110,22 +112,22 @@ public class Curriculum implements Cloneable {
 	@Override
 	public Object clone() {
 		Curriculum newCurriculum = null;
-		try {
-			return (Curriculum) super.clone();
-		} catch (CloneNotSupportedException e) {
-			newCurriculum = new Curriculum(this.nameShort, this.name, this.credits);
-			for (var ele : this.subjects) {
-				var name = ele.getName();
-				var nameShort = ele.getShort();
-				var focus = ele.getFocus();
-				var eval = ele.hasGradeAsEvaluation();
-				var semester = ele.getSemester();
-				var credits = ele.getCreditPoints();
-				var curriculumSubject = new CurriculumSubject(name, nameShort, focus, eval, semester, credits);
-				newCurriculum.addSubject(curriculumSubject);
+		newCurriculum = new Curriculum(this.nameShort, this.name, this.credits);
+		for (var ele : this.subjects) {
+			if (ele == null) {
+				continue;
 			}
-			return newCurriculum;
+			var nameShort = ele.getShort();
+			var name = ele.getName();
+			var focus = ele.getFocus();
+			var eval = ele.hasGradeAsEvaluation();
+			var semester = ele.getSemester();
+			var credits = ele.getCreditPoints();
+			var curriculumSubject = new CurriculumSubject(nameShort, name, focus, eval, semester, credits);
+			newCurriculum.addSubject(curriculumSubject);
 		}
+		return newCurriculum;
+
 	}
 
 }

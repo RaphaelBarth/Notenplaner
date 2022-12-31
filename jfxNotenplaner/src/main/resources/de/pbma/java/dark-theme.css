@@ -27,11 +27,6 @@
 
 /* GridPane */
 .tab-pane-grid{
-    /*
-     * GridPane gridPane = new GridPane();
-     * gridPane.getStyleClass().add("tab-pane-grid");
-     * gridPane.setPadding(new Insets(3,0,0,0));
-    */
     -fx-background-color: #2D2D30;
     background-color: #2D2D30;
     -fx-background-insets: 3 0 0 0;
@@ -49,19 +44,16 @@
     background-color: #1A1A1A;
     -fx-text-fill: #AFB1B3;
     -fx-highlight-fill: #4e4e4e;
-    -fx-min-height: 25;
-    min-height: 25;
-    -fx-pref-height: 25;
 }
 .text-field:hover{
-     -fx-border-color: #222222;
-     border-color: #222222;
+     -fx-border-color: #00917C;
+     border-color: #00917C;
      -fx-background-color: #3E3E40;
      background-color: #3E3E40;
 }
 .text-field:focused{
-    -fx-border-color: #4e4e4e;
-    border-color: #4e4e4e;
+    -fx-border-color: #00917C;
+    border-color: #00917C;
     -fx-background-color: #1A1A1A;
     background-color: #1A1A1A;
 }
@@ -192,40 +184,32 @@
 
 /* Button */
 .button{
-    -fx-background-radius: 0;
     -fx-border-insets: 0 0 -1 0;
     -fx-border-width: 1;
     border-width: 1;
-    -fx-border-color: #222222;
-    border-color: #222222;
+    -fx-border-color: #00917C;
+    border-color: #00917C;
     -fx-background-color: #1A1A1A;
     background-color: #1A1A1A;
     -fx-text-fill: #AFB1B3;
-    -fx-min-height: 25;
-    min-height: 25;
-    -fx-pref-height: 25;
 }
 .button:focused{
-    -fx-border-color: #4e4e4e;
-    border-color: #4e4e4e;
+    -fx-border-color: #00917C;
+    border-color: #00917C;
     -fx-background-color: #1A1A1A;
     background-color: #1A1A1A;
 }
 .button:hover{
-    -fx-border-color: #222222;
-    border-color: #222222;
+    -fx-border-color: #00917C;
+    border-color: #00917C;
     -fx-background-color: #3E3E40;
     background-color: #3E3E40;
-    -fx-cursor: HAND;
-    cursor: HAND;
  }
 .button:pressed{
     -fx-border-color: #4e4e4e;
     border-color: #4e4e4e;
     -fx-background-color: #4e4e4e;
     background-color: #4e4e4e;
-    -fx-cursor: HAND;
-    cursor: HAND;
 }
 
 
@@ -376,13 +360,6 @@
     -fx-background: #4e4e4e;
     background: #4e4e4e;
     -fx-text-fill: #AFB1B3;
-    -fx-min-height: 20;
-    min-height: 20;
-    -fx-pref-height: 20;
-    -fx-padding: 0 5 0 5;
-    padding: 0 5 0 5;
-    -fx-cursor: HAND;
-    cursor: HAND;
 }
 .menu-item{
     -fx-background-radius: 0;
@@ -395,14 +372,10 @@
 .menu-item:hover {
     -fx-background-color: #3E3E40;
     background-color: #3E3E40;
-    -fx-cursor: HAND;
-    cursor: HAND;
 }
 .menu-item:pressed {
     -fx-background-color: #4e4e4e;
     background-color: #4e4e4e;
-    -fx-cursor: HAND;
-    cursor: HAND;
 }
 .context-menu {
     -fx-background-color: #1A1A1A;
@@ -433,6 +406,28 @@
     -fx-background-radius: 0;
 }
 
+/* ProgressIndicator */
+.progress-indicator{
+    -fx-background-color: transparent;
+    background-color: transparent;
+}
+
+.progress-indicator > .determinate-indicator > .progress {
+    -fx-background-color: #00917C;
+}
+
+.progress-indicator > .determinate-indicator > .percentage {
+    -fx-fill: #AFB1B3; /*Schriftfarbe */
+}
+
+.progress-indicator > .determinate-indicator > .tick {
+    -fx-background-color: white;
+}
+
+.separator *.line { 
+    -fx-background-color: #00917C;
+    -fx-border-color: #00917C;
+}
 
 /* Slider */
 .slider{
@@ -454,8 +449,6 @@
     -fx-border-insets: 1 0 1 2;
     -fx-pref-width: 12;
     -fx-pref-height: 12;
-    -fx-cursor: HAND;
-    cursor: HAND;
 }
 .slider:focused .thumb{
     -fx-border-color: #4e4e4e;
@@ -545,34 +538,19 @@
     -fx-background-insets: 25.5 0 0 0;
 }
 .tab{
-    -fx-background-radius: 0;
-    -fx-border-width: 0;
-    border-width: 0;
     -fx-background-color: #3E3E40;
     background-color: #3E3E40;
     -fx-text-fill: #AFB1B3;
-    -fx-min-height: 20;
-    min-height: 20;
-    -fx-pref-height: 20;
 }
-.tab:selected{
-    -fx-background-color: #4e4e4e;
-    background-color: #4e4e4e;
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: #00917C, #4e4e4e, #4e4e4e;
+    -fx-border-width: 2;
 }
 .tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
-    -fx-border-color: transparent;
-    border-color: transparent;
-}
-.tab .tab-close-button {
-    -fx-shape: "M19,6.41L17.59,5 12,10.59 6.41,5 5,6.41 10.59,12 5,17.59 6.41,19 12,13.41 17.59,19 19,17.59 13.41,12z";
-    -fx-background-color: #AFB1B3;
-    background-color: #AFB1B3;
-    -fx-background-insets: 2;
-    -fx-margin: 0 0 -5 2;
-    margin: 0 0 -5 2;
-    -fx-cursor: HAND;
-    cursor: HAND;
-}
+    -fx-border-color: #00917C, -fx-faint-focus-color;
+} 
+
 .tab .tab-label {
     -fx-text-fill: #AFB1B3;
 }

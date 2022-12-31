@@ -98,7 +98,7 @@ public class NewFileController implements Initializable {
 			var name = tfStudentName.getText();
 			var matriculationNumber = Integer.parseInt(tfMatriculationNumber.getText());
 			Student student = new Student(name, matriculationNumber, curriculum.getNameShort());
-			StudentData.getData().setStudentData(student);
+			StudentData.getData().setStudent(student);
 			UserFiles.getUserFiles().setStudentFile(Paths.get(student.getName()+".csv").toFile());
 		}).start();
 		exit();

@@ -14,7 +14,7 @@ public class CurriculumSubject extends Subject {
 	}
 
 	public CurriculumSubject(Subject s, int semester, double credits) {
-		this(s.getName(), s.getShort(), s.getFocus(), s.hasGradeAsEvaluation(), semester, credits);
+		this(s.getShort(), s.getName(), s.getFocus(), s.hasGradeAsEvaluation(), semester, credits);
 	}
 
 	public double getCreditPoints() {

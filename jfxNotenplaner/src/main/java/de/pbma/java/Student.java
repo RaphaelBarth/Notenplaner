@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-
 public class Student implements Cloneable {
 
 	private String name;
@@ -119,18 +118,14 @@ public class Student implements Cloneable {
 	@Override
 	public Object clone() {
 		Student newStudent = null;
-		try {
-			return (Student) super.clone();
-		} catch (CloneNotSupportedException e) {
-			System.out.println("clone");
-			newStudent = new Student(this.name, this.matriculationNumber, this.courseOfStudies);
-			for (var ele : this.subjectsGradeMap.entrySet()) {
-				newStudent.setGradeForSubject(ele.getKey(), ele.getValue());
-			}
-			for (var ele : this.subjectsNameMap.entrySet()) {
-				newStudent.setNameForSubject(ele.getKey(), ele.getValue());
-			}
-			return newStudent;
+		newStudent = new Student(this.name, this.matriculationNumber, this.courseOfStudies);
+		for (var ele : this.subjectsGradeMap.entrySet()) {
+			newStudent.setGradeForSubject(ele.getKey(), ele.getValue());
 		}
+		for (var ele : this.subjectsNameMap.entrySet()) {
+			newStudent.setNameForSubject(ele.getKey(), ele.getValue());
+		}
+		return newStudent;
+
 	}
 }

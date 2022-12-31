@@ -86,8 +86,6 @@
     border-color: #222222;
     -fx-background-color: #3E3E40;
     background-color: #3E3E40;
-    -fx-cursor: HAND;
-    cursor: HAND;
 }
 .combo-box:focused{
     -fx-border-color: #4e4e4e;
@@ -135,8 +133,6 @@
 .list-cell:hover{
     -fx-background-color: #3E3E40;
     background-color: #3E3E40;
-    -fx-cursor: HAND;
-    cursor: HAND;
 }
 .list-cell:pressed{
     -fx-background-color: #3E3E40;
@@ -600,6 +596,7 @@
     background-color: #1A1A1A;
     -fx-table-cell-border-color: #222222;
 }
+
 .table-view:focused{
     -fx-border-width: 1;
     border-width: 1;
@@ -639,6 +636,7 @@
     -fx-text-background-color: #AFB1B3;
     -fx-margin: 1;
     margin: 1;
+    -fx-table-cell-border-color: #00917C;
 }
 .table-row-cell:hover {
     -fx-background-color: #3E3E40;
@@ -647,7 +645,7 @@
     -fx-background-radius: 0;
 }
 .table-row-cell:selected {
-    -fx-table-cell-border-color: #222222;
+    -fx-table-cell-border-color: #3E3E40;/*Striche zwischen den Spalten einer selektierten Reihe */
     -fx-background-color: #3E3E40;
     background-color: #3E3E40;
     -fx-background-insets: 0;
@@ -656,14 +654,8 @@
 .table-row-cell:pressed {
     -fx-background-color: #4e4e4e;
     background-color: #4e4e4e;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
 }
-.table-view .column-header .label {
-    -fx-alignment: center-left;
-    -fx-cursor: HAND;
-    cursor: HAND;
-}
+
 .table-view .filler {
     -fx-background-color: transparent;
     background-color: transparent;
@@ -671,6 +663,9 @@
 .table-view .column-drag-header{
     -fx-background-color: #4e4e4e;
     background-color: #4e4e4e;
+}
+.table-view .corner {
+    -fx-background-color: transparent;
 }
 
 

@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.javatuples.Pair;
-
 public class CSVFileWriter {
 
 	private final String DELIMITER = ";";
@@ -69,6 +67,7 @@ public class CSVFileWriter {
 	}
 
 	private String toCSVString(Student student) {
+		System.out.format("%s: %s\n",this.getClass().getName(),student.toString());
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(student.getName());
 		stringBuilder.append(DELIMITER);
@@ -76,22 +75,21 @@ public class CSVFileWriter {
 		stringBuilder.append(DELIMITER);
 		stringBuilder.append(student.getCourseOfStudies());
 		stringBuilder.append("\n");
-		for (var ele : student.getSubjectGradeMap().entrySet()) {
-			System.out.println(student);
-			System.out.println(ele);
-			var string = this.toCSVString(ele.getKey(), ele.getValue());
-			stringBuilder.append(string);
+		for (var key : student.getAllSubjectKeys()) {
+			var name = (student.hasNameForSubject(key))?student.getNameForSubject(key):"";
+			var grade = (student.hasGradeForSubject(key))?student.getGradeForSubject(key).name():"";
+			stringBuilder.append(toCSVString(key, name, grade));
 		}
 		return stringBuilder.toString();
 	}
 
-	private String toCSVString(String key, Pair<String,Grades> value) {
+	private String toCSVString(String key, String name , String grade) {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(key);
 		stringBuilder.append(DELIMITER);
-		stringBuilder.append(value.getValue0());
+		stringBuilder.append(name);
 		stringBuilder.append(DELIMITER);
-		stringBuilder.append(value.getValue1().value);
+		stringBuilder.append(grade);
 		stringBuilder.append("\n");
 		return stringBuilder.toString();
 	}

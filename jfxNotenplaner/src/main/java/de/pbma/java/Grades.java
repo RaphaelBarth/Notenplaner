@@ -1,7 +1,6 @@
 package de.pbma.java;
 
-import java.util.HashMap;
-import java.util.Map;
+
 import java.util.zip.DataFormatException;
 
 public enum Grades {
@@ -46,16 +45,16 @@ public enum Grades {
 		return "nicht ausreichend";
 	}
 
-	private static final Map<Double, Grades> BY_VALUE = new HashMap<>();
-	static {
-		for (Grades e : values()) {
-			BY_VALUE.put(e.value, e);
-		}
-	}
-
-	public static Grades getByValue(Double value) {
-		return BY_VALUE.getOrDefault(value, NOTPASSED);
-	}
+//	private static final Map<Double, Grades> BY_VALUE = new HashMap<>();
+//	static {
+//		for (Grades e : values()) {
+//			BY_VALUE.put(e.value, e);
+//		}
+//	}
+//
+//	public static Grades getByValue(Double value) {
+//		return BY_VALUE.getOrDefault(value, NOTPASSED);
+//	}
 
 	public static Grades fromString(String value) throws DataFormatException {
 		for (var grade : Grades.values()) {

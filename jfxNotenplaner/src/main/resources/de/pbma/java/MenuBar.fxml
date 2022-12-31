@@ -18,8 +18,7 @@
 		</Menu>
 		<Menu text="Einstellungen">
 			<items>
-				<MenuItem text="Light Mode" onAction="#handleLightAction" />
-				<MenuItem text="Dark Mode" onAction="#handleDarkAction" />
+				<CheckMenuItem fx:id="checkDarkModeItem" text="Dark Mode" onAction="#handleDarkAction" />
 			</items>
 		</Menu>
 		<Menu text="Hilfe">

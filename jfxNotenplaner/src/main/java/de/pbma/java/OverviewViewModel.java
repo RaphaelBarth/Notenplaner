@@ -52,7 +52,7 @@ public class OverviewViewModel {
 			for (var subject : student.getSubjectGradeMap().entrySet()) {
 				var credits = curriculum.getSubject(subject.getKey()).getCreditPoints();
 				currentCreditsTmp += credits;
-				var grade = subject.getValue().getValue1();
+				var grade = subject.getValue();
 				if (grade == Grades.PASSED || grade == Grades.NOTPASSED) {
 					continue;
 				}

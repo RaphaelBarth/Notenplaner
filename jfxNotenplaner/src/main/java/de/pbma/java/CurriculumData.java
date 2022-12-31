@@ -25,17 +25,12 @@ public class CurriculumData {
 			this.objectProperty.setValue(c);		
 		}
 	}
-	
-	public void update() {
-		synchronized (lock) {
-			return;
-		}
-	}
 
 	public Curriculum getCurriculum() {
 		synchronized (lock) {
-			//return (curriculum == null) ? null : (Curriculum) curriculum.clone();
-			return this.objectProperty.getValue();
+			var curriculum = objectProperty.getValue();
+			return (curriculum == null) ? null : (Curriculum) curriculum.clone();
+			//return curriculum;
 		}
 	}
 

@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -22,20 +24,19 @@ public class GradeView implements Initializable {
 	@FXML
 	private TableView<ModuleEntry> tvGrades;
 	@FXML
-	private Button btFilter;
-	@FXML
 	private TextField tfFilter;
+	@FXML
+	private ComboBox<String> cbCategory;
 
 	GradeViewModel gradeViewModel = new GradeViewModel();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		tfFilter.textProperty().bindBidirectional(gradeViewModel.filterProperty());
-		tfFilter.disableProperty().bind(gradeViewModel.curriculumListEmpty());
-		btFilter.disableProperty().bind(gradeViewModel.buttonDisabledProperty());
+		tfFilter.disableProperty().bind(gradeViewModel.filterDisabledProperty());
+		cbCategory.disableProperty().bind(gradeViewModel.filterDisabledProperty());
 
 		tvGrades.setItems(gradeViewModel.getOListProperty());
-		gradeViewModel.getSelectedItemProperty().bind(tvGrades.getSelectionModel().selectedItemProperty());
 		tvGrades.setEditable(true);
 		tvGrades.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -97,14 +98,20 @@ public class GradeView implements Initializable {
 		});
 
 		tcNote.setCellFactory(cellFactoryComboBoxColumn);
+		// 4. Bind the SortedList comparator to the TableView comparator.
+		gradeViewModel.getSortedListProperty().comparatorProperty().bind(tvGrades.comparatorProperty());
+
+		// 5. Add sorted (and filtered) data to the table.
+		tvGrades.setItems(gradeViewModel.getSortedListProperty());
+		
 		tvGrades.getColumns().addAll(Arrays.asList(tcKrz, tcName, tcBereich, tcSem, tcCps, tcNote));
 		// Default: sortieren nach Fachsemester, Kürzel und Name
 		tvGrades.getSortOrder().addAll(Arrays.asList(tcSem, tcKrz, tcName));
-	}
-
-	@FXML
-	public void onFilter() {
-		gradeViewModel.filterList();
+		tvGrades.setSelectionModel(null);
+		
+		cbCategory.getItems().addAll("überall","Name", "Kürzel", "Bereich");
+		cbCategory.getSelectionModel().selectFirst();
+		gradeViewModel.getSelectedFilterCategoryProperty().bind(cbCategory.getSelectionModel().selectedItemProperty());
 	}
 
 	private Callback<TableColumn<ModuleEntry, String>, TableCell<ModuleEntry, String>> cellFactoryComboBoxColumn = new Callback<TableColumn<ModuleEntry, String>, TableCell<ModuleEntry, String>>() {

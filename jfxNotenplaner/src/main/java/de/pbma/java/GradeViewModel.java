@@ -12,17 +12,19 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 public class GradeViewModel {
 	private StringProperty textFieldText = new SimpleStringProperty();
-	private BooleanProperty buttonDisabled = new SimpleBooleanProperty();
-	private BooleanProperty curriculumListEmpty = new SimpleBooleanProperty();
+	private BooleanProperty filterDisabled = new SimpleBooleanProperty();
 	private final ObservableList<ModuleEntry> oList = FXCollections.observableArrayList();
-	private final ObjectProperty<ModuleEntry> selectedItem = new SimpleObjectProperty<>();
+	private FilteredList<ModuleEntry> filteredData;
+	private SortedList<ModuleEntry> sortedData;
+	private final StringProperty selectedFilterCategory = new SimpleStringProperty();
 
 	public GradeViewModel() {
-		curriculumListEmpty.bind(Bindings.size(oList).isEqualTo(0));
-		buttonDisabled.bind(textFieldText.isEmpty()); // you can not filter, if nothing is entered
+		filterDisabled.bind(Bindings.size(oList).isEqualTo(0)); // you can not filter, if no subjects
 		CurriculumData.getData().getObjectProperty().addListener((observable, oldValue, newValue) -> {
 			updateView();
 		});
@@ -38,6 +40,34 @@ public class GradeViewModel {
 
 			}
 		});
+		// 1. Wrap the ObservableList in a FilteredList (initially display all data).
+		filteredData = new FilteredList<>(oList, p -> true);
+
+		// 2. Set the filter Predicate whenever the filter changes.
+		textFieldText.addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(moduleEntry -> {
+				// If filter text is empty, display all
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+
+				return filterGradeList(moduleEntry, newValue);
+			});
+		});
+
+		selectedFilterCategory.addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(moduleEntry -> {
+				// If filter text is empty, display all
+				if (filterProperty().isEmpty().getValue()) {
+					return true;
+				}
+
+				return filterGradeList(moduleEntry, getFilterText());
+			});
+		});
+
+		// 3. Wrap the FilteredList in a SortedList.
+		sortedData = new SortedList<>(filteredData);
 	}
 
 	public void updateView() {
@@ -83,37 +113,53 @@ public class GradeViewModel {
 		return this.textFieldText.getValue();
 	}
 
-	public BooleanProperty buttonDisabledProperty() {
-		return buttonDisabled;
-	}
-
-	public BooleanProperty curriculumListEmpty() {
-		return curriculumListEmpty;
+	public BooleanProperty filterDisabledProperty() {
+		return filterDisabled;
 	}
 
 	public ObservableList<ModuleEntry> getOListProperty() {
 		return oList;
 	}
 
-	public ObjectProperty<ModuleEntry> getSelectedItemProperty() {
-		return selectedItem;
+	public SortedList<ModuleEntry> getSortedListProperty() {
+		return sortedData;
 	}
 
-	public void setSelectedItem(ModuleEntry me) {
-		System.out.println(me);
-		selectedItem.setValue(me);
+	public StringProperty getSelectedFilterCategoryProperty() {
+		return selectedFilterCategory;
 	}
 
-	public ModuleEntry getSelectedItem() {
-		return selectedItem.getValue();
+	public String getSelectedFilterCategory() {
+		return selectedFilterCategory.getValue();
 	}
 
 	public void clear() {
 		oList.clear();
 	}
 
-	public void filterList() {
-		System.out.println("Filtere nach " + getFilterText());
+	public boolean filterGradeList(ModuleEntry moduleEntry, String filterText) {
+		String lowerCaseFilter = filterText.toLowerCase();
+
+		switch (selectedFilterCategory.getValue()) {
+		case "überall":
+			if (moduleEntry.getShortName().toLowerCase().contains(lowerCaseFilter)) {
+				return true; // Filter matches first name.
+			} else if (moduleEntry.getSubjectName().toLowerCase().contains(lowerCaseFilter)) {
+				return true; // Filter matches last name.
+			} else if (moduleEntry.getFocus().toLowerCase().contains(lowerCaseFilter)) {
+				return true; // Filter matches last name.
+			}
+			return false; // Does not match.
+		case "Kürzel":
+			return moduleEntry.getShortName().toLowerCase().contains(lowerCaseFilter);
+		case "Name": 
+			return moduleEntry.getSubjectName().toLowerCase().contains(lowerCaseFilter);
+		case "Bereich":
+			return moduleEntry.getFocus().toLowerCase().contains(lowerCaseFilter);
+		default:
+			return false;
+		}
+
 	}
 
 	public void setGrade(String subjectShort, String subjectName, String newGrade) {

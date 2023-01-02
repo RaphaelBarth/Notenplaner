@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class AnalyseView {
@@ -27,12 +28,20 @@ public class AnalyseView {
 	private Label lbFocus;
 	@FXML
 	private Label lbFocusAvg;
+	@FXML
+	private HBox hBoxFocus;
 
 	private AnalyseViewModel analyseViewModel = new AnalyseViewModel();
 
 	@FXML
 	public void initialize() {
+//		StudentData.getData().getObjectProperty().addListener((observable, oldValue, newValue) -> {	
+//			updateView();
+//		});
+		updateView();
+	}
 
+	public void updateView() {
 		int sem_max = analyseViewModel.getMaxSemester();
 		double percentWidth = 0.85 / sem_max * 100;
 		var firstColumnConstraint = new ColumnConstraints();
@@ -53,7 +62,7 @@ public class AnalyseView {
 			title.setUnderline(true);
 			GridPane.setHalignment(title, HPos.CENTER);
 			var avg = analyseViewModel.getAvgOfSemester(sem);
-			var text = avg.isPresent() ? String.valueOf(avg.getAsDouble()) : "-";
+			var text = avg.isPresent() ? String.format("%.2f", avg.getAsDouble()) : "-";
 			var avgLabel = new Label(text);
 			GridPane.setHalignment(avgLabel, HPos.CENTER);
 			progressBarBox.add(title, sem, 0);
@@ -69,6 +78,13 @@ public class AnalyseView {
 
 		((NumberAxis) lineChartGrades.getXAxis()).setUpperBound(sem_max);
 
-		pieChartFocus.setData(analyseViewModel.getFocusPieData());
+		var data = analyseViewModel.getFocusPieData();
+		if (data == null) {
+			hBoxFocus.setVisible(false);
+		} else {
+			pieChartFocus.setData(data);
+			lbFocus.setText(
+					String.format("Belegte Fächer: %d", analyseViewModel.getNumberOfSubjectsPerFocus("Grundlagen")));
+		}
 	}
 }

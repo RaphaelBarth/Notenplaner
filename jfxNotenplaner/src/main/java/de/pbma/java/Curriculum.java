@@ -43,6 +43,16 @@ public class Curriculum implements Cloneable {
 		return subjects;
 	}
 
+	public final int getNumberOfSemesters() {
+		int max_semester = 0;
+		for (var subject : subjects) {
+			if (subject.getSemester() > max_semester) {
+				max_semester = subject.getSemester();
+			}
+		}
+		return max_semester;
+	}
+
 	public CurriculumSubject getSubject(String subjectShort) {
 		for (var subject : subjects) {
 			if (subject.getShort().equals(subjectShort)) {

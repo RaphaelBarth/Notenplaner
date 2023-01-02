@@ -1,41 +1,80 @@
 package de.pbma.java;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.OptionalDouble;
-import java.util.Random;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Tooltip;
 
 public class AnalyseViewModel {
 
+	private Student currentStudent;
+	private Curriculum currentCurriculum;
+
 	public AnalyseViewModel() {
-		// TODO Auto-generated constructor stub
+		currentStudent = StudentData.getData().getStudent();
+		currentCurriculum = CurriculumData.getData().getCurriculum();
 	}
 
 	public int getMaxSemester() {
-		return 7;
+		if (currentStudent == null) {
+			return 0;
+		}
+		return currentCurriculum.getNumberOfSemesters();
 	}
 
 	public double getProgressOfSemester(int sem) {
-		return 0.5;
+		double collectedCredits = 0.0;
+		for (var entrySet : currentStudent.getSubjectGradeMap().entrySet()) {
+			var subject = currentCurriculum.getSubject(entrySet.getKey());
+			if (subject.getSemester() != sem) {
+				continue;
+			}
+			var grade = entrySet.getValue();
+			if (grade == Grades.NOTPASSED) {
+				continue;
+			}
+
+			collectedCredits += subject.getCreditPoints();
+		}
+		return collectedCredits / currentCurriculum.getCreditsForSemester(sem);
 	}
 
 	public OptionalDouble getAvgOfSemester(int sem) {
-		return OptionalDouble.of(1.3);
+		if (getProgressOfSemester(sem) == 0.0) {
+			return OptionalDouble.empty();
+		}
+		var currentGradeTmp = 0.0;
+		var currentGradeCreditsTmp = 0.0;
+		for (var entrySet : currentStudent.getSubjectGradeMap().entrySet()) {
+			var subject = currentCurriculum.getSubject(entrySet.getKey());
+			if (subject.getSemester() != sem) {
+				continue;
+			}
+			var grade = entrySet.getValue();
+			if (grade == Grades.PASSED || grade == Grades.NOTPASSED) {
+				continue;
+			}
+			var credits = subject.getCreditPoints();
+			currentGradeCreditsTmp += credits;
+			currentGradeTmp += (credits * grade.value);
+		}
+		var currentGrade = currentGradeTmp / currentGradeCreditsTmp;
+		return OptionalDouble.of(currentGrade);
 	}
 
 	public XYChart.Series<String, Number> getNotenverteilung() {
 		XYChart.Series<String, Number> serie = new XYChart.Series<String, Number>();
-		Random rand = new Random(); // instance of random class
-		int upperbound = 10;
+		if (currentStudent == null) {
+			return serie;
+		}
+		var grades = currentStudent.getSubjectGradeMap().values();
 		for (var g : Grades.values()) {
-			int int_random = rand.nextInt(upperbound);
-			final var data = new XYChart.Data<String, Number>(g.toString(), int_random);
-			var tooltip = new Tooltip(String.valueOf(data.getYValue()));
-			Tooltip.install(data.getNode(), tooltip);
+			var data = new XYChart.Data<String, Number>(g.toString(), Collections.frequency(grades, g));
 			serie.getData().add(data);
 		}
 		return serie;
@@ -43,6 +82,9 @@ public class AnalyseViewModel {
 
 	public XYChart.Series<Number, Number> getAvgOfSemesters() {
 		XYChart.Series<Number, Number> series = new XYChart.Series<>();
+		if (currentStudent == null) {
+			return series;
+		}
 		for (int sem = 1; sem <= getMaxSemester(); sem += 1) {
 			var avg = getAvgOfSemester(sem);
 			if (avg.isPresent()) {
@@ -54,10 +96,39 @@ public class AnalyseViewModel {
 	}
 
 	public ObservableList<PieChart.Data> getFocusPieData() {
-		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-				new PieChart.Data("Grapefruit", 13), new PieChart.Data("Oranges", 25), new PieChart.Data("Plums", 10),
-				new PieChart.Data("Pears", 22), new PieChart.Data("Apples", 30));
+		if (currentStudent == null) {
+			return null;
+		}
+		Map<String, Double> collectedFocusCreditsMap = new HashMap<>();
+
+		for (var subject : currentCurriculum.getAllSubjects()) {
+			var grade = currentStudent.getGradeForSubject(subject.getShort());
+			if (grade == Grades.NOTPASSED) {
+				continue;
+			}
+			collectedFocusCreditsMap.put(subject.getFocus(),
+					collectedFocusCreditsMap.getOrDefault(subject.getFocus(), 0.0) + subject.getCreditPoints());
+		}
+		if (collectedFocusCreditsMap.keySet().size() < 2) {
+			return null;
+		}
+		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+		for (var entrySet : collectedFocusCreditsMap.entrySet()) {
+			pieChartData.add(new PieChart.Data(entrySet.getKey(), entrySet.getValue()));
+		}
 		return pieChartData;
+	}
+
+	public int getNumberOfSubjectsPerFocus(String focus) {
+		int number = 0;
+		for (var entrySet : currentStudent.getSubjectGradeMap().entrySet()) {
+			var subjectFocus = currentCurriculum.getSubject(entrySet.getKey()).getFocus();
+			if (!focus.equals(subjectFocus) || entrySet.getValue() == Grades.NOTPASSED) {
+				continue;
+			}
+			number++;
+		}
+		return number;
 	}
 
 }

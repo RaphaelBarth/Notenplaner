@@ -35,7 +35,7 @@
 			</xAxis>
 			<yAxis>
 				<NumberAxis label="Durchschnittsnote" upperBound="4.0"
-					lowerBound="1.0" autoRanging="false" tickUnit="1.0"
+					lowerBound="1.0" tickUnit="1.0"
 					minorTickVisible="true" minorTickCount="4" />
 			</yAxis>
 		</LineChart>
@@ -48,7 +48,7 @@
 				<NumberAxis label="Anzahl" />
 			</yAxis>
 		</BarChart>
-		<HBox VBox.vgrow="ALWAYS">
+		<HBox VBox.vgrow="ALWAYS" fx:id="hBoxFocus">
          <children>
             <PieChart fx:id="pieChartFocus" animated="false" legendVisible="false" title="Bereichskenntnisse" />
             <VBox maxHeight="Infinity" alignment="CENTER">

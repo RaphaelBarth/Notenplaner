@@ -19,7 +19,7 @@
 	<Label text="Name:" GridPane.columnIndex="0"
 		GridPane.rowIndex="0" />
 	<Label fx:id="lblStudentName" GridPane.columnIndex="1"
-		GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+		GridPane.rowIndex="0" GridPane.columnSpan="2" />
 	<Label text="Matrikel Nr:" GridPane.columnIndex="0"
 		GridPane.rowIndex="1" />
 	<Label fx:id="lblMatriculationNumber" GridPane.columnIndex="1"
@@ -36,27 +36,27 @@
 		GridPane.columnSpan="3"></Separator>
 	<Label text="akt. CPS:" GridPane.columnIndex="0"
 		GridPane.rowIndex="5" />
-	<Label fx:id="lblCurrentCredits" text="50"
-		GridPane.columnIndex="1" GridPane.rowIndex="5" />
+	<Label fx:id="lblCurrentCredits" GridPane.columnIndex="1"
+		GridPane.rowIndex="5" />
 	<Label text="max. CPS:" GridPane.columnIndex="0"
 		GridPane.rowIndex="6" />
-	<Label fx:id="lblMaxCredits" text="210" GridPane.columnIndex="1"
+	<Label fx:id="lblMaxCredits" GridPane.columnIndex="1"
 		GridPane.rowIndex="6" />
-	<ProgressIndicator fx:id="pgiCredits" progress="0.24"
+	<ProgressIndicator fx:id="pgiCredits"
 		GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.rowSpan="2" />
 	<Label text="aktuelle Note:" GridPane.columnIndex="0"
 		GridPane.rowIndex="7" />
-	<Label fx:id="lblCurrentGrade" text="2,0"
-		GridPane.columnIndex="1" GridPane.rowIndex="7" />
+	<Label fx:id="lblCurrentGrade" GridPane.columnIndex="1"
+		GridPane.rowIndex="7" />
 	<Separator GridPane.columnIndex="0" GridPane.rowIndex="8"
-		GridPane.columnSpan="3"></Separator>
+		GridPane.columnSpan="3" />
 	<Label text="bestmöglichste Note:" GridPane.columnIndex="0"
 		GridPane.rowIndex="9" />
-	<Label fx:id="lblBestGrade" text="1,0" GridPane.columnIndex="1"
+	<Label fx:id="lblBestGrade" GridPane.columnIndex="1"
 		GridPane.rowIndex="9" />
 	<Label text="schlechteste Note:" GridPane.columnIndex="0"
 		GridPane.rowIndex="10" />
-	<Label fx:id="lblWorstGrade" text="4,0" GridPane.columnIndex="1"
+	<Label fx:id="lblWorstGrade" GridPane.columnIndex="1"
 		GridPane.rowIndex="10" />
 </GridPane>
 

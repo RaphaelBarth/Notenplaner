@@ -10,9 +10,9 @@ public class ModuleEntryData {
 	private String focus;
 	private int sem;
 	private double cps;
-	private String grade;
+	private Grades grade;
 
-	public ModuleEntryData(CurriculumSubject curriculumSubject, String name, String grade) {
+	public ModuleEntryData(CurriculumSubject curriculumSubject, String name, Grades grade) {
 		this.subjectName = name;
 		this.grade = grade;
 		this.shortName = curriculumSubject.getShort();
@@ -24,11 +24,11 @@ public class ModuleEntryData {
 	}
 
 	public ModuleEntryData(CurriculumSubject curriculumSubject, String name) {
-		this(curriculumSubject, name, Grades.NOTPASSED.toString());
+		this(curriculumSubject, name, Grades.NOTPASSED);
 	}
 
 	public ModuleEntryData(CurriculumSubject curriculumSubject) {
-		this(curriculumSubject, curriculumSubject.getName(), Grades.NOTPASSED.toString());
+		this(curriculumSubject, curriculumSubject.getName(), Grades.NOTPASSED);
 	}
 
 	public String getShortName() {
@@ -59,11 +59,11 @@ public class ModuleEntryData {
 		return cps;
 	}
 
-	public String getGrade() {
+	public Grades getGrade() {
 		return grade;
 	}
 
-	public void setGrade(String grade) {
+	public void setGrade(Grades grade) {
 		this.grade = grade;
 	}
 

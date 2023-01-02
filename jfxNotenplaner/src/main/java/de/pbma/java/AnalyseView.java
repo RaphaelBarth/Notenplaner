@@ -1,65 +1,90 @@
 package de.pbma.java;
 
-import java.util.Random;
-
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
+import javafx.geometry.HPos;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class AnalyseView {
 	@FXML
 	private VBox vBoxAnalytics;
+	@FXML
+	private GridPane progressBarBox;
+	@FXML
+	private BarChart<String, Number> barChartGrades;
+	@FXML
+	private LineChart<Number, Number> lineChartGrades;
+	@FXML
+	private PieChart pieChartFocus;
+	@FXML
+	private Label lbFocus;
+	@FXML
+	private Label lbFocusAvg;
+	@FXML
+	private HBox hBoxFocus;
+
+	private AnalyseViewModel analyseViewModel = new AnalyseViewModel();
 
 	@FXML
 	public void initialize() {
-		final CategoryAxis grades = new CategoryAxis();
-		final NumberAxis number = new NumberAxis();
-		final BarChart<String, Number> bc = new BarChart<>(grades, number);
-		bc.setTitle("Notenverteilung");
-		// grades.setLabel("Note");
-		number.setLabel("Anzahl");
+//		StudentData.getData().getObjectProperty().addListener((observable, oldValue, newValue) -> {	
+//			updateView();
+//		});
+		updateView();
+	}
 
-		XYChart.Series<String, Number> serie = new XYChart.Series<String, Number>();
-		Random rand = new Random(); // instance of random class
-		int upperbound = 10;
-		for (var g : Grades.values()) {
-			int int_random = rand.nextInt(upperbound);
-			serie.getData().add(new XYChart.Data<String, Number>(g.toString(), int_random));
+	public void updateView() {
+		int sem_max = analyseViewModel.getMaxSemester();
+		double percentWidth = 0.85 / sem_max * 100;
+		var firstColumnConstraint = new ColumnConstraints();
+		firstColumnConstraint.setPercentWidth(15);
+		progressBarBox.getColumnConstraints().add(firstColumnConstraint);
+		for (int sem = 1; sem <= sem_max; sem += 1) {
+			var pi = new ProgressIndicator();
+			// Rote Farbe
+//			var adjust = new ColorAdjust();
+//			adjust.setHue(16);
+//			pi.setEffect(adjust);
+			var columnConstraint = new ColumnConstraints();
+			columnConstraint.setPercentWidth(percentWidth);
+			pi.setProgress(analyseViewModel.getProgressOfSemester(sem));
+			pi.setMinHeight(45); // otherwise not visible
+			GridPane.setHalignment(pi, HPos.CENTER);
+			var title = new Label(String.valueOf(sem));
+			title.setUnderline(true);
+			GridPane.setHalignment(title, HPos.CENTER);
+			var avg = analyseViewModel.getAvgOfSemester(sem);
+			var text = avg.isPresent() ? String.format("%.2f", avg.getAsDouble()) : "-";
+			var avgLabel = new Label(text);
+			GridPane.setHalignment(avgLabel, HPos.CENTER);
+			progressBarBox.add(title, sem, 0);
+			progressBarBox.add(pi, sem, 1);
+			progressBarBox.add(avgLabel, sem, 2);
+			progressBarBox.getColumnConstraints().add(columnConstraint);
 		}
 
-		bc.getData().add(serie);
-		bc.setLegendVisible(false);
-
-		// Defining the x axis
-		NumberAxis xAxis = new NumberAxis(1, 7, 1);
-		xAxis.setLabel("Semester");
-
-		// Defining the y axis
-		NumberAxis yAxis = new NumberAxis(4, 1, 0.3);
-		yAxis.setLabel("Schnitt");
-
-		// Creating the line chart
-		LineChart linechart = new LineChart(xAxis, yAxis);
-
-		// Prepare XYChart.Series objects by setting data
-		XYChart.Series<Integer, Number> series = new XYChart.Series<Integer, Number>();
-		series.setName("No of schools in an year");
-		series.getData().add(new XYChart.Data<Integer, Number>(1, 1.0));
-		series.getData().add(new XYChart.Data<Integer, Number>(2, 1.5));
-		series.getData().add(new XYChart.Data<Integer, Number>(3, 2.0));
-		series.getData().add(new XYChart.Data<Integer, Number>(4, 1.0));
-		series.getData().add(new XYChart.Data<Integer, Number>(5, 1.0));
-		// series.getData().add(new XYChart.Data<Integer, Number>(6, 2.0));
-		series.getData().add(new XYChart.Data<Integer, Number>(7, 1.3));
+		barChartGrades.getData().add(analyseViewModel.getNotenverteilung());
 
 		// Setting the data to Line chart
-		linechart.setPadding(new Insets(5));
-		linechart.getData().add(series);
-		vBoxAnalytics.getChildren().addAll(bc, linechart);
+		lineChartGrades.getData().add(analyseViewModel.getAvgOfSemesters());
+
+		((NumberAxis) lineChartGrades.getXAxis()).setUpperBound(sem_max);
+
+		var data = analyseViewModel.getFocusPieData();
+		if (data == null) {
+			hBoxFocus.setVisible(false);
+		} else {
+			pieChartFocus.setData(data);
+			lbFocus.setText(
+					String.format("Belegte Fächer: %d", analyseViewModel.getNumberOfSubjectsPerFocus("Grundlagen")));
+		}
 	}
 }

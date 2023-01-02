@@ -10,9 +10,55 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="de.pbma.java.AnalyseView" fx:id="vBoxAnalytics"
-	alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity">
+	alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity"
+	fillWidth="true">
 	<style> -fx-spacing: 5; -fx-padding: 10 </style>
 	<children>
+		<Label text="Semestervergleich">
+			<style> -fx-font-size: 1.4em</style>
+		</Label>
+		<GridPane fx:id="progressBarBox" prefWidth="Infinity"
+			vgap="5" maxWidth="Infinity">
+			<Label text="Semester" GridPane.columnIndex="0"
+				GridPane.rowIndex="0" />
+			<Label text="Fortschritt" GridPane.columnIndex="0"
+				GridPane.rowIndex="1" />
+			<Label text="Schnitt" GridPane.columnIndex="0"
+				GridPane.rowIndex="2" />
+		</GridPane>
+		<LineChart fx:id="lineChartGrades"
+			title="Durchschnittsnote im Verlauf" legendVisible="false"
+			verticalGridLinesVisible="false" horizontalGridLinesVisible="true">
+			<xAxis>
+				<NumberAxis label="Semester" tickUnit="1.0"
+					autoRanging="false" minorTickVisible="false" lowerBound="1" />
+			</xAxis>
+			<yAxis>
+				<NumberAxis label="Durchschnittsnote" upperBound="4.0"
+					lowerBound="1.0" tickUnit="1.0"
+					minorTickVisible="true" minorTickCount="4" />
+			</yAxis>
+		</LineChart>
+		<BarChart fx:id="barChartGrades" title="Notenverteilung"
+			legendVisible="false" verticalGridLinesVisible="false">
+			<xAxis>
+				<CategoryAxis />
+			</xAxis>
+			<yAxis>
+				<NumberAxis label="Anzahl" />
+			</yAxis>
+		</BarChart>
+		<HBox VBox.vgrow="ALWAYS" fx:id="hBoxFocus">
+         <children>
+            <PieChart fx:id="pieChartFocus" animated="false" legendVisible="false" title="Bereichskenntnisse" />
+            <VBox maxHeight="Infinity" alignment="CENTER">
+               <children>
+                  <Label fx:id="lbFocus" text="x belegteFächer" />
+                  <Label fx:id="lbFocusAvg" text="Schnit: 1,x" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
 	</children>
 </VBox>
 

@@ -70,8 +70,12 @@ public class FileLogic {
 		final String directory = "data/";
 		final String extension = ".csv";
 		String fileName = directory + curriculumShort + extension;
-		System.out.format("Datei \"%s\" speichern\n", fileName);
 		File file = Paths.get(fileName).toFile();
+		saveCurriculumFile(file);
+	}
+	
+	public void saveCurriculumFile(File file) {
+		System.out.format("Datei \"%s\" speichern\n", file);
 		userFiles.setCurriculumFile(file);
 		CSVFileWriter writer = new CSVFileWriter(file);
 		writer.saveCurriculum(curriculum);

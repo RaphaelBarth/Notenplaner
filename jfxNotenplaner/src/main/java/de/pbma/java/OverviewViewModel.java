@@ -39,9 +39,9 @@ public class OverviewViewModel {
 
 	public void updateView() {
 		new Thread(() -> {
-
 			final var student = StudentData.getData().getStudent();
 			final var curriculum = CurriculumData.getData().getCurriculum();
+			System.out.println(curriculum);
 			if (student == null || curriculum == null) {
 				return;
 			}

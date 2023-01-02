@@ -21,6 +21,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxTableCell;
@@ -69,14 +70,24 @@ public class EditorView implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		editorViewModel.getErrorMessage().addListener((observable, oldValue, newValue) -> {
+			final String msg = newValue;
+			Platform.runLater(() -> {
+				final Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Fehler");
+				alert.setContentText(msg);
+				alert.show();
+			});
+			newValue="";
+		});
+
 		tfCoursOfStudies.textProperty().bindBidirectional(editorViewModel.getCurriculumNameProperty());
 		tfCoursOfStudiesShort.textProperty().bindBidirectional(editorViewModel.getCurriculumNameShortProperty());
-		tfTotalCredits.textProperty().bindBidirectional(editorViewModel.getTotalCreditsProperty(),
-				new NumberStringConverter());
+
+		tfTotalCredits.textProperty().bindBidirectional(editorViewModel.getTotalCreditsProperty());
 		tfTotalCredits.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (!newValue.matches("\\d*|\\d+\\.\\d*")) {
 				tfTotalCredits.setText(newValue.replaceAll("[^\\d]", ""));
-
 			}
 		});
 		btnSave.disableProperty()
@@ -87,13 +98,10 @@ public class EditorView implements Initializable {
 		btnAdd.disableProperty().bind(Bindings.isEmpty(tfSubjectName.textProperty())
 				.or(Bindings.isEmpty(tfSubjectNameShort.textProperty())).or(Bindings.isEmpty(tfCredits.textProperty()))
 				.or(Bindings.isEmpty(tfFocus.textProperty())).or(Bindings.isNull(cbSemester.valueProperty())));
-		
-		tfCredits.textProperty().bindBidirectional(editorViewModel.getTotalCreditsProperty(),
-				new NumberStringConverter());
+
 		tfCredits.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (!newValue.matches("\\d*|\\d+\\.\\d*")) {
 				tfCredits.setText(newValue.replaceAll("[^\\d]", ""));
-
 			}
 		});
 
@@ -129,13 +137,8 @@ public class EditorView implements Initializable {
 		tcCps.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
 		tcCps.setOnEditCommit(
 				e -> e.getTableView().getItems().get(e.getTablePosition().getRow()).setCredits(e.getNewValue()));
-		tfTotalCredits.textProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue.matches("\\d*|\\d+\\.\\d*")) {
-				tfTotalCredits.setText(newValue.replaceAll("[^\\d]", ""));
-
-			}
-		});
 		
+
 		TableColumn<CurriculumSubjectEntry, Boolean> tcNote = new TableColumn<>("Note");
 		tcNote.setCellValueFactory(new PropertyValueFactory<>(CurriculumSubjectEntry.HASGRADE));
 		var hasGradeList = FXCollections.observableArrayList(Arrays.asList(true, false));
@@ -143,7 +146,7 @@ public class EditorView implements Initializable {
 		tcNote.setOnEditCommit(
 				e -> e.getTableView().getItems().get(e.getTablePosition().getRow()).setHasGrade(e.getNewValue()));
 
-		TableColumn<CurriculumSubjectEntry, CurriculumSubjectEntry> tcDelete = new TableColumn<>("Entfernen");
+		TableColumn<CurriculumSubjectEntry, CurriculumSubjectEntry> tcDelete = new TableColumn<>("");
 		tcDelete.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		tcDelete.setCellFactory(param -> new TableCell<CurriculumSubjectEntry, CurriculumSubjectEntry>() {
 			private final Button deleteButton = new Button("X");
@@ -151,12 +154,10 @@ public class EditorView implements Initializable {
 			@Override
 			protected void updateItem(CurriculumSubjectEntry subjectEntry, boolean empty) {
 				super.updateItem(subjectEntry, empty);
-
 				if (subjectEntry == null) {
 					setGraphic(null);
 					return;
 				}
-
 				setGraphic(deleteButton);
 				deleteButton.setOnAction(event -> getTableView().getItems().remove(subjectEntry));
 			}
@@ -171,15 +172,7 @@ public class EditorView implements Initializable {
 
 	@FXML
 	public void btnSaveClicked() {
-		if (!editorViewModel.saveCurriculum()) {
-			var errorMsg = editorViewModel.getErrorMessage();
-			Platform.runLater(() -> {
-				final Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Fehler");
-				alert.setContentText(errorMsg);
-				alert.show();
-			});
-		}
+		editorViewModel.saveCurriculum();
 	}
 
 	@FXML
@@ -190,14 +183,14 @@ public class EditorView implements Initializable {
 		var focus = tfFocus.getText();
 		var semester = cbSemester.getValue();
 		var hasGrade = cbGrade.isSelected();
-		CurriculumSubject subject = new CurriculumSubject(nameShort, name, focus, hasGrade, semester, credits);
-		editorViewModel.addSubject(subject);
-		System.out.println("new subject: " + subject);
-	}
-
-	@FXML
-	public void btnEditClicked() {
-
+		tfSubjectName.clear();
+		tfSubjectNameShort.clear();
+		tfCredits.clear();
+		tfFocus.clear();
+		cbSemester.valueProperty().set(null);
+		cbGrade.setSelected(false);
+		editorViewModel.addSubject(nameShort, name, focus, hasGrade, semester, credits);
+		
 	}
 
 }

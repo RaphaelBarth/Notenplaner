@@ -1,12 +1,11 @@
 package de.pbma.java;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.zip.DataFormatException;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -22,14 +21,22 @@ public class GradeViewModel {
 	private FilteredList<ModuleEntry> filteredData;
 	private SortedList<ModuleEntry> sortedData;
 	private final StringProperty selectedFilterCategory = new SimpleStringProperty();
+	private AtomicBoolean updateUI;
 
 	public GradeViewModel() {
+		updateUI = new AtomicBoolean(true);
 		filterDisabled.bind(Bindings.size(oList).isEqualTo(0)); // you can not filter, if no subjects
 		CurriculumData.getData().getObjectProperty().addListener((observable, oldValue, newValue) -> {
-			updateView();
+			if (updateUI.get()) {
+				updateView();
+			}
+			updateUI.set(true);
 		});
 		StudentData.getData().getObjectProperty().addListener((observable, oldValue, newValue) -> {
-			updateView();
+			if (updateUI.get()) {
+				updateView();
+			}
+			updateUI.set(true);
 		});
 		updateView();
 		oList.addListener(new ListChangeListener<ModuleEntry>() {
@@ -93,7 +100,7 @@ public class GradeViewModel {
 
 	private void addSubjectsAndGradesToTable(Curriculum curriculum, Student student) {
 		for (var curriculumSubject : curriculum.getAllSubjects()) {
-			var grade = student.getGradeForSubject(curriculumSubject.getShort()).toString();
+			var grade = student.getGradeForSubject(curriculumSubject.getShort());
 			var specificName = student.getNameForSubject(curriculumSubject.getShort());
 			var subjectName = specificName == null ? curriculumSubject.getName() : specificName;
 			var entryData = new ModuleEntryData(curriculumSubject, subjectName, grade);
@@ -152,7 +159,7 @@ public class GradeViewModel {
 			return false; // Does not match.
 		case "Kürzel":
 			return moduleEntry.getShortName().toLowerCase().contains(lowerCaseFilter);
-		case "Name": 
+		case "Name":
 			return moduleEntry.getSubjectName().toLowerCase().contains(lowerCaseFilter);
 		case "Bereich":
 			return moduleEntry.getFocus().toLowerCase().contains(lowerCaseFilter);
@@ -162,25 +169,26 @@ public class GradeViewModel {
 
 	}
 
-	public void setGrade(String subjectShort, String subjectName, String newGrade) {
+	public void setGrade(String subjectShort, String subjectName, Grades newGrade) {
+		System.out.format("neuer Note: %s\n", newGrade);
 		var student = StudentData.getData().getStudent();
 		Grades grade;
-		try {
-			grade = Grades.fromString(newGrade);
-			System.out.format("neuer Note: %s\n", newGrade);
-			student.setGradeForSubject(subjectShort, grade);
-			StudentData.getData().setStudent(student);
-		} catch (DataFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// try {
+//			grade = Grades.fromString(newGrade);
+		student.setGradeForSubject(subjectShort, newGrade);
+		updateUI.set(false);
+		StudentData.getData().setStudent(student);
+		// } catch (DataFormatException e) {
+		// e.printStackTrace();
+		// }
 	}
 
 	public void setSubjectName(String subjectShort, String subjectName) {
+		System.out.format("neuer Name: %s\n", subjectName);
 		var student = StudentData.getData().getStudent();
 		student.setNameForSubject(subjectShort, subjectName);
+		updateUI.set(false);
 		StudentData.getData().setStudent(student);
-		System.out.format("neuer Name: %s\n", subjectName);
 
 	}
 

@@ -4,12 +4,10 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -55,7 +53,7 @@ public class GradeView implements Initializable {
 		TableColumn<ModuleEntry, Double> tcCps = new TableColumn<>("CPs");
 		tcCps.setCellValueFactory(new PropertyValueFactory<>(ModuleEntry.CPS));
 
-		TableColumn<ModuleEntry, String> tcNote = new TableColumn<>("Note");
+		TableColumn<ModuleEntry, Grades> tcNote = new TableColumn<>("Note");
 		tcNote.setCellValueFactory(new PropertyValueFactory<>(ModuleEntry.NOTE));
 		Callback<TableColumn<ModuleEntry, String>, TableCell<ModuleEntry, String>> defaultTextFieldCellFactory = TextFieldTableCell
 				.<ModuleEntry>forTableColumn();
@@ -103,31 +101,36 @@ public class GradeView implements Initializable {
 
 		// 5. Add sorted (and filtered) data to the table.
 		tvGrades.setItems(gradeViewModel.getSortedListProperty());
-		
+
 		tvGrades.getColumns().addAll(Arrays.asList(tcKrz, tcName, tcBereich, tcSem, tcCps, tcNote));
 		// Default: sortieren nach Fachsemester, Kürzel und Name
 		tvGrades.getSortOrder().addAll(Arrays.asList(tcSem, tcKrz, tcName));
-		tvGrades.setSelectionModel(null);
-		
-		cbCategory.getItems().addAll("überall","Name", "Kürzel", "Bereich");
+		//use no selectionmodul
+		tvGrades.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+			Platform.runLater(() -> {
+				tvGrades.getSelectionModel().clearSelection();
+			});
+		});
+
+		cbCategory.getItems().addAll("überall", "Name", "Kürzel", "Bereich");
 		cbCategory.getSelectionModel().selectFirst();
 		gradeViewModel.getSelectedFilterCategoryProperty().bind(cbCategory.getSelectionModel().selectedItemProperty());
 	}
 
-	private Callback<TableColumn<ModuleEntry, String>, TableCell<ModuleEntry, String>> cellFactoryComboBoxColumn = new Callback<TableColumn<ModuleEntry, String>, TableCell<ModuleEntry, String>>() {
+	private Callback<TableColumn<ModuleEntry, Grades>, TableCell<ModuleEntry, Grades>> cellFactoryComboBoxColumn = new Callback<TableColumn<ModuleEntry, Grades>, TableCell<ModuleEntry, Grades>>() {
 		@Override
-		public TableCell<ModuleEntry, String> call(final TableColumn<ModuleEntry, String> param) {
-			final TableCell<ModuleEntry, String> cell = new TableCell<ModuleEntry, String>() {
+		public TableCell<ModuleEntry, Grades> call(final TableColumn<ModuleEntry, Grades> param) {
+			final TableCell<ModuleEntry, Grades> cell = new TableCell<ModuleEntry, Grades>() {
 				@Override
-				public void updateItem(String item, boolean empty) {
+				public void updateItem(Grades item, boolean empty) {
 					super.updateItem(item, empty);
 
 					if (empty) {
 						setGraphic(null);
 					} else {
 						var moduleEntry = getTableView().getItems().get(getIndex());
-						var tableViewComboBox = new ComboBox<String>();
-						tableViewComboBox.setItems((ObservableList<String>) moduleEntry.getPossibleEvaluations());
+						var tableViewComboBox = new ComboBox<Grades>();
+						tableViewComboBox.setItems((ObservableList<Grades>) moduleEntry.getPossibleEvaluations());
 						tableViewComboBox.setPrefWidth(param.getWidth() - 2);
 						tableViewComboBox.setValue(moduleEntry.getGrade());
 						tableViewComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {

@@ -22,6 +22,7 @@ public class Curriculum implements Cloneable {
 		} else if (nameShort.endsWith("M")) {
 			abschluss = Abschluss.MASTER;
 		} else {
+			abschluss=Abschluss.DEFAULT;
 			// throw new Exception("Abschluss konnte nicht bestimmt werden");
 			return;
 		}
@@ -95,7 +96,7 @@ public class Curriculum implements Cloneable {
 
 	@Override
 	public String toString() {
-		return "courseOfStudies [name=" + name + ", nameShort=" + nameShort + ", credits=" + credits + ", subjects="
+		return "courseOfStudies [nameShort=" + nameShort + ", name=" + name +   ", credits=" + credits + ", subjects="
 				+ subjects + "]";
 	}
 

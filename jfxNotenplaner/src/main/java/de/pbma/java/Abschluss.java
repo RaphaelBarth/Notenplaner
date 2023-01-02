@@ -1,7 +1,7 @@
 package de.pbma.java;
 
 public enum Abschluss {
-	BACHELOR(210), MASTER(90);
+	BACHELOR(210), MASTER(90),DEFAULT(0);
 
 	private final int gesamtCP;
 	private final String name;

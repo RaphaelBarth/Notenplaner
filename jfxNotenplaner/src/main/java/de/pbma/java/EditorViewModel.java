@@ -1,19 +1,33 @@
 package de.pbma.java;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 
 public class EditorViewModel {
 
 	private final StringProperty curriculumNameProperty = new SimpleStringProperty();
 	private final StringProperty curriculumNameShortProperty = new SimpleStringProperty();
-	private final Property<String> totalCreditsProperty = new SimpleStringProperty();
+	private final DoubleProperty totalCreditsProperty = new SimpleDoubleProperty();
+	private final ObservableList<CurriculumSubjectEntry> subjectsList = FXCollections.observableArrayList();
 
-	private String  errorMessage;
+	private String errorMessage;
+
+	public EditorViewModel() {
+		System.out.println("sadvasd");
+		addSubject(new CurriculumSubject("EIP", "Einführung in die Programmierung", "Software", true, 1, 7));
+		addSubject(new CurriculumSubject("ET1", "Elektrotechnik 1", "Grundlagen", true, 1, 5));
+
+	}
 
 	public boolean saveCurriculum() {
 		errorMessage = "darum";
@@ -44,18 +58,33 @@ public class EditorViewModel {
 		curriculumNameProperty.setValue(curriculumNameShort);
 	}
 
-	public Property<String> getTotalCreditsProperty() {
+	public DoubleProperty getTotalCreditsProperty() {
 		return totalCreditsProperty;
 	}
 
-	public String getTotalCredits() {
+	public Double getTotalCredits() {
 		return totalCreditsProperty.getValue();
 	}
 
-	public void setTotalCredits(String totalCredits) {
+	public void setTotalCredits(Double totalCredits) {
 		totalCreditsProperty.setValue(totalCredits);
 	}
 
+	public ObservableList<CurriculumSubjectEntry> getSubjectsList() {
+		return subjectsList;
+	}
+
+	@Deprecated
+	public boolean addSubject(CurriculumSubject curriculumSubject) {
+		return subjectsList.add(new CurriculumSubjectEntry(curriculumSubject));
+	}
+	public boolean addSubject(CurriculumSubjectEntry curriculumSubject) {
+		return subjectsList.add(curriculumSubject);
+	}
+
+	public boolean remouveSubject(CurriculumSubject curriculumSubject) {
+		return subjectsList.remove(curriculumSubject);
+	}
 
 	public String getErrorMessage() {
 		return errorMessage;

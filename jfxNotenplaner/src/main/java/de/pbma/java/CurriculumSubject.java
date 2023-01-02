@@ -49,4 +49,10 @@ public class CurriculumSubject extends Subject {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "CurriculumSubject [subject="+super.toString()+"semester=" + semester + ", credits=" + credits + "]";
+	}
+	
+
 }

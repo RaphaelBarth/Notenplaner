@@ -10,9 +10,36 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="de.pbma.java.AnalyseView" fx:id="vBoxAnalytics"
-	alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity">
+	alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity"
+	fillWidth="true">
 	<style> -fx-spacing: 5; -fx-padding: 10 </style>
 	<children>
+		<BarChart fx:id="barChartGrades" title="Notenverteilung"
+			legendVisible="false" verticalGridLinesVisible="false">
+			<xAxis>
+				<CategoryAxis />
+			</xAxis>
+			<yAxis>
+				<NumberAxis label="Anzahl" />
+			</yAxis>
+		</BarChart>
+		<Label text="Semestervergleich">
+			<style> -fx-font-size: 1.4em</style>
+		</Label>
+		<GridPane fx:id="progressBarBox" prefWidth="Infinity"
+			maxWidth="Infinity" />
+		<LineChart fx:id="lineChartGrades"
+			title="Durchschnittsnote im Verlauf" legendVisible="false"
+			verticalGridLinesVisible="false" horizontalGridLinesVisible="true">
+			<xAxis>
+				<NumberAxis label="Semester" tickUnit="1.0"
+					autoRanging="false" minorTickVisible="false" lowerBound="1" />
+			</xAxis>
+			<yAxis>
+				<NumberAxis label="Durchschnittsnote" lowerBound="4.0"
+					upperBound="1.0" autoRanging="false" />
+			</yAxis>
+		</LineChart>
 	</children>
 </VBox>
 

@@ -668,6 +668,15 @@
 }
 
 /* BarChart */
+.chart-plot-background{
+	-fx-background-color: transparent;
+}
 .chart-bar{
-	-fx-fill-bar: -my-green-color;
+	-fx-bar-fill: -my-green-color;
+}
+.chart-line-symbol{
+	-fx-background-color: -my-green-color;
+}
+.chart-series-line{
+	-fx-stroke:-my-green-color;
 }

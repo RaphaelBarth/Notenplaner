@@ -19,53 +19,57 @@
 	</columnConstraints>
 	<!-- <rowConstraints> <RowConstraints percentWidth="50" /> </rowConstraints> -->
 
-	<Label text="Neues Curriculum erstellen" GridPane.columnIndex="0"
-		GridPane.rowIndex="0" GridPane.columnSpan="2" />
+
 	<Label text="Studiengang kurzform:" GridPane.columnIndex="0"
-		GridPane.rowIndex="1" />
+		GridPane.rowIndex="0" />
 	<TextField fx:id="tfCoursOfStudiesShort"
-		GridPane.columnIndex="1" GridPane.rowIndex="1" />
+		GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
 	<Label text="Studiengang:" GridPane.columnIndex="0"
-		GridPane.rowIndex="2" />
+		GridPane.rowIndex="1" />
 	<TextField fx:id="tfCoursOfStudies" GridPane.columnIndex="1"
-		GridPane.rowIndex="2" />
-	<Label text="Credits:" GridPane.rowIndex="3" />
-	<TextField fx:id="tfTotalCredits" GridPane.rowIndex="3"
+		GridPane.rowIndex="1" />
+
+	<Label text="Credits:" GridPane.rowIndex="2" />
+	<TextField fx:id="tfTotalCredits" GridPane.rowIndex="2"
 		GridPane.columnIndex="1" />
 
-	<Separator GridPane.columnIndex="0" GridPane.rowIndex="4"
+	<Separator GridPane.columnIndex="0" GridPane.rowIndex="3"
 		GridPane.columnSpan="2"></Separator>
 
-	<HBox GridPane.rowIndex="5" GridPane.columnIndex="0"
+	<HBox GridPane.rowIndex="4" GridPane.columnIndex="0"
 		GridPane.columnSpan="2" alignment="CENTER" spacing="10"
 		maxWidth="Infinity" maxHeight="Infinity">
 
+		<TextField fx:id="tfSubjectNameShort" promptText="Kürzel" />
 		<TextField fx:id="tfSubjectName" promptText="Fach" />
-		<TextField fx:id="tfSubjectNameShort" promptText="Kürzel"/>
 		<ComboBox fx:id="cbSemester" promptText="Semester"></ComboBox>
-		<TextField fx:id="tfFocus" promptText="Schwerpunkt"/>
-		<TextField fx:id="tfCredits" promptText="Credits"/>
+		<TextField fx:id="tfFocus" promptText="Schwerpunkt" />
+		<TextField fx:id="tfCredits" promptText="Credits" />
 		<CheckBox fx:id="cbGrade" text="Note">
 		</CheckBox>
-</HBox>
+	</HBox>
 
-<HBox GridPane.rowIndex="6" GridPane.columnIndex="0"
-	GridPane.columnSpan="2" alignment="CENTER" maxWidth="Infinity"
-	maxHeight="Infinity" spacing="10">
-	<Button fx:id="btnAdd" text="Hinzufügen"
-		onAction="#btnAddClicked">
+	<HBox GridPane.rowIndex="5" GridPane.columnIndex="0"
+		GridPane.columnSpan="2" alignment="CENTER" maxWidth="Infinity"
+		maxHeight="Infinity" spacing="10">
+		<Button fx:id="btnAdd" text="Hinzufügen"
+			onAction="#btnAddClicked">
+		</Button>
+	</HBox>
+
+	<TableView fx:id="tvSubjects" GridPane.columnIndex="0"
+		GridPane.rowIndex="6" GridPane.columnSpan="2">
+	</TableView>
+
+	<Separator GridPane.columnIndex="0" GridPane.rowIndex="7"
+		GridPane.columnSpan="2"></Separator>
+	<Button fx:id="btnNew" text="Curriculum erstellen"
+		GridPane.columnIndex="0" GridPane.rowIndex="8"
+		onAction="#btnNewClicked" />
+	<Button fx:id="btnSave" text="Speichern"
+		GridPane.columnIndex="1" GridPane.rowIndex="8"
+		onAction="#btnSaveClicked" GridPane.halignment="RIGHT">
 	</Button>
-</HBox>
-
-<TableView fx:id="tvSubjects" GridPane.columnIndex="0"
-	GridPane.rowIndex="7" GridPane.columnSpan="2">
-</TableView>
-
-<Separator GridPane.columnIndex="0" GridPane.rowIndex="8"
-	GridPane.columnSpan="2"></Separator>
-
-<Button fx:id="btnSave" text="Speichern" GridPane.columnIndex="1"
-	GridPane.rowIndex="9" onAction="#btnSaveClicked">
-</Button>
 </GridPane>
 

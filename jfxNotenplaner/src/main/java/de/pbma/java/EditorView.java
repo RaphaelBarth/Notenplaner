@@ -46,6 +46,8 @@ public class EditorView implements Initializable {
 	TableView<CurriculumSubjectEntry> tvSubjects;
 	@FXML
 	Button btnSave;
+	@FXML
+	Button btnNew;
 
 	@FXML
 	TextField tfSubjectName;
@@ -72,6 +74,9 @@ public class EditorView implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		editorViewModel.getErrorMessage().addListener((observable, oldValue, newValue) -> {
 			final String msg = newValue;
+			if (msg.isEmpty()){
+				return;
+			}
 			Platform.runLater(() -> {
 				final Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Fehler");
@@ -93,7 +98,8 @@ public class EditorView implements Initializable {
 		btnSave.disableProperty()
 				.bind(Bindings.isEmpty(tfCoursOfStudiesShort.textProperty())
 						.or(Bindings.isEmpty(tfCoursOfStudies.textProperty()))
-						.or(Bindings.isEmpty(tfTotalCredits.textProperty())));
+						.or(Bindings.isEmpty(tfTotalCredits.textProperty()))
+						.or(editorViewModel.getFileAvailableProperty().not()));
 
 		btnAdd.disableProperty().bind(Bindings.isEmpty(tfSubjectName.textProperty())
 				.or(Bindings.isEmpty(tfSubjectNameShort.textProperty())).or(Bindings.isEmpty(tfCredits.textProperty()))
@@ -147,10 +153,13 @@ public class EditorView implements Initializable {
 				e -> e.getTableView().getItems().get(e.getTablePosition().getRow()).setHasGrade(e.getNewValue()));
 
 		TableColumn<CurriculumSubjectEntry, CurriculumSubjectEntry> tcDelete = new TableColumn<>("");
+		tcDelete.setStyle("-fx-alignment: CENTER;");
 		tcDelete.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		tcDelete.setCellFactory(param -> new TableCell<CurriculumSubjectEntry, CurriculumSubjectEntry>() {
 			private final Button deleteButton = new Button("X");
-
+			{
+				deleteButton.setBackground(null);
+			}
 			@Override
 			protected void updateItem(CurriculumSubjectEntry subjectEntry, boolean empty) {
 				super.updateItem(subjectEntry, empty);
@@ -160,11 +169,9 @@ public class EditorView implements Initializable {
 				}
 				setGraphic(deleteButton);
 				deleteButton.setOnAction(event -> getTableView().getItems().remove(subjectEntry));
-			}
+			}			
 		});
-
 		tvSubjects.getColumns().addAll(Arrays.asList(tcKrz, tcName, tcBereich, tcSem, tcCps, tcNote, tcDelete));
-
 		tvSubjects.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		tvSubjects.setItems(editorViewModel.getSubjectsList());
 		tvSubjects.setEditable(true);
@@ -191,6 +198,16 @@ public class EditorView implements Initializable {
 		cbGrade.setSelected(false);
 		editorViewModel.addSubject(nameShort, name, focus, hasGrade, semester, credits);
 		
+	}
+	@FXML
+	public void btnNewClicked() {
+		if (editorViewModel.createNewCurriculum()) {
+			btnNew.setText("Abbrechen");
+		}else {			
+			btnNew.setText("Neues Curriculum");
+		}
+		
+
 	}
 
 }

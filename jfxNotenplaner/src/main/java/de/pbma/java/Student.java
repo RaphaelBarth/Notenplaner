@@ -85,7 +85,7 @@ public class Student implements Cloneable {
 	}
 
 	public void removeGradeForSubject(String subjectShort) {
-		subjectsGradeMap.remove(courseOfStudies);
+		subjectsGradeMap.remove(subjectShort);
 	}
 
 	@Override

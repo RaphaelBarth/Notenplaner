@@ -23,7 +23,7 @@ public class FileLogic {
 		System.out.format("Datei \"%s\" laden\n", file.toString());
 		boolean retval = false;
 		try {
-			student = CSVFileParser.getStudent(file);
+			this.student = CSVFileParser.getStudent(file);
 			System.out.println(student);
 			userFiles.setStudentFile(file);
 			retval = true;
@@ -57,7 +57,8 @@ public class FileLogic {
 		System.out.format("Datei \"%s\" laden\n", file.toString());
 		boolean retval = false;
 		try {
-			setCurriculum(CSVFileParser.getCurriculum(file));
+			this.curriculum = CSVFileParser.getCurriculum(file);
+			System.out.println(curriculum);
 			userFiles.setCurriculumFile(file);
 			retval = true;
 		} catch (ParserException | FileNotFoundException e) {
@@ -73,7 +74,7 @@ public class FileLogic {
 		File file = Paths.get(fileName).toFile();
 		saveCurriculumFile(file);
 	}
-	
+
 	public void saveCurriculumFile(File file) {
 		System.out.format("Datei \"%s\" speichern\n", file);
 		userFiles.setCurriculumFile(file);

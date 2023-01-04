@@ -1,5 +1,6 @@
 package de.pbma.java;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.scene.chart.BarChart;
@@ -8,83 +9,96 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 public class AnalyseView {
 	@FXML
-	private VBox vBoxAnalytics;
-	@FXML
-	private GridPane progressBarBox;
-	@FXML
-	private BarChart<String, Number> barChartGrades;
+	private GridPane gridProgress;
 	@FXML
 	private LineChart<Number, Number> lineChartGrades;
 	@FXML
-	private PieChart pieChartFocus;
-	@FXML
-	private Label lbFocus;
-	@FXML
-	private Label lbFocusAvg;
+	private BarChart<String, Number> barChartGrades;
 	@FXML
 	private HBox hBoxFocus;
+	@FXML
+	private PieChart pieChartFocus;
+	@FXML
+	private Label lbSelectedFocus;
 
 	private AnalyseViewModel analyseViewModel = new AnalyseViewModel();
 
 	@FXML
 	public void initialize() {
-//		StudentData.getData().getObjectProperty().addListener((observable, oldValue, newValue) -> {	
-//			updateView();
-//		});
-		updateView();
+		//initGrid();
+//		hBoxFocus.visibleProperty().bind(analyseViewModel.getPieChartVisibleProperty());
+		((NumberAxis) lineChartGrades.getXAxis()).upperBoundProperty()
+				.bind(analyseViewModel.getNumberOfSemestersProperty());
+		barChartGrades.setData(analyseViewModel.getBarChartdataProperty());
+		lineChartGrades.setData(analyseViewModel.getLineChartdataProperty());
+		
+		for (var data : pieChartFocus.getData()) {
+			data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent e) {
+					System.out.println("Click");
+					//var number = analyseViewModel.getNumberOfSubjectsPerFocus(data.getName());
+					var number=5;
+					var text = String.format("%s\nbelegte Fächer: %d\nSchnitt:%.2f", data.getName(), number, 1.2);
+					lbSelectedFocus.setText(text);
+				}
+			});
+		}
+		analyseViewModel.getNumberOfSemestersProperty().addListener((observable, oldValue, newValue) -> {
+			updateGrid();
+		});
 	}
 
-	public void updateView() {
-		int sem_max = analyseViewModel.getMaxSemester();
-		double percentWidth = 0.85 / sem_max * 100;
+	private void updateGrid() {
+		System.out.println("full Grid update");
+		gridProgress.getChildren().clear();
+
+		var progressPropertyMap = analyseViewModel.getProgressPropertyMap(); 
+		var avgPropertyMap = analyseViewModel.getAvgPropertyMap(); 
+		
+		double percentWidth = 0.85 / progressPropertyMap.size() * 100;
 		var firstColumnConstraint = new ColumnConstraints();
 		firstColumnConstraint.setPercentWidth(15);
-		progressBarBox.getColumnConstraints().add(firstColumnConstraint);
-		for (int sem = 1; sem <= sem_max; sem += 1) {
+		gridProgress.getColumnConstraints().clear();
+		gridProgress.getColumnConstraints().add(firstColumnConstraint);
+		
+		gridProgress.add(new Label("Semester"), 0, 0);
+		gridProgress.add(new Label("Fortschritt"), 0, 1);
+		gridProgress.add(new Label("Schnitt"), 0, 2);
+		
+		for(var propertyEntry: progressPropertyMap.entrySet()) {
+			int sem = propertyEntry.getKey();
+			var progressProperty = propertyEntry.getValue();
 			var pi = new ProgressIndicator();
-			// Rote Farbe
-//			var adjust = new ColorAdjust();
-//			adjust.setHue(16);
-//			pi.setEffect(adjust);
-			var columnConstraint = new ColumnConstraints();
-			columnConstraint.setPercentWidth(percentWidth);
-			pi.setProgress(analyseViewModel.getProgressOfSemester(sem));
+			pi.progressProperty().bind(progressProperty);
+//			// Rote Farbe
+////			var adjust = new ColorAdjust();
+////			adjust.setHue(16);
+////			pi.setEffect(adjust);
 			pi.setMinHeight(45); // otherwise not visible
 			GridPane.setHalignment(pi, HPos.CENTER);
+			gridProgress.add(pi, sem, 1);
+			
 			var title = new Label(String.valueOf(sem));
 			title.setUnderline(true);
 			GridPane.setHalignment(title, HPos.CENTER);
-			var avg = analyseViewModel.getAvgOfSemester(sem);
-			var text = avg.isPresent() ? String.format("%.2f", avg.getAsDouble()) : "-";
-			var avgLabel = new Label(text);
+			gridProgress.add(title, sem, 0);
+			
+			var avgLabel = new Label();
+			avgLabel.textProperty().bind(avgPropertyMap.getOrDefault(sem, null));
 			GridPane.setHalignment(avgLabel, HPos.CENTER);
-			progressBarBox.add(title, sem, 0);
-			progressBarBox.add(pi, sem, 1);
-			progressBarBox.add(avgLabel, sem, 2);
-			progressBarBox.getColumnConstraints().add(columnConstraint);
-		}
-
-		barChartGrades.getData().add(analyseViewModel.getNotenverteilung());
-
-		// Setting the data to Line chart
-		lineChartGrades.getData().add(analyseViewModel.getAvgOfSemesters());
-
-		((NumberAxis) lineChartGrades.getXAxis()).setUpperBound(sem_max);
-
-		var data = analyseViewModel.getFocusPieData();
-		if (data == null) {
-			hBoxFocus.setVisible(false);
-		} else {
-			pieChartFocus.setData(data);
-			lbFocus.setText(
-					String.format("Belegte Fächer: %d", analyseViewModel.getNumberOfSubjectsPerFocus("Grundlagen")));
+			gridProgress.add(avgLabel, sem, 2);
+						
+			var columnConstraint = new ColumnConstraints();
+			columnConstraint.setPercentWidth(percentWidth);
+			gridProgress.getColumnConstraints().add(columnConstraint);
 		}
 	}
 }

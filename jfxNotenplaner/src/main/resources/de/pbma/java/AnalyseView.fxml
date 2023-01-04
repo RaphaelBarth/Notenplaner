@@ -22,7 +22,7 @@
 		</GridPane>
 		<LineChart fx:id="lineChartGrades"
 			title="Durchschnittsnote im Verlauf" legendVisible="false"
-			verticalGridLinesVisible="false" horizontalGridLinesVisible="true">
+			verticalGridLinesVisible="false" horizontalGridLinesVisible="true" animated="false">
 			<xAxis>
 				<NumberAxis label="Semester" tickUnit="1.0"
 					autoRanging="false" minorTickVisible="false" lowerBound="1" />
@@ -34,12 +34,12 @@
 			</yAxis>
 		</LineChart>
 		<BarChart fx:id="barChartGrades" title="Notenverteilung"
-			legendVisible="false" verticalGridLinesVisible="false">
+			legendVisible="false" verticalGridLinesVisible="false" animated="false">
 			<xAxis>
-				<CategoryAxis />
+				<CategoryAxis/>
 			</xAxis>
 			<yAxis>
-				<NumberAxis label="Anzahl" />
+				<NumberAxis label="Anzahl" upperBound="15"/>
 			</yAxis>
 		</BarChart>
 		<HBox VBox.vgrow="ALWAYS" fx:id="hBoxFocus" alignment="CENTER">

@@ -8,48 +8,59 @@
 <?import java.util.*?>
 <?import java.lang.Object?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="de.pbma.java.AnalyseView"
-	alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity"
-	fillWidth="true">
-	<style> -fx-spacing: 5; -fx-padding: 10 </style>
-	<children>
-		<Label text="Semestervergleich">
-			<style> -fx-font-size: 1.4em</style>
-		</Label>
-		<GridPane fx:id="gridProgress" prefWidth="Infinity"
-			vgap="5" maxWidth="Infinity">
-		</GridPane>
-		<LineChart fx:id="lineChartGrades"
-			title="Durchschnittsnote im Verlauf" legendVisible="false"
-			verticalGridLinesVisible="false" horizontalGridLinesVisible="true" animated="false">
-			<xAxis>
-				<NumberAxis label="Semester" tickUnit="1.0"
-					autoRanging="false" minorTickVisible="false" lowerBound="1" />
-			</xAxis>
-			<yAxis>
-				<NumberAxis label="Durchschnittsnote" upperBound="4.0"
-					lowerBound="1.0" tickUnit="1.0" minorTickVisible="true"
-					minorTickCount="4" />
-			</yAxis>
-		</LineChart>
-		<BarChart fx:id="barChartGrades" title="Notenverteilung"
-			legendVisible="false" verticalGridLinesVisible="false" animated="false">
-			<xAxis>
-				<CategoryAxis/>
-			</xAxis>
-			<yAxis>
-				<NumberAxis label="Anzahl" upperBound="15"/>
-			</yAxis>
-		</BarChart>
-		<HBox VBox.vgrow="ALWAYS" fx:id="hBoxFocus" alignment="CENTER">
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="de.pbma.java.AnalyseView" fitToHeight="true"
+	fitToWidth="true" hbarPolicy="NEVER" focusTraversable="false">
+	<content>
+		<!-- -->
+		<VBox maxWidth="Infinity" maxHeight="Infinity" fillWidth="true"
+			alignment="CENTER">
+			<style> -fx-spacing: 5; -fx-padding: 10 </style>
 			<children>
-				<PieChart fx:id="pieChartFocus" animated="false"
-					legendVisible="false" title="Bereichskenntnisse" />
-				<Label fx:id="lbSelectedFocus"
-					text="Klicken Sie auf einen der Bereiche im Diagramm." />
+				<Label text="Semestervergleich">
+					<style> -fx-font-size: 1.4em</style>
+				</Label>
+				<GridPane fx:id="gridProgress" prefWidth="Infinity"
+					vgap="5" maxWidth="Infinity">
+					<Label GridPane.columnIndex="0" GridPane.rowIndex="0" />
+					<Label GridPane.columnIndex="0" GridPane.rowIndex="1" />
+					<Label GridPane.columnIndex="0" GridPane.rowIndex="2" />
+				</GridPane>
+				<LineChart fx:id="lineChartGrades"
+					title="Durchschnittsnote im Verlauf" legendVisible="false"
+					verticalGridLinesVisible="false" horizontalGridLinesVisible="true"
+					animated="false">
+					<xAxis>
+						<NumberAxis label="Semester" tickUnit="1.0"
+							autoRanging="false" minorTickVisible="false" lowerBound="1" />
+					</xAxis>
+					<yAxis>
+						<NumberAxis label="Durchschnittsnote" upperBound="4.0"
+							lowerBound="1.0" tickUnit="1.0" minorTickVisible="true"
+							minorTickCount="4" />
+					</yAxis>
+				</LineChart>
+				<BarChart fx:id="barChartGrades" title="Notenverteilung"
+					legendVisible="false" verticalGridLinesVisible="false"
+					animated="false">
+					<xAxis>
+						<CategoryAxis />
+					</xAxis>
+					<yAxis>
+						<NumberAxis label="Anzahl" upperBound="15" />
+					</yAxis>
+				</BarChart>
+				<HBox VBox.vgrow="ALWAYS" fx:id="hBoxFocus" alignment="CENTER">
+					<children>
+						<PieChart fx:id="pieChartFocus" animated="false"
+							legendVisible="false" title="Bereichskenntnisse" />
+						<Label fx:id="lbSelectedFocus"
+							text="Klicken Sie auf einen der Bereiche im Diagramm." />
+					</children>
+				</HBox>
 			</children>
-		</HBox>
-	</children>
-</VBox>
+		</VBox>
+	</content>
+</ScrollPane>
+
 

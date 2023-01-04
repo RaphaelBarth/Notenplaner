@@ -41,10 +41,10 @@ public class OverviewViewModel {
 		new Thread(() -> {
 			final var student = StudentData.getData().getStudent();
 			final var curriculum = CurriculumData.getData().getCurriculum();
-			System.out.println(curriculum);
 			if (student == null || curriculum == null) {
 				return;
 			}
+			
 			var currentGradeTmp = 0.0;
 			var currentGradeCreditsTmp = 0.0;
 			var currentCreditsTmp = 0.0;

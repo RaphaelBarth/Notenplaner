@@ -165,15 +165,9 @@ public class GradeViewModel {
 	public void setGrade(String subjectShort, String subjectName, Grades newGrade) {
 		System.out.format("neuer Note: %s\n", newGrade);
 		var student = StudentData.getData().getStudent();
-		Grades grade;
-		// try {
-//			grade = Grades.fromString(newGrade);
 		student.setGradeForSubject(subjectShort, newGrade);
 		updateUI.set(false);
 		StudentData.getData().setStudent(student);
-		// } catch (DataFormatException e) {
-		// e.printStackTrace();
-		// }
 	}
 
 	public void setSubjectName(String subjectShort, String subjectName) {

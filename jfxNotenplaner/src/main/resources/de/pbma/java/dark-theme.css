@@ -680,3 +680,21 @@
 .chart-series-line{
 	-fx-stroke:-my-green-color;
 }
+
+/*Pie Chart */
+.chart-pie-label {
+    -fx-fill: #AFB1B3;
+}
+
+.axis {
+    AXIS_COLOR: #AFB1B3;
+    -fx-tick-label-fill: #AFB1B3;
+}
+
+/*Scroll Pane */
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-pane {
+    -fx-background-color: transparent;
+}

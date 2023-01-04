@@ -41,8 +41,8 @@ public class MenuBarController {
 		new Thread(() -> {
 			String msgTmp = null;
 			if (fileLogic.loadStudentFile(file)) {
-				var curriculum = fileLogic.getStudent().getCourseOfStudies();
-				var curriculumFile = fileLogic.getCurriculumFiles().get(curriculum);
+				var curriculumName = fileLogic.getStudent().getCourseOfStudies();
+				var curriculumFile = fileLogic.getCurriculumFiles().get(curriculumName);
 				if (curriculumFile != null && fileLogic.loadCurriculumFile(curriculumFile)) {
 					CurriculumData.getData().setCurriculum(fileLogic.getCurriculum());
 					StudentData.getData().setStudent(fileLogic.getStudent());

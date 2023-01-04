@@ -22,16 +22,16 @@ public class MainGUIController {
 	private Tab tabOverview;
 	@FXML
 	private Tab tabGrades;
-	@FXML
-	private Label lblStatus;
+//	@FXML
+//	private Label lblStatus;
 
 	public MainGUIController() {
 	}
 
 	@FXML
 	public void initialize() {
-		lblStatus.setText("BananenPalme");
-		setCurrentView(ContentType.OVERVIEW);
+
+		// lblStatus.setText("BananenPalme");
 		tabp.getSelectionModel().selectedItemProperty().addListener(this::tabListener);
 		var tabs = Stream.of(ContentType.values()).map(content -> {
 			var tab = new Tab();

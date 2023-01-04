@@ -33,8 +33,6 @@ public class GradeView implements Initializable {
 		tfFilter.textProperty().bindBidirectional(gradeViewModel.filterProperty());
 		tfFilter.disableProperty().bind(gradeViewModel.filterDisabledProperty());
 		cbCategory.disableProperty().bind(gradeViewModel.filterDisabledProperty());
-
-		tvGrades.setItems(gradeViewModel.getOListProperty());
 		tvGrades.setEditable(true);
 		tvGrades.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 

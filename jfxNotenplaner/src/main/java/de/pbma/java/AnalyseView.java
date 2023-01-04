@@ -32,7 +32,6 @@ public class AnalyseView {
 
 	@FXML
 	public void initialize() {
-		//initGrid();
 //		hBoxFocus.visibleProperty().bind(analyseViewModel.getPieChartVisibleProperty());
 		((NumberAxis) lineChartGrades.getXAxis()).upperBoundProperty()
 				.bind(analyseViewModel.getNumberOfSemestersProperty());

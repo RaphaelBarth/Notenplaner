@@ -110,7 +110,6 @@ public class MenuBarController {
 
 	@FXML
 	private void handleDarkAction(ActionEvent ae) {
-		System.out.println("Dark Mode Design");
 		final var url = MenuBarController.class.getResource("dark-theme.css").toString();
 		Window owner = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
 		var scene = owner.getScene();

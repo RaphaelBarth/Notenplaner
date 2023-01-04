@@ -7,16 +7,22 @@ import java.util.Map;
 import java.util.OptionalDouble;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
+import javafx.scene.input.MouseEvent;
 
 public class AnalyseViewModel {
 
@@ -26,18 +32,44 @@ public class AnalyseViewModel {
 	private Map<Integer, DoubleProperty> progressProperties = new HashMap<>();
 	private Map<Integer, StringProperty> avgProperties = new HashMap<>();
 
-//	private BooleanProperty pieChartVisible = new SimpleBooleanProperty(false);
-//	private final ObservableList<PieChart.Data> focusPieChartData = FXCollections.observableArrayList();
-//	private StringProperty selectedSubject = new SimpleStringProperty();
-//	private IntegerProperty subjectsPerSelectedFocus = new SimpleIntegerProperty(0);
-//	private DoubleProperty avgForSelectedSubject = new SimpleDoubleProperty();
+	private BooleanProperty pieChartVisible = new SimpleBooleanProperty(false);
+	private final ObservableList<PieChart.Data> focusPieChartData = FXCollections.observableArrayList();
+	private StringProperty selectedFocus = new SimpleStringProperty();
+	private IntegerProperty subjectsPerSelectedFocus = new SimpleIntegerProperty(0);
+	private StringProperty selectedFocusData = new SimpleStringProperty();
 
 	public AnalyseViewModel() {
 		updateValuesForStudent();
+		pieChartVisible.bind(Bindings.size(focusPieChartData).greaterThan(1));
+
+		selectedFocus.addListener((observable, oldValue, newValue) -> {
+			new Thread(() -> {
+				var student = StudentData.getData().getStudent();
+				final String text;
+				var curriculum = CurriculumData.getData().getCurriculum();
+				if (curriculum == null || student == null) {
+					return;
+				}
+				if(newValue.isEmpty()) {
+					text = "Klicken Sie auf einen Bereich.";					
+				}else {
+				var number = getNumberOfSubjectsPerFocus(curriculum, student.getSubjectGradeMap(), newValue);
+				var avg = getAvgOfFocus(curriculum, student.getSubjectGradeMap(), newValue).getAsDouble();
+				text = String.format("%s\nbelegte Fächer: %d\nSchnitt:%.2f", newValue, number, avg);}
+
+				Platform.runLater(() -> {
+					selectedFocusData.set(text);
+				});
+
+			}).start();
+		});
 
 		CurriculumData.getData().getObjectProperty().addListener((observable, oldValue, newValue) -> {
 			progressProperties.clear();
 			avgProperties.clear();
+			Platform.runLater(() -> {
+				selectedFocus.set("");
+			});
 			updateValuesForStudent();
 		});
 		StudentData.getData().getObjectProperty().addListener((observable, oldValue, newValue) -> {
@@ -75,6 +107,8 @@ public class AnalyseViewModel {
 				avgProperties.putIfAbsent(sem, new SimpleStringProperty());
 
 			}
+
+			var pieData = getFocusPieData(curriculum, student.getSubjectGradeMap());
 			Platform.runLater(() -> {
 				numberOfSemesters.set(numberOfSemester);
 				barChartdata.clear();
@@ -85,6 +119,18 @@ public class AnalyseViewModel {
 					System.out.println("setze Progress Werte");
 					progressProperties.get(i).set(progressList.get(i));
 					avgProperties.get(i).set(avgList.get(i));
+				}
+				focusPieChartData.clear();
+				for (var entrySet : pieData.entrySet()) {
+					var data = new PieChart.Data(entrySet.getKey(), entrySet.getValue());
+					focusPieChartData.add(data);
+					data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+						@Override
+						public void handle(MouseEvent e) {
+							System.out.println("Click");
+							setSelectedFocus(data.getName());
+						}
+					});
 				}
 			});
 		}).start();
@@ -106,11 +152,6 @@ public class AnalyseViewModel {
 		return barChartdata;
 	}
 
-//
-//	public IntegerProperty getSubjectsPerSelectedFocusProperty() {
-//		return subjectsPerSelectedFocus;
-//	}
-//
 	public Map<Integer, DoubleProperty> getProgressPropertyMap() {
 		return progressProperties;
 	}
@@ -159,15 +200,6 @@ public class AnalyseViewModel {
 		return OptionalDouble.of(currentGrade);
 	}
 
-	public XYChart.Series<String, Number> getNotenverteilung(Collection<Grades> collection) {
-		XYChart.Series<String, Number> serie = new XYChart.Series<String, Number>();
-		for (var g : Grades.values()) {
-			var data = new XYChart.Data<String, Number>(g.toString(), Collections.frequency(collection, g));
-			serie.getData().add(data);
-		}
-		return serie;
-	}
-
 	public Map<Integer, Double> getAvgOfAllSemesters(Curriculum curriculum, Map<String, Grades> subjectGradeMap) {
 		Map<Integer, Double> semesterAvgMap = new HashMap<>();
 		for (int sem = 1; sem <= curriculum.getNumberOfSemesters(); sem += 1) {
@@ -179,46 +211,93 @@ public class AnalyseViewModel {
 		return semesterAvgMap;
 	}
 
-//	public BooleanProperty getPieChartVisibleProperty() {
-//		return pieChartVisible;
-//	}
+	public XYChart.Series<String, Number> getNotenverteilung(Collection<Grades> collection) {
+		XYChart.Series<String, Number> serie = new XYChart.Series<String, Number>();
+		for (var g : Grades.values()) {
+			var data = new XYChart.Data<String, Number>(g.toString(), Collections.frequency(collection, g));
+			serie.getData().add(data);
+		}
+		return serie;
+	}
 
-//	public ObservableList<PieChart.Data> getFocusPieData() {
-//		if (currentStudent == null) {
-//			return null;
-//		}
-//		Map<String, Double> collectedFocusCreditsMap = new HashMap<>();
-//
-//		for (var subject : currentCurriculum.getAllSubjects()) {
-//			var grade = currentStudent.getGradeForSubject(subject.getShort());
-//			if (grade == Grades.NOTPASSED) {
-//				continue;
-//			}
-//			collectedFocusCreditsMap.put(subject.getFocus(),
-//					collectedFocusCreditsMap.getOrDefault(subject.getFocus(), 0.0) + subject.getCreditPoints());
-//		}
-//		if (collectedFocusCreditsMap.keySet().size() < 2) {
-//			return null;
-//		}
-//		focusPieChartData = FXCollections.observableArrayList();
-//		for (var entrySet : collectedFocusCreditsMap.entrySet()) {
-//			var data = new PieChart.Data(entrySet.getKey(), entrySet.getValue());
-//			focusPieChartData.add(data);
-//		}
-//		return focusPieChartData;
-//	}
-//
-//	public int getNumberOfSubjectsPerFocus(String focus) {
-//		int number = 0;
-//		for (var entrySet : currentStudent.getSubjectGradeMap().entrySet()) {
-//			var subjectFocus = currentCurriculum.getSubject(entrySet.getKey()).getFocus();
-//			if (!focus.equals(subjectFocus) || entrySet.getValue() == Grades.NOTPASSED) {
-//				continue;
-//			}
-//			number++;
-//		}
-//		subjectsPerSelectedFocus.set(number);
-//		return number;
-//	}
+	public IntegerProperty getSubjectsPerSelectedFocusProperty() {
+		return subjectsPerSelectedFocus;
+	}
+
+	public BooleanProperty getPieChartVisibleProperty() {
+		return pieChartVisible;
+	}
+
+	public ObservableList<PieChart.Data> getPieChartDataProperty() {
+		return focusPieChartData;
+	}
+
+	public StringProperty getSelectedFocusDataProperty() {
+		return selectedFocusData;
+	}
+
+	public StringProperty getSelectedFocusProperty() {
+		return selectedFocus;
+	}
+
+	public String getSelectedFocus() {
+		return selectedFocus.getValue();
+	}
+
+	public void setSelectedFocus(String focus) {
+		selectedFocus.setValue(focus);
+	}
+
+	public Map<String, Double> getFocusPieData(Curriculum curriculum, Map<String, Grades> subjectGradeMap) {
+		Map<String, Double> collectedFocusCreditsMap = new HashMap<>();
+		for (var entrySet : subjectGradeMap.entrySet()) {
+			if (entrySet.getValue() == Grades.NOTPASSED) {
+				continue;
+			}
+			var subject = curriculum.getSubject(entrySet.getKey());
+			collectedFocusCreditsMap.put(subject.getFocus(),
+					collectedFocusCreditsMap.getOrDefault(subject.getFocus(), 0.0) + subject.getCreditPoints());
+		}
+		if (collectedFocusCreditsMap.keySet().size() < 2) {
+			return null;
+		}
+
+		return collectedFocusCreditsMap;
+	}
+
+	public int getNumberOfSubjectsPerFocus(Curriculum curriculum, Map<String, Grades> subjectGradeMap, String focus) {
+		int number = 0;
+		for (var entrySet : subjectGradeMap.entrySet()) {
+			var subjectFocus = curriculum.getSubject(entrySet.getKey()).getFocus();
+			if (!focus.equals(subjectFocus) || entrySet.getValue() == Grades.NOTPASSED) {
+				continue;
+			}
+			number++;
+		}
+		return number;
+	}
+	
+	public OptionalDouble getAvgOfFocus(Curriculum curriculum, Map<String, Grades> subjectGradeMap, String focus) {
+		var currentGradeTmp = 0.0;
+		var currentGradeCreditsTmp = 0.0;
+		for (var entrySet : subjectGradeMap.entrySet()) {
+			var grade = entrySet.getValue();
+			if (grade == Grades.PASSED || grade == Grades.NOTPASSED) {
+				continue;
+			}
+			var subject = curriculum.getSubject(entrySet.getKey());
+			if (!subject.getFocus().equals(focus)) {
+				continue;
+			}
+			var credits = subject.getCreditPoints();
+			currentGradeCreditsTmp += credits;
+			currentGradeTmp += (credits * grade.value);
+		}
+		var currentGrade = currentGradeTmp / currentGradeCreditsTmp;
+		if (Double.isNaN(currentGrade)) {
+			return OptionalDouble.empty();
+		}
+		return OptionalDouble.of(currentGrade);
+	}
 
 }

@@ -1,6 +1,5 @@
 package de.pbma.java;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.scene.chart.BarChart;
@@ -9,7 +8,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -32,24 +30,13 @@ public class AnalyseView {
 
 	@FXML
 	public void initialize() {
-//		hBoxFocus.visibleProperty().bind(analyseViewModel.getPieChartVisibleProperty());
+		hBoxFocus.visibleProperty().bind(analyseViewModel.getPieChartVisibleProperty());
 		((NumberAxis) lineChartGrades.getXAxis()).upperBoundProperty()
 				.bind(analyseViewModel.getNumberOfSemestersProperty());
 		barChartGrades.setData(analyseViewModel.getBarChartdataProperty());
 		lineChartGrades.setData(analyseViewModel.getLineChartdataProperty());
-		
-		for (var data : pieChartFocus.getData()) {
-			data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent e) {
-					System.out.println("Click");
-					//var number = analyseViewModel.getNumberOfSubjectsPerFocus(data.getName());
-					var number=5;
-					var text = String.format("%s\nbelegte Fächer: %d\nSchnitt:%.2f", data.getName(), number, 1.2);
-					lbSelectedFocus.setText(text);
-				}
-			});
-		}
+		pieChartFocus.setData(analyseViewModel.getPieChartDataProperty());
+		lbSelectedFocus.textProperty().bind(analyseViewModel.getSelectedFocusDataProperty());
 		analyseViewModel.getNumberOfSemestersProperty().addListener((observable, oldValue, newValue) -> {
 			updateGrid();
 		});

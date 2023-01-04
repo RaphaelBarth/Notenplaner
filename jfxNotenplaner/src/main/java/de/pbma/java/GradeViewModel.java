@@ -39,14 +39,7 @@ public class GradeViewModel {
 			updateUI.set(true);
 		});
 		updateView();
-		oList.addListener(new ListChangeListener<ModuleEntry>() {
-			@Override
-			public void onChanged(Change<? extends ModuleEntry> c) {
 
-				System.out.println(c);
-
-			}
-		});
 		// 1. Wrap the ObservableList in a FilteredList (initially display all data).
 		filteredData = new FilteredList<>(oList, p -> true);
 

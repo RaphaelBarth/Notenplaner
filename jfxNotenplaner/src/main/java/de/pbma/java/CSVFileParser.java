@@ -59,8 +59,6 @@ public class CSVFileParser {
 	}
 
 	private static CurriculumSubject toCurriculumSubject(String string) throws ParserException {
-		CurriculumSubject curriculumSubject = null;
-		System.out.println(string);
 		try (Scanner rowScanner = new Scanner(string)) {
 			rowScanner.useDelimiter(DELIMITER);
 			var shortName = rowScanner.next();
@@ -69,12 +67,13 @@ public class CSVFileParser {
 			var hasGradeAsEvaluation = rowScanner.nextBoolean();
 			var semester = rowScanner.nextInt();
 			var credits = Double.parseDouble(rowScanner.next());
-			curriculumSubject = new CurriculumSubject(shortName, name, focus, hasGradeAsEvaluation, semester, credits);
+			CurriculumSubject curriculumSubject = new CurriculumSubject(shortName, name, focus, hasGradeAsEvaluation,
+					semester, credits);
+			return curriculumSubject;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ParserException(e.getMessage());
 		}
-		return curriculumSubject;
 	}
 
 	private static void toSubjects(Student student, String string) throws ParserException {

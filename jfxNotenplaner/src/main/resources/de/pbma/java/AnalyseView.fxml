@@ -35,8 +35,7 @@
 					</xAxis>
 					<yAxis>
 						<NumberAxis label="Durchschnittsnote" upperBound="1.0"
-							lowerBound="4.0"
-							autoRanging="false" />
+							lowerBound="4.0" autoRanging="false" />
 					</yAxis>
 				</LineChart>
 				<BarChart fx:id="barChartGrades" title="Notenverteilung"
@@ -46,15 +45,17 @@
 						<CategoryAxis />
 					</xAxis>
 					<yAxis>
-						<NumberAxis label="Anzahl" upperBound="15" tickUnit="1.0" minorTickVisible="false"/>
+						<NumberAxis label="Anzahl" upperBound="15"
+							tickUnit="1.0" minorTickVisible="false" />
 					</yAxis>
 				</BarChart>
 				<HBox fx:id="hBoxFocus" alignment="CENTER" maxWidth="Infinity">
 					<children>
-						<PieChart fx:id="pieChartFocus" animated="false" legendSide="BOTTOM"
-							title="Bereichskenntnisse"/>
+						<PieChart fx:id="pieChartFocus" animated="false"
+							legendSide="BOTTOM" title="Bereichskenntnisse" />
 						<Label fx:id="lbSelectedFocus"
-							text="Klicken Sie auf einen der Bereiche im Diagramm." wrapText="true"/>
+							text="Klicken Sie auf einen der Bereiche im Diagramm."
+							wrapText="true" />
 					</children>
 				</HBox>
 			</children>

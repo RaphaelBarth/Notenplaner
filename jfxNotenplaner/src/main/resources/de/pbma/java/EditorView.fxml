@@ -17,10 +17,7 @@
 		<ColumnConstraints percentWidth="50" />
 		<ColumnConstraints percentWidth="50" />
 	</columnConstraints>
-	<!-- <rowConstraints> <RowConstraints percentWidth="50" /> </rowConstraints> -->
-
-
-	<Label text="Studiengang kurzform:" GridPane.columnIndex="0"
+	<Label text="Studiengangkürzel:" GridPane.columnIndex="0"
 		GridPane.rowIndex="0" />
 	<TextField fx:id="tfCoursOfStudiesShort"
 		GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -43,8 +40,8 @@
 
 		<TextField fx:id="tfSubjectNameShort" promptText="Kürzel" />
 		<TextField fx:id="tfSubjectName" promptText="Fach" />
-		<ComboBox fx:id="cbSemester" promptText="Semester"></ComboBox>
-		<TextField fx:id="tfFocus" promptText="Schwerpunkt" />
+		<ComboBox fx:id="cbSemester" promptText="Semester" />
+		<TextField fx:id="tfFocus" promptText="Bereich" />
 		<TextField fx:id="tfCredits" promptText="Credits" />
 		<CheckBox fx:id="cbGrade" text="Note">
 		</CheckBox>

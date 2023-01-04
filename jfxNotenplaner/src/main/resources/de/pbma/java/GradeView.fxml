@@ -13,7 +13,7 @@
 			<children>
 				<TextField fx:id="tfFilter" maxWidth="99999"
 					HBox.hgrow="ALWAYS" promptText="Fächer filtern" />
-				<ComboBox fx:id="cbCategory"/>
+				<ComboBox fx:id="cbCategory" />
 			</children>
 		</HBox>
 		<TableView maxWidth="99999" maxHeight="99999"

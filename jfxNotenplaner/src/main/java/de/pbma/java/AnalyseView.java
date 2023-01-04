@@ -46,20 +46,20 @@ public class AnalyseView {
 		System.out.println("full Grid update");
 		gridProgress.getChildren().clear();
 
-		var progressPropertyMap = analyseViewModel.getProgressPropertyMap(); 
-		var avgPropertyMap = analyseViewModel.getAvgPropertyMap(); 
-		
+		var progressPropertyMap = analyseViewModel.getProgressPropertyMap();
+		var avgPropertyMap = analyseViewModel.getAvgPropertyMap();
+
 		double percentWidth = 0.85 / progressPropertyMap.size() * 100;
 		var firstColumnConstraint = new ColumnConstraints();
 		firstColumnConstraint.setPercentWidth(15);
 		gridProgress.getColumnConstraints().clear();
 		gridProgress.getColumnConstraints().add(firstColumnConstraint);
-		
+
 		gridProgress.add(new Label("Semester"), 0, 0);
 		gridProgress.add(new Label("Fortschritt"), 0, 1);
 		gridProgress.add(new Label("Schnitt"), 0, 2);
-		
-		for(var propertyEntry: progressPropertyMap.entrySet()) {
+
+		for (var propertyEntry : progressPropertyMap.entrySet()) {
 			int sem = propertyEntry.getKey();
 			var progressProperty = propertyEntry.getValue();
 			var pi = new ProgressIndicator();
@@ -71,17 +71,17 @@ public class AnalyseView {
 			pi.setMinHeight(45); // otherwise not visible
 			GridPane.setHalignment(pi, HPos.CENTER);
 			gridProgress.add(pi, sem, 1);
-			
+
 			var title = new Label(String.valueOf(sem));
 			title.setUnderline(true);
 			GridPane.setHalignment(title, HPos.CENTER);
 			gridProgress.add(title, sem, 0);
-			
+
 			var avgLabel = new Label();
 			avgLabel.textProperty().bind(avgPropertyMap.getOrDefault(sem, null));
 			GridPane.setHalignment(avgLabel, HPos.CENTER);
 			gridProgress.add(avgLabel, sem, 2);
-						
+
 			var columnConstraint = new ColumnConstraints();
 			columnConstraint.setPercentWidth(percentWidth);
 			gridProgress.getColumnConstraints().add(columnConstraint);

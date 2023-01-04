@@ -9,7 +9,7 @@
 <?import java.lang.Object?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="de.pbma.java.AnalyseView" fx:id="vBoxAnalytics"
+	fx:controller="de.pbma.java.AnalyseView"
 	alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity"
 	fillWidth="true">
 	<style> -fx-spacing: 5; -fx-padding: 10 </style>
@@ -17,14 +17,8 @@
 		<Label text="Semestervergleich">
 			<style> -fx-font-size: 1.4em</style>
 		</Label>
-		<GridPane fx:id="progressBarBox" prefWidth="Infinity"
+		<GridPane fx:id="gridProgress" prefWidth="Infinity"
 			vgap="5" maxWidth="Infinity">
-			<Label text="Semester" GridPane.columnIndex="0"
-				GridPane.rowIndex="0" />
-			<Label text="Fortschritt" GridPane.columnIndex="0"
-				GridPane.rowIndex="1" />
-			<Label text="Schnitt" GridPane.columnIndex="0"
-				GridPane.rowIndex="2" />
 		</GridPane>
 		<LineChart fx:id="lineChartGrades"
 			title="Durchschnittsnote im Verlauf" legendVisible="false"
@@ -35,8 +29,8 @@
 			</xAxis>
 			<yAxis>
 				<NumberAxis label="Durchschnittsnote" upperBound="4.0"
-					lowerBound="1.0" tickUnit="1.0"
-					minorTickVisible="true" minorTickCount="4" />
+					lowerBound="1.0" tickUnit="1.0" minorTickVisible="true"
+					minorTickCount="4" />
 			</yAxis>
 		</LineChart>
 		<BarChart fx:id="barChartGrades" title="Notenverteilung"
@@ -48,17 +42,14 @@
 				<NumberAxis label="Anzahl" />
 			</yAxis>
 		</BarChart>
-		<HBox VBox.vgrow="ALWAYS" fx:id="hBoxFocus">
-         <children>
-            <PieChart fx:id="pieChartFocus" animated="false" legendVisible="false" title="Bereichskenntnisse" />
-            <VBox maxHeight="Infinity" alignment="CENTER">
-               <children>
-                  <Label fx:id="lbFocus" text="x belegteFächer" />
-                  <Label fx:id="lbFocusAvg" text="Schnit: 1,x" />
-               </children>
-            </VBox>
-         </children>
-      </HBox>
+		<HBox VBox.vgrow="ALWAYS" fx:id="hBoxFocus" alignment="CENTER">
+			<children>
+				<PieChart fx:id="pieChartFocus" animated="false"
+					legendVisible="false" title="Bereichskenntnisse" />
+				<Label fx:id="lbSelectedFocus"
+					text="Klicken Sie auf einen der Bereiche im Diagramm." />
+			</children>
+		</HBox>
 	</children>
 </VBox>
 

@@ -54,8 +54,9 @@ public class AnalyseViewModel {
 					text = "Klicken Sie auf einen Bereich.";					
 				}else {
 				var number = getNumberOfSubjectsPerFocus(curriculum, student.getSubjectGradeMap(), newValue);
-				var avg = getAvgOfFocus(curriculum, student.getSubjectGradeMap(), newValue).getAsDouble();
-				text = String.format("%s\nbelegte Fächer: %d\nSchnitt:%.2f", newValue, number, avg);}
+				var avg = getAvgOfFocus(curriculum, student.getSubjectGradeMap(), newValue);
+				var avgString = (avg.isPresent())?String.format("Schnitt:%.1f", avg.getAsDouble()):"";
+				text = String.format("%s\nbelegte Fächer: %d\n%s", newValue, number, avgString);}
 
 				Platform.runLater(() -> {
 					selectedFocusData.set(text);
@@ -127,7 +128,6 @@ public class AnalyseViewModel {
 					data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 						@Override
 						public void handle(MouseEvent e) {
-							System.out.println("Click");
 							setSelectedFocus(data.getName());
 						}
 					});
@@ -276,7 +276,7 @@ public class AnalyseViewModel {
 		}
 		return number;
 	}
-	
+
 	public OptionalDouble getAvgOfFocus(Curriculum curriculum, Map<String, Grades> subjectGradeMap, String focus) {
 		var currentGradeTmp = 0.0;
 		var currentGradeCreditsTmp = 0.0;

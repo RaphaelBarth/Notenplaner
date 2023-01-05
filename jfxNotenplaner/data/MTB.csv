@@ -1,41 +1,41 @@
 MTB;Medizintechnik;210.0
-EIP;Einführung in die Programmierung;Software;true;1;7.0
-ET1;Elektrotechnik 1;Grundlagen;true;1;5.0
-MED1;Grundlagen der Medizin;Medizin;true;1;3.5
-DT;Digitaltechnik;Grundlagen;true;1;5.0
-MA1;Mathematik 1;Grundlagen;true;1;5.0
-PH;Physik;Grundlagen;true;1;6.0
-MED2;Anatomie, Physiologie, Biochemie;Medizin;true;2;3.5
-WST;Wechselstromtechnik;Elektronik;true;2;4.0
 GST;Grundlagen der Schaltungstechnik;Elektronik;true;2;4.0
 MA2;Mathematik 2;Grundlagen;true;2;6.0
-OOP;Objektorientierte Programmierung;Software;true;2;6.0
-HPS;Höhere Programmiersprachen;Software;true;3;5.0
-EMT;Einführung in die Medizintechnik;Medizin;true;3;1.0
-EEL;Entwurf elektronischer Schaltungen;Elektronik;true;3;5.0
-FEL;Felder;Elektronik;true;3;5.0
-DB;Datenbanken;Software;true;3;5.0
-SS;Signale und Systeme;Signalverarbeitung;true;3;5.0
-DMC;Digital- und Microcomputertechnik;Embedded;true;3;5.0
-MA3;Mathematik 3;Grundlagen;true;3;6.0
-SOE;Software-Engineering;Software;true;4;5.0
-SET;Software-Entwicklungsmethoden und -Entwicklungstools;Software;true;4;5.0
-APH;Angewandte Physik;Grundlagen;true;4;5.0
-DSV;Digitale Signalverarbeitung;Signalverarbeitung;true;4;5.0
+MST;Mess- und Sensortechnik;Elektronik;true;6;5.0
 EMB;Embedded Systems;Embedded;true;4;5.0
-BS;Betriebssysteme;Software;true;4;5.0
+WF2;;Wahlfach;true;7;5.0
+MED1;Grundlagen der Medizin;Medizin;true;1;3.5
+DSV;Digitale Signalverarbeitung;Signalverarbeitung;true;4;5.0
 HF;Hochfrequenztechnik;Elektronik;true;4;5.0
 PS;Praxissemester;Praxis;false;5;25.0
-BV;Blockveranstaltung;Praxis;false;5;5.0
-BVM;Bilgebende Verfahren in der Medizintechnik;Medizin;true;6;5.0
-MED3;Klinische Medizin;Medizin;true;6;4.0
-KIM;Künstliche Intelligenz in der Medizintechnik;Medizin;true;6;5.0
 NE;Neural Engineering;Elektronik;true;6;5.0
-PLB;Programmierbare Logikbausteine;Schaltungen;true;6;5.0
-MST;Mess- und Sensortechnik;Elektronik;true;6;5.0
-RT;Regelungstechnik;Elektronik;true;6;5.0
-ML;Machine Learning;Software;true;6;5.0
-WF1;;Wahlfach;true;7;5.0
-WF2;;Wahlfach;true;7;5.0
-ZMP;Zulassung von Medizinprodukten;Medizin;true;7;5.0
+BS;Betriebssysteme;Software;true;4;5.0
+MED3;Klinische Medizin;Medizin;true;6;4.0
+APH;Angewandte Physik;Grundlagen;true;4;5.0
+BV;Blockveranstaltung;Praxis;false;5;5.0
+SOE;Software-Engineering;Software;true;4;5.0
 BA;Bachelorarbeit;Wahlfach;true;7;15.0
+PH;Physik;Grundlagen;true;1;6.0
+DMC;Digital- und Microcomputertechnik;Embedded;true;3;5.0
+PLB;Programmierbare Logikbausteine;Schaltungen;true;6;5.0
+MED2;Anatomie, Physiologie, Biochemie;Medizin;true;2;3.5
+MA3;Mathematik 3;Grundlagen;true;3;6.0
+RT;Regelungstechnik;Elektronik;true;6;5.0
+BVM;Bilgebende Verfahren in der Medizintechnik;Medizin;true;6;5.0
+MA1;Mathematik 1;Grundlagen;true;1;5.0
+SS;Signale und Systeme;Signalverarbeitung;true;3;5.0
+WF1;;Wahlfach;true;7;5.0
+OOP;Objektorientierte Programmierung;Software;true;2;6.0
+FEL;Felder;Elektronik;true;3;5.0
+DT;Digitaltechnik;Grundlagen;true;1;5.0
+ZMP;Zulassung von Medizinprodukten;Medizin;true;7;5.0
+HPS;Höhere Programmiersprachen;Software;true;3;5.0
+EIP;Einführung in die Programmierung;Software;true;1;7.0
+ML;Machine Learning;Software;true;6;5.0
+EEL;Entwurf elektronischer Schaltungen;Elektronik;true;3;5.0
+EMT;Einführung in die Medizintechnik;Medizin;true;3;1.0
+DB;Datenbanken;Software;true;3;5.0
+SET;Software-Entwicklungsmethoden und -Entwicklungstools;Software;true;4;5.0
+KIM;Künstliche Intelligenz in der Medizintechnik;Medizin;true;6;5.0
+WST;Wechselstromtechnik;Elektronik;true;2;4.0
+ET1;Elektrotechnik 1;Grundlagen;true;1;5.0

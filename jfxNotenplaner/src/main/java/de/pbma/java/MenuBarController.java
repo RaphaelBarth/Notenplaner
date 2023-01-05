@@ -29,7 +29,7 @@ public class MenuBarController {
 
 	@FXML
 	private void handleLoadAction(ActionEvent ae) {
-		Window owner = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+		final Window owner = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));

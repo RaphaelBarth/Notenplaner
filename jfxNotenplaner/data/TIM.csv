@@ -1,13 +1,13 @@
 TIM;Technische Informatik;90.0
-EES;Eingebettete Systeme und Echtzeitsysteme;Embedded;true;2;6.0
-ECO;Embedded Connectivity;Embedded;true;1;6.0
-PES;Projektlabor Embedded Systems;Embedded;true;2;6.0
 PSY;Projektlabor Security;Security;true;2;6.0
-AKR;Angewandte Kryptographie;Security;true;2;6.0
-SECO;Secure Coding;Security;true;1;6.0
-WF1;;Wahlfach;true;1;5.0
-WF2;;Wahlfach;true;1;5.0
-WF3;;Wahlfach;true;1;5.0
-WF4;;Wahlfach;true;1;5.0
 WF5;;Wahlfach;true;2;4.0
 MA;Masterarbeit;Praxis;true;3;30.0
+ECO;Embedded Connectivity;Embedded;true;1;6.0
+EES;Eingebettete Systeme und Echtzeitsysteme;Embedded;true;2;6.0
+WF1;;Wahlfach;true;1;5.0
+AKR;Angewandte Kryptographie;Security;true;2;6.0
+WF2;;Wahlfach;true;1;5.0
+SECO;Secure Coding;Security;true;1;6.0
+WF3;;Wahlfach;true;1;5.0
+PES;Projektlabor Embedded Systems;Embedded;true;2;6.0
+WF4;;Wahlfach;true;1;5.0

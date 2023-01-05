@@ -74,7 +74,7 @@ public class EditorView implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		editorViewModel.getErrorMessage().addListener((observable, oldValue, newValue) -> {
 			final String msg = newValue;
-			if (msg.isEmpty()){
+			if (msg.isEmpty()) {
 				return;
 			}
 			Platform.runLater(() -> {
@@ -83,7 +83,7 @@ public class EditorView implements Initializable {
 				alert.setContentText(msg);
 				alert.show();
 			});
-			newValue="";
+			newValue = "";
 		});
 
 		tfCoursOfStudies.textProperty().bindBidirectional(editorViewModel.getCurriculumNameProperty());
@@ -101,9 +101,9 @@ public class EditorView implements Initializable {
 						.or(Bindings.isEmpty(tfTotalCredits.textProperty()))
 						.or(editorViewModel.getFileAvailableProperty().not()));
 
-		btnAdd.disableProperty().bind(Bindings.isEmpty(tfSubjectName.textProperty())
-				.or(Bindings.isEmpty(tfSubjectNameShort.textProperty())).or(Bindings.isEmpty(tfCredits.textProperty()))
-				.or(Bindings.isEmpty(tfFocus.textProperty())).or(Bindings.isNull(cbSemester.valueProperty())));
+		btnAdd.disableProperty()
+				.bind(Bindings.isEmpty(tfSubjectNameShort.textProperty()).or(Bindings.isEmpty(tfCredits.textProperty()))
+						.or(Bindings.isEmpty(tfFocus.textProperty())).or(Bindings.isNull(cbSemester.valueProperty())));
 
 		tfCredits.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (!newValue.matches("\\d*|\\d+\\.\\d*")) {
@@ -115,9 +115,26 @@ public class EditorView implements Initializable {
 
 		TableColumn<CurriculumSubjectEntry, String> tcKrz = new TableColumn<>("Kürzel");
 		tcKrz.setCellValueFactory(new PropertyValueFactory<>(CurriculumSubjectEntry.SHORT));
-		tcKrz.setCellFactory(TextFieldTableCell.forTableColumn());
-		tcKrz.setOnEditCommit(
-				e -> e.getTableView().getItems().get(e.getTablePosition().getRow()).setNameShort(e.getNewValue()));
+		tcKrz.setCellFactory(col -> {
+			TableCell<CurriculumSubjectEntry, String> cell = TextFieldTableCell.<CurriculumSubjectEntry>forTableColumn()
+					.call(col);
+			cell.itemProperty().addListener((obs, oldValue, newValue) -> {
+				if (cell.getTableRow() == null) {
+					return;
+				}
+				var item = cell.getTableRow().getItem();
+				if (item == null) {
+					return;
+				}
+				if (newValue.isBlank()) {
+					newValue = oldValue;
+				}
+				cell.setItem(newValue);
+				item.setNameShort(newValue);
+
+			});
+			return cell;
+		});
 
 		TableColumn<CurriculumSubjectEntry, String> tcName = new TableColumn<>("Name");
 		tcName.setCellValueFactory(new PropertyValueFactory<>(CurriculumSubjectEntry.NAME));
@@ -143,7 +160,6 @@ public class EditorView implements Initializable {
 		tcCps.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
 		tcCps.setOnEditCommit(
 				e -> e.getTableView().getItems().get(e.getTablePosition().getRow()).setCredits(e.getNewValue()));
-		
 
 		TableColumn<CurriculumSubjectEntry, Boolean> tcNote = new TableColumn<>("Note");
 		tcNote.setCellValueFactory(new PropertyValueFactory<>(CurriculumSubjectEntry.HASGRADE));
@@ -160,6 +176,7 @@ public class EditorView implements Initializable {
 			{
 				deleteButton.setBackground(null);
 			}
+
 			@Override
 			protected void updateItem(CurriculumSubjectEntry subjectEntry, boolean empty) {
 				super.updateItem(subjectEntry, empty);
@@ -169,12 +186,13 @@ public class EditorView implements Initializable {
 				}
 				setGraphic(deleteButton);
 				deleteButton.setOnAction(event -> getTableView().getItems().remove(subjectEntry));
-			}			
+			}
 		});
 		tvSubjects.getColumns().addAll(Arrays.asList(tcKrz, tcName, tcBereich, tcSem, tcCps, tcNote, tcDelete));
 		tvSubjects.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		tvSubjects.setItems(editorViewModel.getSubjectsList());
 		tvSubjects.setEditable(true);
+
 	}
 
 	@FXML
@@ -197,17 +215,22 @@ public class EditorView implements Initializable {
 		cbSemester.valueProperty().set(null);
 		cbGrade.setSelected(false);
 		editorViewModel.addSubject(nameShort, name, focus, hasGrade, semester, credits);
-		
+
 	}
+
 	@FXML
 	public void btnNewClicked() {
 		if (editorViewModel.createNewCurriculum()) {
 			btnNew.setText("Abbrechen");
-		}else {			
+		} else {
 			btnNew.setText("Neues Curriculum");
 		}
-		
-
+		tfSubjectName.clear();
+		tfSubjectNameShort.clear();
+		tfCredits.clear();
+		tfFocus.clear();
+		cbSemester.valueProperty().set(null);
+		cbGrade.setSelected(false);
 	}
 
 }

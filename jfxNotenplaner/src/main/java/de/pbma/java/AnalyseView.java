@@ -20,7 +20,7 @@ public class AnalyseView {
 	@FXML
 	private BarChart<String, Number> barChartGrades;
 	@FXML
-	private HBox hBoxFocus;
+	private GridPane gridPaneFocus;
 	@FXML
 	private PieChart pieChartFocus;
 	@FXML
@@ -30,7 +30,7 @@ public class AnalyseView {
 
 	@FXML
 	public void initialize() {
-		hBoxFocus.visibleProperty().bind(analyseViewModel.getPieChartVisibleProperty());
+		gridPaneFocus.visibleProperty().bind(analyseViewModel.getPieChartVisibleProperty());
 		((NumberAxis) lineChartGrades.getXAxis()).upperBoundProperty()
 				.bind(analyseViewModel.getNumberOfSemestersProperty());
 		barChartGrades.setData(analyseViewModel.getBarChartdataProperty());

@@ -72,7 +72,7 @@ public class EditorViewModel {
 		new Thread(() -> {
 			double credits = subjectsList.stream().mapToDouble(s -> s.getCredits()).sum();
 			if (credits < totalCredits) {
-				setErrorMessage("Summe der Credits kleiner als gesammt Credits");
+				setErrorMessage("Creditssumme der Fächer ist kleiner als die gesammt Credits des Studiums");
 				return;
 			}
 			final Curriculum curriculum = new Curriculum(curriculumShort, curriculumName, totalCredits);

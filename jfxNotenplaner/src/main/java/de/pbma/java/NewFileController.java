@@ -92,6 +92,21 @@ public class NewFileController implements Initializable {
 			}
 			Curriculum curriculum = fileLogic.getCurriculum();
 			if (externesCurriculum) {
+				var existingCurriculums = fileLogic.getCurriculumFiles().keySet();
+				// check if there is already a curriculum with this name
+				if (existingCurriculums.contains(curriculum.getNameShort())) {
+					var index = 1;
+					var curriculumShort = curriculum.getNameShort();
+					while (existingCurriculums.contains(curriculumShort)) {
+						curriculumShort = curriculum.getNameShort() + index;
+						index++;
+					}
+					var subjects = curriculum.getAllSubjects(); 
+					curriculum = new Curriculum(curriculumShort, curriculum.getName(), curriculum.getCredits());
+					for (var subject:subjects) {
+						curriculum.addSubject(subject);
+					}
+				}
 				fileLogic.saveCurriculumFile(curriculum.getNameShort());
 			}
 			CurriculumData.getData().setCurriculum(curriculum);

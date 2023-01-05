@@ -1,0 +1,13 @@
+MTM;Medizintechnik Master;90.0
+WF5;;Wahlfach;true;2;4.0
+USM;Ultraschall in der Medizintechnik;Medizinische Geräte und rechnergestützte Verfahren;true;2;6.0
+PME;Projektlabor Medizinelektronik;Medizinelektronik;true;2;6.0
+MA;Masterarbeit;Praxis;true;3;30.0
+BMS;Biomedizinische Sensorik;Medizinelektronik;true;1;6.0
+AME;Angewandte Medizinische Elektronik;Medizinelektronik;true;2;6.0
+WF1;;Wahlfach;true;1;5.0
+WF2;;Wahlfach;true;1;5.0
+AKI;Aktive Implantate;Medizinische Geräte und rechnergestützte Verfahren;true;1;6.0
+PMS;Projektlabor Medizinische Software-Entwicklung;Medizinische Geräte und rechnergestützte Verfahren;true;2;6.0
+WF3;;Wahlfach;true;1;5.0
+WF4;;Wahlfach;true;1;5.0

@@ -36,7 +36,7 @@ public class AnalyseViewModel {
 	private final ObservableList<PieChart.Data> focusPieChartData = FXCollections.observableArrayList();
 	private StringProperty selectedFocus = new SimpleStringProperty();
 	private IntegerProperty subjectsPerSelectedFocus = new SimpleIntegerProperty(0);
-	private StringProperty selectedFocusData = new SimpleStringProperty();
+	private StringProperty selectedFocusData = new SimpleStringProperty("Klicken Sie auf einen Bereich.");
 
 	public AnalyseViewModel() {
 		updateValuesForStudent();
@@ -50,13 +50,14 @@ public class AnalyseViewModel {
 				if (curriculum == null || student == null) {
 					return;
 				}
-				if(newValue.isEmpty()) {
-					text = "Klicken Sie auf einen Bereich.";					
-				}else {
-				var number = getNumberOfSubjectsPerFocus(curriculum, student.getSubjectGradeMap(), newValue);
-				var avg = getAvgOfFocus(curriculum, student.getSubjectGradeMap(), newValue);
-				var avgString = (avg.isPresent())?String.format("Schnitt:%.1f", avg.getAsDouble()):"";
-				text = String.format("%s\nbelegte Fächer: %d\n%s", newValue, number, avgString);}
+				if (newValue.isEmpty()) {
+					text = "Klicken Sie auf einen Bereich.";
+				} else {
+					var number = getNumberOfSubjectsPerFocus(curriculum, student.getSubjectGradeMap(), newValue);
+					var avg = getAvgOfFocus(curriculum, student.getSubjectGradeMap(), newValue);
+					var avgString = (avg.isPresent()) ? String.format("Schnitt:%.1f", avg.getAsDouble()) : "";
+					text = String.format("%s\nbelegte Fächer: %d\n%s", newValue, number, avgString);
+				}
 
 				Platform.runLater(() -> {
 					selectedFocusData.set(text);
@@ -122,6 +123,10 @@ public class AnalyseViewModel {
 					avgProperties.get(i).set(avgList.get(i));
 				}
 				focusPieChartData.clear();
+				if (pieData == null) {
+					// Pie Chart Daten gibt es erst ab mind. 2 Fächern in mind. 2 Bereichen
+					return;
+				}
 				for (var entrySet : pieData.entrySet()) {
 					var data = new PieChart.Data(entrySet.getKey(), entrySet.getValue());
 					focusPieChartData.add(data);
@@ -213,8 +218,11 @@ public class AnalyseViewModel {
 
 	public XYChart.Series<String, Number> getNotenverteilung(Collection<Grades> collection) {
 		XYChart.Series<String, Number> serie = new XYChart.Series<String, Number>();
-		for (var g : Grades.values()) {
-			var data = new XYChart.Data<String, Number>(g.toString(), Collections.frequency(collection, g));
+		for (var grade : Grades.values()) {
+			if (grade == Grades.NOTPASSED) {
+				continue;
+			}
+			var data = new XYChart.Data<String, Number>(grade.toString(), Collections.frequency(collection, grade));
 			serie.getData().add(data);
 		}
 		return serie;

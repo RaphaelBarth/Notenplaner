@@ -344,10 +344,13 @@
 }
 
 
-/* Menu */
+/* Menu */ 
 .menu-bar {
-    -fx-background-color: #2D2D30;
+    /*-fx-background-color: #2D2D30;*/
     background-color: #2D2D30;
+    -fx-background-color:
+        linear-gradient(to bottom, derive(#2D2D30,40%) 0%, -my-green-color 90%),
+        linear-gradient(to bottom, derive(#2D2D30,40%) 2%, derive(#2D2D30,-2.1%) 95%);
     -fx-border-width: 0.0;
     border-width: 0.0;
 }
@@ -530,7 +533,7 @@
     border-width: 1.0;
     -fx-border-color: transparent;
     border-color: transparent;
-    -fx-background-insets: 25.5 0.0 0.0 0.0;
+    /*-fx-background-insets: 25.5 0.0 0.0 0.0;*/
 }
 .tab{
     -fx-background-color: #3E3E40;

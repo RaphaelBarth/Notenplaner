@@ -21,11 +21,6 @@
 				<CheckMenuItem fx:id="checkDarkModeItem" text="Dark Mode" onAction="#handleDarkAction" />
 			</items>
 		</Menu>
-		<Menu text="Hilfe">
-			<items>
-
-			</items>
-		</Menu>
 	</menus>
 </MenuBar>
 

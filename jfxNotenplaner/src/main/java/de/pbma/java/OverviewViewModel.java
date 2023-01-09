@@ -44,7 +44,7 @@ public class OverviewViewModel {
 			if (student == null || curriculum == null) {
 				return;
 			}
-			
+
 			var currentGradeTmp = 0.0;
 			var currentGradeCreditsTmp = 0.0;
 			var currentCreditsTmp = 0.0;

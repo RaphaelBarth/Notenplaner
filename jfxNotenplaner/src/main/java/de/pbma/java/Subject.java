@@ -19,8 +19,6 @@ public class Subject {
 		this(subjectShort, subject, focus, true);
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "Subject [subjectShort=" + subjectShort + ", name=" + name + ", focus=" + focus + ", gradeAsEvaluation="

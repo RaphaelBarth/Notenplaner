@@ -69,7 +69,6 @@ public class NewFileController implements Initializable {
 
 	@FXML
 	public void onOkay() {
-		System.out.println("neue notenübersicht erstellen");
 		Window owner = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
 
 		var curriculumType = cbCourseOfStudies.getSelectionModel().getSelectedItem();
@@ -77,7 +76,7 @@ public class NewFileController implements Initializable {
 		final var externesCurriculum = (fileTmp == null) ? true : false;
 		if (externesCurriculum) {
 			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Open Resource File");
+			fileChooser.setTitle("Wählen Sie ein Curriculum");
 			fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 			fileChooser.getExtensionFilters().add(new ExtensionFilter("Comma Separated Value", "*.csv"));
 			fileTmp = fileChooser.showOpenDialog(owner);
@@ -88,7 +87,8 @@ public class NewFileController implements Initializable {
 		final File file = fileTmp;
 		new Thread(() -> {
 			if (!fileLogic.loadCurriculumFile(file)) {
-				errorDialog("Banane", "Erdbeere");
+				errorDialog("Fehler beim Laden des Curriculums",
+						"Die csv-Datei konnte nicht als Curriculum gelesen\nwerden. Bitte wählen Sie eine gültige csv-Datei.");
 			}
 			Curriculum curriculum = fileLogic.getCurriculum();
 			if (externesCurriculum) {
@@ -101,9 +101,9 @@ public class NewFileController implements Initializable {
 						curriculumShort = curriculum.getNameShort() + index;
 						index++;
 					}
-					var subjects = curriculum.getAllSubjects(); 
+					var subjects = curriculum.getAllSubjects();
 					curriculum = new Curriculum(curriculumShort, curriculum.getName(), curriculum.getCredits());
-					for (var subject:subjects) {
+					for (var subject : subjects) {
 						curriculum.addSubject(subject);
 					}
 				}

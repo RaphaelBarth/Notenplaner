@@ -24,8 +24,8 @@ public class ModuleEntry implements Serializable {
 
 	private final static List<Grades> normalEvaluation = FXCollections
 			.observableArrayList(Arrays.asList(Grades.NOTPASSED, Grades.PASSED));
-	private final static List<Grades> gradeEvaluation = FXCollections.observableArrayList(Stream.of(Grades.values())
-			.filter(g -> g != Grades.PASSED).sorted().collect(Collectors.toList()));
+	private final static List<Grades> gradeEvaluation = FXCollections.observableArrayList(
+			Stream.of(Grades.values()).filter(g -> g != Grades.PASSED).sorted().collect(Collectors.toList()));
 
 	private ModuleEntryData entryData;
 	private ObjectProperty<Grades> gradeProperty;

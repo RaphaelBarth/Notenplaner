@@ -22,7 +22,7 @@ public class Curriculum implements Cloneable {
 		} else if (nameShort.endsWith("M")) {
 			abschluss = Abschluss.MASTER;
 		} else {
-			abschluss=Abschluss.DEFAULT;
+			abschluss = Abschluss.DEFAULT;
 			// throw new Exception("Abschluss konnte nicht bestimmt werden");
 			return;
 		}
@@ -82,7 +82,6 @@ public class Curriculum implements Cloneable {
 	public double getCreditsForSemester(int semester) {
 		double cp = 0;
 		for (var subject : subjects) {
-			// TODO nur eins der beiden WPF nehmen
 			if (subject.getSemester() == semester) {
 				cp += subject.getCreditPoints();
 			}
@@ -96,7 +95,7 @@ public class Curriculum implements Cloneable {
 
 	@Override
 	public String toString() {
-		return "courseOfStudies [nameShort=" + nameShort + ", name=" + name +   ", credits=" + credits + ", subjects="
+		return "courseOfStudies [nameShort=" + nameShort + ", name=" + name + ", credits=" + credits + ", subjects="
 				+ subjects + "]";
 	}
 

@@ -21,17 +21,15 @@ public class FileLogic {
 
 	public boolean loadStudentFile(File file) {
 		System.out.format("Datei \"%s\" laden\n", file.toString());
-		boolean retval = false;
 		try {
 			this.student = CSVFileParser.getStudent(file);
 			System.out.println(student);
 			userFiles.setStudentFile(file);
-			retval = true;
+			return true;
 		} catch (ParserException | FileNotFoundException e) {
 			e.printStackTrace();
+			return false;
 		}
-		return retval;
-
 	}
 
 	public void saveStudentFile(File file) {
@@ -55,16 +53,15 @@ public class FileLogic {
 
 	public boolean loadCurriculumFile(File file) {
 		System.out.format("Datei \"%s\" laden\n", file.toString());
-		boolean retval = false;
 		try {
 			this.curriculum = CSVFileParser.getCurriculum(file);
 			System.out.println(curriculum);
 			userFiles.setCurriculumFile(file);
-			retval = true;
+			return true;
 		} catch (ParserException | FileNotFoundException e) {
 			e.printStackTrace();
+			return false;
 		}
-		return retval;
 	}
 
 	public void saveCurriculumFile(String curriculumShort) {

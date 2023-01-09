@@ -124,7 +124,8 @@ public class AnalyseViewModel {
 				}
 				focusPieChartData.clear();
 				if (pieData == null) {
-					// Pie Chart Daten gibt es erst ab mind. 2 Fächern in mind. 2 Bereichen
+					// Pie Chart Daten gibt es erst ab mind. 2 Fächern in mind. 2 verschiedenen
+					// Bereichen
 					return;
 				}
 				for (var entrySet : pieData.entrySet()) {
@@ -166,6 +167,9 @@ public class AnalyseViewModel {
 	}
 
 	public double getProgressOfSemester(Curriculum curriculum, Map<String, Grades> subjectGradeMap, int sem) {
+		if (1 > sem || sem > curriculum.getNumberOfSemesters()) {
+			return 0.0;
+		}
 		double collectedCredits = 0.0;
 		for (var entrySet : subjectGradeMap.entrySet()) {
 			var subject = curriculum.getSubject(entrySet.getKey());
@@ -307,5 +311,4 @@ public class AnalyseViewModel {
 		}
 		return OptionalDouble.of(currentGrade);
 	}
-
 }

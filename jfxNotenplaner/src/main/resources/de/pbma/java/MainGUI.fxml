@@ -21,9 +21,5 @@
 	<center></center>
 	<right></right>
 	<bottom>
-		<!-- <HBox maxWidth="Infinity" spacing="10" >
-			<Label text="Status:"></Label>
-			<Label fx:id="lblStatus"></Label>
-		</HBox> -->
 	</bottom>
 </BorderPane>

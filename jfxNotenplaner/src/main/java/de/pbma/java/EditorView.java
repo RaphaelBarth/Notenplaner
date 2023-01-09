@@ -2,37 +2,27 @@ package de.pbma.java;
 
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.VBox;
-import javafx.util.Callback;
 import javafx.util.converter.DoubleStringConverter;
-import javafx.util.converter.NumberStringConverter;
-import javafx.scene.control.Alert.AlertType;
 
 public class EditorView implements Initializable {
 
@@ -60,7 +50,7 @@ public class EditorView implements Initializable {
 	@FXML
 	ComboBox<Integer> cbSemester;
 	@FXML
-	CheckBox cbGrade; // TODO add in FXML
+	CheckBox cbGrade;
 	@FXML
 	Button btnAdd;
 
@@ -168,7 +158,7 @@ public class EditorView implements Initializable {
 		tcNote.setOnEditCommit(
 				e -> e.getTableView().getItems().get(e.getTablePosition().getRow()).setHasGrade(e.getNewValue()));
 
-		TableColumn<CurriculumSubjectEntry, CurriculumSubjectEntry> tcDelete = new TableColumn<>("");
+		TableColumn<CurriculumSubjectEntry, CurriculumSubjectEntry> tcDelete = new TableColumn<>("Entfernen");
 		tcDelete.setStyle("-fx-alignment: CENTER;");
 		tcDelete.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		tcDelete.setCellFactory(param -> new TableCell<CurriculumSubjectEntry, CurriculumSubjectEntry>() {
@@ -223,14 +213,14 @@ public class EditorView implements Initializable {
 		if (editorViewModel.createNewCurriculum()) {
 			btnNew.setText("Abbrechen");
 		} else {
-			btnNew.setText("Neues Curriculum");
+			btnNew.setText("Neues Curriculum erstellen");
 		}
 		tfSubjectName.clear();
 		tfSubjectNameShort.clear();
 		tfCredits.clear();
 		tfFocus.clear();
 		cbSemester.valueProperty().set(null);
-		cbGrade.setSelected(false);
+		cbGrade.setSelected(true);
 	}
 
 }

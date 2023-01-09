@@ -1,26 +1,19 @@
 package de.pbma.java;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import javafx.stage.FileChooser.ExtensionFilter;
 
 public class EditorViewModel {
 
@@ -72,7 +65,7 @@ public class EditorViewModel {
 		new Thread(() -> {
 			double credits = subjectsList.stream().mapToDouble(s -> s.getCredits()).sum();
 			if (credits < totalCredits) {
-				setErrorMessage("Creditssumme der Fächer ist kleiner als die gesammt Credits des Studiums");
+				setErrorMessage("Creditssumme der Fächer ist kleiner als die\nGesamtcredits des Studiums");
 				return;
 			}
 			final Curriculum curriculum = new Curriculum(curriculumShort, curriculumName, totalCredits);
@@ -82,7 +75,7 @@ public class EditorViewModel {
 				Platform.runLater(() -> {
 					Window owner = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
 					FileChooser fileChooser = new FileChooser();
-					fileChooser.setTitle("Save Resource File");
+					fileChooser.setTitle("Wählen Sie einen Speicherort für das Curriculum");
 					fileChooser.setInitialFileName(curriculum.getNameShort() + ".csv");
 					fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 					fileChooser.getExtensionFilters().add(new ExtensionFilter("Comma Separated Value", "*.csv"));
@@ -104,7 +97,7 @@ public class EditorViewModel {
 					CurriculumData.getData().setCurriculum(curriculum);
 					curriculumUpdated.set(true);
 				} else {
-					setErrorMessage("Fehler beim speichern");
+					setErrorMessage("Fehler beim Speichern");
 				}
 			}
 		}).start();
@@ -188,6 +181,7 @@ public class EditorViewModel {
 	public StringProperty getErrorMessage() {
 		return errorProperty;
 	}
+
 	public void setErrorMessage(String string) {
 		errorProperty.setValue("");
 		errorProperty.setValue(string);

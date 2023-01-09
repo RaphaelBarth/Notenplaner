@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
@@ -22,16 +21,12 @@ public class MainGUIController {
 	private Tab tabOverview;
 	@FXML
 	private Tab tabGrades;
-//	@FXML
-//	private Label lblStatus;
 
 	public MainGUIController() {
 	}
 
 	@FXML
 	public void initialize() {
-
-		// lblStatus.setText("BananenPalme");
 		tabp.getSelectionModel().selectedItemProperty().addListener(this::tabListener);
 		var tabs = Stream.of(ContentType.values()).map(content -> {
 			var tab = new Tab();

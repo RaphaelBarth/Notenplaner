@@ -103,7 +103,7 @@ public class GradeView implements Initializable {
 		tvGrades.getColumns().addAll(Arrays.asList(tcKrz, tcName, tcBereich, tcSem, tcCps, tcNote));
 		// Default: sortieren nach Fachsemester, Kürzel und Name
 		tvGrades.getSortOrder().addAll(Arrays.asList(tcSem, tcKrz, tcName));
-		//use no selectionmodul
+		// use no selectionmodul
 		tvGrades.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
 			Platform.runLater(() -> {
 				tvGrades.getSelectionModel().clearSelection();

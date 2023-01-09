@@ -346,7 +346,6 @@
 
 /* Menu */ 
 .menu-bar {
-    /*-fx-background-color: #2D2D30;*/
     background-color: #2D2D30;
     -fx-background-color:
         linear-gradient(to bottom, derive(#2D2D30,40%) 0%, -my-green-color 90%),
@@ -359,6 +358,7 @@
     background: #4e4e4e;
     -fx-text-fill: #AFB1B3;
 }
+
 .menu-item{
     -fx-background-radius: 0.0;
     -fx-border-width: 0.0;

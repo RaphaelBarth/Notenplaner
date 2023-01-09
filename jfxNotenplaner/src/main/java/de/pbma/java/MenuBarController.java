@@ -31,7 +31,7 @@ public class MenuBarController {
 	private void handleLoadAction(ActionEvent ae) {
 		final Window owner = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Open Resource File");
+		fileChooser.setTitle("Wählen Sie Ihren Notensatz");
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Comma Separated Value", "*.csv"));
 		final File file = fileChooser.showOpenDialog(owner);
@@ -47,11 +47,11 @@ public class MenuBarController {
 					CurriculumData.getData().setCurriculum(fileLogic.getCurriculum());
 					StudentData.getData().setStudent(fileLogic.getStudent());
 				} else {
-					msgTmp = "Curriculum für Notensatz konnte nicht gefunden werden.";
+					msgTmp = "Curriculum für Notensatz konnte nicht gefunden\nwerden.";
 				}
 
 			} else {
-				msgTmp = "Fehler beim Laden des Notensatzes.";
+				msgTmp = "Fehler beim Laden des Notensatzes.\nDie Datei ist evt. beschädigt oder ungültig.";
 			}
 			final String msg = msgTmp;
 			if (msgTmp != null) {
@@ -73,7 +73,7 @@ public class MenuBarController {
 		}
 		Window owner = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Save Resource File");
+		fileChooser.setTitle("Speicherort für Natensatz wählen");
 		fileChooser.setInitialFileName(filePath.getName());
 		fileChooser.setInitialDirectory(filePath.getParentFile());
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Comma Separated Value", "*.csv"));

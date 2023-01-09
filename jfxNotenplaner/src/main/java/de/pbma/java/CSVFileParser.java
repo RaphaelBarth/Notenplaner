@@ -2,6 +2,7 @@ package de.pbma.java;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class CSVFileParser {
@@ -20,7 +21,7 @@ public class CSVFileParser {
 				CurriculumSubject subject = toCurriculumSubject(line);
 				curriculum.addSubject(subject);
 			}
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException | NoSuchElementException e) {
 			throw new ParserException(e.getMessage());
 		}
 		return curriculum;
@@ -38,7 +39,7 @@ public class CSVFileParser {
 				var line = scanner.nextLine();
 				toSubjects(student, line);
 			}
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException | NoSuchElementException e) {
 			throw new ParserException(e.getMessage());
 		}
 		return student;

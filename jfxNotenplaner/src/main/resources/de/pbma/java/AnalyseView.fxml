@@ -28,19 +28,19 @@
 				<LineChart fx:id="lineChartGrades"
 					title="Durchschnittsnote im Verlauf" legendVisible="false"
 					verticalGridLinesVisible="false" horizontalGridLinesVisible="true"
-					animated="false">
+					animated="false" minHeight="180">
 					<xAxis>
 						<NumberAxis label="Semester" tickUnit="1.0"
-							autoRanging="false" minorTickVisible="false" lowerBound="1" />
+							autoRanging="false" minorTickVisible="false" />
 					</xAxis>
 					<yAxis>
-						<NumberAxis label="Durchschnittsnote" upperBound="1.0"
+						<NumberAxis label="Schnitt" upperBound="1.0"
 							lowerBound="4.0" autoRanging="false" />
 					</yAxis>
 				</LineChart>
 				<BarChart fx:id="barChartGrades" title="Notenverteilung"
 					legendVisible="false" verticalGridLinesVisible="false"
-					animated="false">
+					animated="false" minHeight="200">
 					<xAxis>
 						<CategoryAxis />
 					</xAxis>
@@ -49,7 +49,8 @@
 							tickUnit="1.0" minorTickVisible="false" />
 					</yAxis>
 				</BarChart>
-				<GridPane fx:id="gridPaneFocus" prefWidth="Infinity" vgap="5" maxWidth="Infinity">
+				<GridPane fx:id="gridPaneFocus" prefWidth="Infinity"
+					vgap="5" maxWidth="Infinity">
 					<columnConstraints>
 						<ColumnConstraints percentWidth="60" />
 						<ColumnConstraints percentWidth="40" />

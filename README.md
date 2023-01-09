@@ -3,10 +3,9 @@ Java-Projekt: Notenplaner
 
 * Checken Sie das Repository aus mit
     git clone https://scm.inftech.hs-mannheim.de/scm2/repo/2022/javagb
-* Starten Sie Eclipse mit einem beliebigen (am besten neuen) workspace
-  NEHMEN SIE *NICHT* *NOT* *NON* *STOP* DIESEN ORDNER ALS WORKSPACE
-
-Das Projekt kann über den Ordner jfxNotenplaner in Eclipse geöffnet werden. 
+* Das Projekt kann über den Ordner jfxNotenplaner in Eclipse geöffnet werden. 
+* Beispiel Student: jfxNotenplaner/rba.csv
+* Beispiel externes Curriculum: jfxNotenplaner/MTM.csv (erstellt mit Editor)
 
 
 ## Aufgabe
@@ -37,18 +36,23 @@ Beachten Sie, dass keine Note und eine Note große Unterschiede machen.
 * Möglichkeit Noten zu löschen, ändern und neu einzugeben
 
 ## Extra-Features
-Unsere Ideen
 + Progessbar: 
 	* Wie viel des Studiums schon geschafft
 	* wie viel eines Semesters
-+ Ziele setzen: Anzeige welche Noten erreicht werden müssen, um Ziel zu erreichen
 + Notenschnitt eines Semesters
 + Notenverteilung: Welche Noten der Student schon bekommen hat zB. 5x 1,0, 2x2,3, usw... als Balkendiagramm oder ähnliches
 + Dropdownliste beim Laden von Noten, dass nur verfügbare Noten angezeigt werden.
-+ zwei Notensätze laden und Vergleiche anbieten
-
-Ideen von Barth
 + graphischen Gesamtübersicht
 + Trends über Semester
 + Gegenüberstellungen von Bereichen
-+ Editor für die Module anlegen, der die CSV-Dateien dann manipulieren kann
++ Editor für die Module, der die CSV-Dateien dann manipulieren kann
+
+## Hinweise Editor
++ ohne einen Studenten ausgewählt zu haben, kann kein Curriculum editiert werden
++ ohne Student kann nur ein neues Curriculum angelegt werden.
++ um ein neues Curriculum zu erstellen:
+	1. Button "Neues Curriculum erstellen" klicken
+	2. Daten eingeben
+	3. Button "Speichern" klicken
+	4. Speicherort wählen
+	5. fertig :D

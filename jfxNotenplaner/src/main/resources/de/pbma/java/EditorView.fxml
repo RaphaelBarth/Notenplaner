@@ -14,8 +14,8 @@
 	alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity">
 	<style> -fx-spacing: 5; -fx-padding: 10 </style>
 	<columnConstraints>
-		<ColumnConstraints percentWidth="50" />
-		<ColumnConstraints percentWidth="50" />
+		<ColumnConstraints percentWidth="40" />
+		<ColumnConstraints percentWidth="60" />
 	</columnConstraints>
 	<Label text="Studiengangkürzel:" GridPane.columnIndex="0"
 		GridPane.rowIndex="0" />
@@ -43,7 +43,7 @@
 		<ComboBox fx:id="cbSemester" promptText="Semester" />
 		<TextField fx:id="tfFocus" promptText="Bereich" />
 		<TextField fx:id="tfCredits" promptText="Credits" />
-		<CheckBox fx:id="cbGrade" text="Note">
+		<CheckBox fx:id="cbGrade" text="Note" selected="True" >
 		</CheckBox>
 	</HBox>
 
@@ -61,7 +61,7 @@
 
 	<Separator GridPane.columnIndex="0" GridPane.rowIndex="7"
 		GridPane.columnSpan="2"></Separator>
-	<Button fx:id="btnNew" text="Curriculum erstellen"
+	<Button fx:id="btnNew" text="Neues Curriculum erstellen"
 		GridPane.columnIndex="0" GridPane.rowIndex="8"
 		onAction="#btnNewClicked" />
 	<Button fx:id="btnSave" text="Speichern"

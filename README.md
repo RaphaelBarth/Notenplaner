@@ -1,58 +1,12 @@
-Java-Projekt: Notenplaner
-=======================================
 
-* Checken Sie das Repository aus mit
-    git clone https://scm.inftech.hs-mannheim.de/scm2/repo/2022/javagb
-* Das Projekt kann über den Ordner jfxNotenplaner in Eclipse geöffnet werden. 
-* Beispiel Student: jfxNotenplaner/rba.csv
-* Beispiel externes Curriculum: jfxNotenplaner/MTM.csv (erstellt mit Editor)
+#Projekt für das Fach Java 
 
-
-## Aufgabe
-Verwaltung mehrerer Curricula von Studiengängen. 
-Die Daten eines Studiengangs halten Sie als als CSV-Datei vor. 
-Für jedes Modul, das in die Endnote eingeht, merken Sie sich Name, Kürzel, Bereich, Fachsemester und Credit-Points(CP).
-
-Noten für Module, die zwischen 1,0 und 4,0 in den üblichen Abständen liegen, geben Sie über das GUI ein. 
-
-Das Curriculum soll unabhängig von den Einzel-Daten eines Studenten bleiben. 
-Beachten Sie, dass keine Note und eine Note große Unterschiede machen. 
-
-## Mindestanforderungen
-* Alle Studienfächer unseres Studiengangs mit Wahlfächern.
-* Anzeige von:
-	+ Studiengang
-	+ Anzahl aktueller CP
-	+ Gesamtnote, die möglich wäre zu erreichen (min/max)
-	+ welche Fächer fehlen
-* Filtern und sortieren nach Kriterien
-	+ CP
-	+ fehlt/fehlt nicht
-	+ Semester
-	+ weitere z.B. bestanden
-* Noten des aktuellen Nutzers in einer Datei abspeichern. Datei muss ladbar sein.
-* Übersichtsseite mit ihren Noten
-* Menu zum Laden und Speichern eines Notensatz
-* Möglichkeit Noten zu löschen, ändern und neu einzugeben
-
-## Extra-Features
-+ Progessbar: 
-	* Wie viel des Studiums schon geschafft
-	* wie viel eines Semesters
-+ Notenschnitt eines Semesters
-+ Notenverteilung: Welche Noten der Student schon bekommen hat zB. 5x 1,0, 2x2,3, usw... als Balkendiagramm oder ähnliches
-+ Dropdownliste beim Laden von Noten, dass nur verfügbare Noten angezeigt werden.
-+ graphischen Gesamtübersicht
-+ Trends über Semester
-+ Gegenüberstellungen von Bereichen
-+ Editor für die Module, der die CSV-Dateien dann manipulieren kann
-
-## Hinweise Editor
-+ ohne einen Studenten ausgewählt zu haben, kann kein Curriculum editiert werden
-+ ohne Student kann nur ein neues Curriculum angelegt werden.
-+ um ein neues Curriculum zu erstellen:
-	1. Button "Neues Curriculum erstellen" klicken
-	2. Daten eingeben
-	3. Button "Speichern" klicken
-	4. Speicherort wählen
-	5. fertig :D
+Schreiben Sie einen Notenplaner mit einem JavaFX-GUI. Es werden mehrere Curricula von Studiengängen verwaltet. Die Daten eines Studiengangs halten Sie als Text-Datei, zum Beispiel als CSV1-Datei vor. Für jedes Modul, das in die Endnote eingeht, merken Sie sich Name, Kürzel, Bereich, Fachsemester und Credit-Points (CP). 
+Also zum Beispiel:
+```CSV
+krz; name; bereich; fachsem; cp
+HSP; Höhere Programmiersprachen; Software; 3; 5
+DSV; Digitale Signalverarbeitung; Signalverarbeitung; 4; 5
+...
+```
+was Sie passend für Ihren Studiengang ergänzen. Vergessen Sie die Wahlfächer nicht. Noten für Module, die zwischen 1,0 und 4,0 in den üblichen Abständen liegen, geben Sie über das GUI ein. Sie sollen immer sofort sehen wie viel CP Sie schon haben und wie viel noch fehlen; welche Gesamtnote (min/max) noch möglich ist; welche Fächer fehlen; etc. Machen Sie es möglich nach einzelnen Kriterien zu filtern und zu sortieren (nach CP, nach fehlt/hat schon, nach Semester, . . . ). Man kann nur Module anzeigen, die einen Suchstring enthalten. Ihre eigenen Daten sollen dann unter einem Dateinamen abspeicherbar und ladbar sein. Das Curriculum soll unabhängig von den Einzel-Daten bleiben. Es soll auf jeden Fall eine Übersichtsseite mit ihren Noten existieren, einem Menu zum Laden und Speichern eines Notensatz und die Möglichkeit Noten zu löschen, ändern und neu einzugeben. Beachten Sie, dass keine Note und eine Note große Unterschiede machen. Vielleicht haben Sie Spaß an einer graphischen Gesamtübersicht, Trends über Semester oder Gegenüberstellungen von Bereichen etc. Wer dann noch nicht ermattet ist, der kann sich auch einen Editor für die Module anlegen, der die CSV-Dateien dann manipulieren kann.

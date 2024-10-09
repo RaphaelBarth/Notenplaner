@@ -1,5 +1,5 @@
 
-#Projekt für das Fach Java 
+# Projekt für das Fach Java 
 
 Schreiben Sie einen Notenplaner mit einem JavaFX-GUI. Es werden mehrere Curricula von Studiengängen verwaltet. Die Daten eines Studiengangs halten Sie als Text-Datei, zum Beispiel als CSV1-Datei vor. Für jedes Modul, das in die Endnote eingeht, merken Sie sich Name, Kürzel, Bereich, Fachsemester und Credit-Points (CP). 
 Also zum Beispiel:
